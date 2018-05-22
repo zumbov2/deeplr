@@ -55,7 +55,7 @@ purrr::map_chr(hello, translator)
 [1] "Hello world!"   "Hello, world!"  "Hello World!"   "Ciao Mondo!"    "Hallo wereld!"  "Hello the world!"
 ```
 ### What went wrong?
-That didn't quite work out as planned. Let's check for the source languages detected. We respecify our translator and use
+Not quite everything went as planned. Let's check for the source languages detected. We respecify our translator and use
 `purrr`'s `map_df` function to get a data frame with the source languages.
 ```
 translator2 <- function(text) deeplr::toEnglish(text = text, get_detect = T, auth_key = auth_key)
