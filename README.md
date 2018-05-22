@@ -27,10 +27,10 @@ devtools::install_github("zumbov2/deeplr")
 deeplr::translate("Hallo Welt!", target_lang = "EN", auth_key = auth_key)
 [1] "Hello World!"
 ```
-In the example above, we let the API guess what the source language is. If `get_detect = T` the detected source language is 
+In the example above, we let the API guess what the source language is. If `get_detect = TRUE`, the detected source language is 
 included in the response.
 ```
-deeplr::translate("Hallo Welt!", target_lang = "EN", get_detect = T, auth_key = auth_key)
+deeplr::translate("Hallo Welt!", target_lang = "EN", get_detect = TRUE, auth_key = auth_key)
 # A tibble: 1 x 2
   translation  source_lang
   <chr>        <chr>      
