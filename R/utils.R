@@ -1,5 +1,4 @@
 #' @importFrom utf8 utf8_valid as_utf8
-#' @importFrom utils object.size
 #'
 #' @noRd
 text_check <- function(text) {
@@ -12,9 +11,6 @@ text_check <- function(text) {
   if (!utf8::utf8_valid(text)) stop("Text input cannot be translated to a valid UTF-8 string.")
   text <- utf8::as_utf8(text)
 
-  # Check size of text input
-  if (utils::object.size(text) > 30000) stop("Text input exceeds 30kbytes.")
-
   return(text)
 }
 
@@ -26,6 +22,7 @@ response_check <- function(response) {
   if (status == 400) stop("Wrong request, please check your parameters. (HTTP error ", status, ")")
   if (status == 403) stop("Please supply a valid auth_key parameter. (HTTP error ", status, ")")
   if (status == 413) stop("The request size exceeds the current limit. (HTTP error ", status, ")")
+  if (status == 414) stop("Request-URI Too Large. (HTTP error ", status, ")")
   if (status == 429) stop("Please wait and send your request once again. (HTTP error ", status, ")")
   if (status == 456) stop("The character limit has been reached. (HTTP error ", status, ")")
 }

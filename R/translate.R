@@ -4,8 +4,8 @@
 #'     French, Spanish, Italian, Dutch and Polish.
 #'
 #' @importFrom utf8 utf8_valid as_utf8
-#' @importFrom utils object.size
-#' @importFrom httr GET status_code content
+#' @importFrom utils URLencode
+#' @importFrom httr POST add_headers status_code content
 #' @importFrom tibble tibble
 #'
 #' @param text text to be translated. Only UTF8-encoded plain text is supported. May contain multiple sentences.
@@ -69,23 +69,26 @@ translate <- function(text, source_lang = NULL, target_lang = "EN", tag_handling
                       auth_key = "your_key") {
 
   # Text prep -------------------------------------------------------------------------------------
-  text_check(text)
+  text <- text_check(text)
 
-  # Logical to numeric ----------------------------------------------------------------------------
-  split_sentences <- as.numeric(split_sentences)
-  preserve_formatting <- as.numeric(preserve_formatting)
+  # Generate body for POST request ----------------------------------------------------------------
+  body <- paste0(
+    "auth_key=", auth_key,
+    "&text=", utils::URLencode(text),
+    "&target_lang=", target_lang,
+    if (!is.null(split_sentences)) "&split_sentences=", as.numeric(split_sentences),
+    if (!is.null(preserve_formatting)) "&preserve_formatting=", as.numeric(preserve_formatting),
+    if (!is.null(source_lang)) "&source_lang=", source_lang,
+    if (!is.null(tag_handling)) "&tag_handling=", tag_handling
+  )
 
   # DeepL API call --------------------------------------------------------------------------------
-  response <- httr::GET(
+  response <- httr::POST(
     "https://api.deepl.com/v1/translate",
-    query = list(
-      text = text,
-      source_lang = source_lang,
-      target_lang = target_lang,
-      tag_handling = tag_handling,
-      split_sentences = split_sentences,
-      preserve_formatting = preserve_formatting,
-      auth_key = auth_key
+    body = body,
+    httr::add_headers(
+      "Content-Type" = "application/x-www-form-urlencoded",
+      "Content-Length" = nchar(body)
     )
   )
 

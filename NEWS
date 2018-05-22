@@ -1,0 +1,10 @@
+deeplr 0.1.1
+-------------
+
+* Changed from GET requests to POST requests
+
+
+deeplr 0.1.0
+-------------
+
+* First version of the package.

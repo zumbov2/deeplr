@@ -4,8 +4,8 @@
 #'     Spanish, Italian, Dutch or Polish into English.
 #'
 #' @importFrom utf8 utf8_valid as_utf8
-#' @importFrom utils object.size
-#' @importFrom httr GET status_code content
+#' @importFrom utils URLencode
+#' @importFrom httr POST add_headers status_code content
 #' @importFrom tibble tibble
 #'
 #' @param text text to be translated. Only UTF8-encoded plain text is supported. May contain multiple sentences.
@@ -78,8 +78,8 @@ toEnglish <- function(text, source_lang = NULL, tag_handling = NULL, split_sente
 #'     Spanish, Italian, Dutch or Polish into German.
 #'
 #' @importFrom utf8 utf8_valid as_utf8
-#' @importFrom utils object.size
-#' @importFrom httr GET status_code content
+#' @importFrom utils URLencode
+#' @importFrom httr POST add_headers status_code content
 #' @importFrom tibble tibble
 #'
 #' @param text text to be translated. Only UTF8-encoded plain text is supported. May contain multiple sentences.
@@ -152,8 +152,8 @@ toGerman <- function(text, source_lang = NULL, tag_handling = NULL, split_senten
 #'     Spanish, Italian, Dutch or Polish into French.
 #'
 #' @importFrom utf8 utf8_valid as_utf8
-#' @importFrom utils object.size
-#' @importFrom httr GET status_code content
+#' @importFrom utils URLencode
+#' @importFrom httr POST add_headers status_code content
 #' @importFrom tibble tibble
 #'
 #' @param text text to be translated. Only UTF8-encoded plain text is supported. May contain multiple sentences.
@@ -225,8 +225,8 @@ toFrench <- function(text, source_lang = NULL, tag_handling = NULL, split_senten
 #'     French, Italian, Dutch or Polish into Spanish.
 #'
 #' @importFrom utf8 utf8_valid as_utf8
-#' @importFrom utils object.size
-#' @importFrom httr GET status_code content
+#' @importFrom utils URLencode
+#' @importFrom httr POST add_headers status_code content
 #' @importFrom tibble tibble
 #'
 #' @param text text to be translated. Only UTF8-encoded plain text is supported. May contain multiple sentences.
@@ -299,8 +299,8 @@ toSpanish <- function(text, source_lang = NULL, tag_handling = NULL, split_sente
 #'     French, Spanish, Dutch or Polish into Italian.
 #'
 #' @importFrom utf8 utf8_valid as_utf8
-#' @importFrom utils object.size
-#' @importFrom httr GET status_code content
+#' @importFrom utils URLencode
+#' @importFrom httr POST add_headers status_code content
 #' @importFrom tibble tibble
 #'
 #' @param text text to be translated. Only UTF8-encoded plain text is supported. May contain multiple sentences.
@@ -372,8 +372,8 @@ toItalian <- function(text, source_lang = NULL, tag_handling = NULL, split_sente
 #'     French, Spanish, Italian or Polish into Dutch.
 #'
 #' @importFrom utf8 utf8_valid as_utf8
-#' @importFrom utils object.size
-#' @importFrom httr GET status_code content
+#' @importFrom utils URLencode
+#' @importFrom httr POST add_headers status_code content
 #' @importFrom tibble tibble
 #'
 #' @param text text to be translated. Only UTF8-encoded plain text is supported. May contain multiple sentences.
@@ -445,8 +445,8 @@ toDutch <- function(text, source_lang = NULL, tag_handling = NULL, split_sentenc
 #'     French, Spanish, Italian or Dutch into Polish.
 #'
 #' @importFrom utf8 utf8_valid as_utf8
-#' @importFrom utils object.size
-#' @importFrom httr GET status_code content
+#' @importFrom utils URLencode
+#' @importFrom httr POST add_headers status_code content
 #' @importFrom tibble tibble
 #'
 #' @param text text to be translated. Only UTF8-encoded plain text is supported. May contain multiple sentences.
