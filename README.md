@@ -24,19 +24,19 @@ devtools::install_github("zumbov2/deeplr")
 ```
 ## Example 1: `Hello World!`
 ```
-deeplr::translate("Hello World!", target_lang = "DE", auth_key = auth_key)
-[1] "Hallo Welt!"
+deeplr::translate("Hallo Welt!", target_lang = "EN", auth_key = auth_key)
+[1] "Hello World!"
 ```
 In the example above, we let the API guess what the source language is. If `get_detect = T` the detected source language is 
 included in the response.
 ```
-deeplr::translate("Hello World!", target_lang = "DE", get_detect = T, auth_key = auth_key)
+deeplr::translate("Hallo Welt!", target_lang = "EN", get_detect = T, auth_key = auth_key)
 # A tibble: 1 x 2
-  translation source_lang
-  <chr>       <chr>      
-1 Hallo Welt! EN    
+  translation  source_lang
+  <chr>        <chr>      
+1 Hello World! DE    
 ```
-Or we can just use `source_lang = "EN"` to tell the API what the source language is.
+Or we can just use `source_lang = "DE"` to tell the API what the source language is.
 
 ## Example 2: A multilingual version of `Hello World!` 
 ### First try 
@@ -55,8 +55,8 @@ purrr::map_chr(hello, translator)
 [1] "Hello world!"   "Hello, world!"  "Hello World!"   "Ciao Mondo!"    "Hallo wereld!"  "Hello the world!"
 ```
 ### What went wrong?
-That didn't quite work out as planned. Let's check for the detected source languages. We respecify our translator and use
-`purrr`'s `map_df` function to get a data frame with the source languages detected.
+That didn't quite work out as planned. Let's check for the source languages detected. We respecify our translator and use
+`purrr`'s `map_df` function to get a data frame with the source languages.
 ```
 translator2 <- function(text) deeplr::toEnglish(text = text, get_detect = T, auth_key = auth_key)
 
