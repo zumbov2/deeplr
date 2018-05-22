@@ -77,7 +77,8 @@ source_lang <- c("DE", "FR", "ES", "IT", "NL", "PL")
 ```
 We respecify our translator once again and use another `purrr` function to map over our two inputs simultaneously.
 ```
-translator3 <- function(text, source_lang) deeplr::toEnglish(text = text, source_lang = source_lang, auth_key = auth_key)
+translator3 <- function(text, source_lang) deeplr::toEnglish(text = text, source_lang = source_lang, 
+                                                             auth_key = auth_key)
 
 purrr::map2_chr(hello, source_lang, translator3)
 [1] "Hello world!"   "Hello, world!"  "Hello World!"   "Hello World!"   "Hello world!"   "Hello the world!"
