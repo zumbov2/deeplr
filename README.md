@@ -14,8 +14,7 @@ texts between different languages. The following languages are currently availab
 * Dutch `NL`
 * Polish `PL`
 
-Access to the API is subject to a monthly fee (see [DeepL Pro](https://www.deepl.com/pro.html)). You can currently translate 1,000,000 characters 
-per month for 20 euros (see [DeepL Pro Pricing](https://www.deepl.com/pro-pricing.html)).
+Access to the API is subject to a monthly fee (see [DeepL Pro](https://www.deepl.com/pro.html)). You can currently translate 1,000,000 characters per month for 20 euros (see [DeepL Pro Pricing](https://www.deepl.com/pro-pricing.html)).
 
 ## Installation
 For regularly updated version (latest: 0.1.1), install from GitHub:
@@ -86,4 +85,4 @@ translator3 <- function(text, source_lang) deeplr::toEnglish(text = text, source
 purrr::map2_chr(hello, source_lang, translator3)
 [1] "Hello world!"   "Hello, world!"  "Hello World!"   "Hello World!"   "Hello world!"   "Hello the world!"
 ```
-The candidate has... not quite 100 points, but that was already better.
+The candidate has... 99 points.
