@@ -77,7 +77,7 @@ source languages.
 ```
 source_lang <- c("DE", "FR", "ES", "IT", "NL", "PL")
 ```
-We respecify our translator once again and use another `purrr` function to map over our two inputs simultaneously.
+We respecify our translator once again and use another `purrr` function (`map2_chr`) to map over our two inputs simultaneously.
 ```
 translator3 <- function(text, source_lang) deeplr::toEnglish(text = text, source_lang = source_lang, 
                                                              auth_key = auth_key)
