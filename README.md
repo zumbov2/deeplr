@@ -40,6 +40,7 @@ deeplr::translate("Hello World!", target_lang = "DE", get_detect = T, auth_key =
 Or we can just use `source_lang = "EN"` to tell the API what the source language is.
 
 ## Example 2: A multilingual version of `Hello World!` 
+### First try 
 ```
 hello <- c("Hallo Welt!", "Bonjour le monde !", "Hola Mundo!", "Ciao Mondo!", 
            "Hallo wereld!", "Witajcie świat!")
@@ -54,6 +55,7 @@ Now we use `map_chr` from the `purrr` package to apply our function to all eleme
 purrr::map_chr(hello, translator)
 [1] "Hello world!"   "Hello, world!"  "Hello World!"   "Ciao Mondo!"    "Hallo wereld!"  "Hello the world!"
 ```
+### What went wrong?
 That didn't quite work out as planned. Let's check for the detected source languages. We respecify our translator and use
 `purrr`'s `map_df` function to get a data frame with the source languages detected.
 ```
