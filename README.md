@@ -109,4 +109,4 @@ system.time(deeplr::toGerman(paste0(rep(Einstein, 100), collapse = " "), auth_ke
    0.24    0.01   12.53 
 ```
 
-## Happy Testing
+Happy Testing
