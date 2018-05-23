@@ -27,7 +27,7 @@ devtools::install_github("zumbov2/deeplr")
 deeplr::translate("Hallo Welt!", target_lang = "EN", auth_key = auth_key)
 [1] "Hello World!"
 ```
-In the example above, we let the API guess what the source language is. If `get_detect = TRUE`, the detected source language is 
+In the frist example, we let the API guess the language of the source text. If `get_detect = TRUE`, the detected language is 
 included in the response.
 ```
 deeplr::translate("Hallo Welt!", target_lang = "EN", get_detect = TRUE, auth_key = auth_key)
@@ -37,7 +37,7 @@ deeplr::translate("Hallo Welt!", target_lang = "EN", get_detect = TRUE, auth_key
 1 Hello World! DE    
 ```
 Or we can just use `source_lang = "DE"` to tell the API what the source language is.
-
+https://github.com/zumbov2/deeplr/edit/master/README.md
 ## Example 2: A multilingual version of `Hello World!` 
 ### First try 
 ```
@@ -49,14 +49,15 @@ a simple wrapper and identical to `translate(target_lang = "EN")`.
 ```
 translator <- function(text) deeplr::toEnglish(text = text, auth_key = auth_key)
 ```
-Now we use `map_chr` from the `purrr` package to apply our function to all elements of our character vector. 
+Now we use `map_chr` from the `purrr` package to apply the function to all elements of the character vector. 
 ```
 purrr::map_chr(hello, translator)
 [1] "Hello world!"   "Hello, world!"  "Hello World!"   "Ciao Mondo!"    "Hallo wereld!"  "Hello the world!"
 ```
+4 out of 6. Not a bad start.
+
 ### What went wrong?
-Not quite everything went as planned. Let's check for the source languages detected. We respecify our translator and use
-`purrr`'s `map_df` function to get a data frame with the source languages.
+Let's check for the source languages detected. We respecify our translator and use `purrr`'s `map_df` function to get a data frame with the source languages.
 ```
 translator2 <- function(text) deeplr::toEnglish(text = text, get_detect = T, auth_key = auth_key)
 
@@ -77,7 +78,7 @@ source languages.
 ```
 source_lang <- c("DE", "FR", "ES", "IT", "NL", "PL")
 ```
-We respecify our translator once again and use another `purrr` function (`map2_chr`) to map over our two inputs simultaneously.
+We respecify our translator once again and use another `purrr` function (`map2_chr`) to map over the two inputs simultaneously.
 ```
 translator3 <- function(text, source_lang) deeplr::toEnglish(text = text, source_lang = source_lang, 
                                                              auth_key = auth_key)
@@ -85,4 +86,4 @@ translator3 <- function(text, source_lang) deeplr::toEnglish(text = text, source
 purrr::map2_chr(hello, source_lang, translator3)
 [1] "Hello world!"   "Hello, world!"  "Hello World!"   "Hello World!"   "Hello world!"   "Hello the world!"
 ```
-The candidate has... 99 points.
+The candidate has... 100 points.
