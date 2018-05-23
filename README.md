@@ -31,7 +31,6 @@ deeplr::translate("Hallo Welt!", target_lang = "EN", get_detect = TRUE, auth_key
 1 Hello World! DE    
 ```
 Or we can just use `source_lang = "DE"` to tell the API what the source language is.
-https://github.com/zumbov2/deeplr/edit/master/README.md
 
 ## Example 2: A multilingual version of `Hello World!` 
 ### First try 
@@ -95,7 +94,7 @@ deeplr::toGerman(Einstein, auth_key = auth_key)
 ### The result
 *Zu Beginn seiner Karriere dachte Einstein, dass die Newtonsche Mechanik nicht mehr ausreicht, um die Gesetze der klassischen Mechanik mit den Gesetzen des elektromagnetischen Feldes in Einklang zu bringen. Dies führte ihn während seiner Zeit am Schweizerischen Patentamt in Bern (1902-1909) zur Entwicklung seiner speziellen Relativitätstheorie. Allerdings erkannte er, dass das Prinzip der Relativitätstheorie auch auf Gravitationsfelder ausgedehnt werden kann, und veröffentlichte 1916 mit seiner Gravitationstheorie ein Papier über die allgemeine Relativitätstheorie. Er beschäftigte sich weiterhin mit Problemen der statistischen Mechanik und Quantentheorie, die zu seinen Erklärungen der Partikeltheorie und der Bewegung von Molekülen führten. Er untersuchte auch die thermischen Eigenschaften von Licht, die den Grundstein für die Photonentheorie des Lichts legten. Im Jahre 1917 wandte er die allgemeine Relativitätstheorie an, um die Struktur des Universums zu modellieren.*
 
-From my point of view...immpressive result.
+An impressive result from my point of view.
 
 ### Timing
 ```
@@ -109,3 +108,5 @@ system.time(deeplr::toGerman(paste0(rep(Einstein, 100), collapse = " "), auth_ke
    user  system elapsed 
    0.24    0.01   12.53 
 ```
+
+## Happy Testing
