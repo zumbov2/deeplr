@@ -5,14 +5,7 @@
 
 # deeplr
 This R package is an interface to the [DeepL Translator API](https://www.deepl.com/api.html) that translates
-texts between different languages. The following languages are currently available: 
-* English `EN`
-* German `DE`
-* French `FR`
-* Spanish `ES`
-* Italian `IT`
-* Dutch `NL`
-* Polish `PL`
+texts between different languages. The following languages are currently available: English (`EN`), German (`DE`), French (`FR`), Spanish (`ES`), Italian (`IT`), Dutch (`NL`) and Polish (`PL`).
 
 Access to the API is subject to a monthly fee (see [DeepL Pro](https://www.deepl.com/pro.html)). You can currently translate 1,000,000 characters per month for 20 euros (see [DeepL Pro Pricing](https://www.deepl.com/pro-pricing.html)).
 
@@ -22,6 +15,7 @@ For regularly updated version (latest: 0.1.1), install from GitHub:
 install.packages("devtools")
 devtools::install_github("zumbov2/deeplr")
 ```
+
 ## Example 1: `Hello World!`
 ```
 deeplr::translate("Hallo Welt!", target_lang = "EN", auth_key = auth_key)
@@ -38,6 +32,7 @@ deeplr::translate("Hallo Welt!", target_lang = "EN", get_detect = TRUE, auth_key
 ```
 Or we can just use `source_lang = "DE"` to tell the API what the source language is.
 https://github.com/zumbov2/deeplr/edit/master/README.md
+
 ## Example 2: A multilingual version of `Hello World!` 
 ### First try 
 ```
@@ -87,3 +82,12 @@ purrr::map2_chr(hello, source_lang, translator3)
 [1] "Hello world!"   "Hello, world!"  "Hello World!"   "Hello World!"   "Hello world!"   "Hello the world!"
 ```
 The candidate has... 100 points.
+
+## Example 3: Some additional testing 
+*Near the beginning of his career, Einstein thought that Newtonian mechanics was no longer enough to reconcile the laws of classical mechanics with the laws of the electromagnetic field. This led him to develop his special theory of relativity during his time at the Swiss Patent Office in Bern (1902–1909), Switzerland. However, he realized that the principle of relativity could also be extended to gravitational fields, and he published a paper on general relativity in 1916 with his theory of gravitation. He continued to deal with problems of statistical mechanics and quantum theory, which led to his explanations of particle theory and the motion of molecules. He also investigated the thermal properties of light which laid the foundation of the photon theory of light. In 1917, he applied the general theory of relativity to model the structure of the universe.* (Source: [Wikipedia](https://en.wikipedia.org/wiki/Albert_Einstein))
+
+```
+deeplr::toGerman(Einstein, auth_key = auth_key)
+[1] "Zu Beginn seiner Karriere dachte Einstein, dass die Newtonsche Mechanik nicht mehr ausreicht, um die Gesetze der klassischen Mechanik mit den Gesetzen des elektromagnetischen Feldes in Einklang zu bringen. Dies führte ihn während seiner Zeit am Schweizerischen Patentamt in Bern (1902-1909) zur Entwicklung seiner speziellen Relativitätstheorie. Allerdings erkannte er, dass das Prinzip der Relativitätstheorie auch auf Gravitationsfelder ausgedehnt werden kann, und veröffentlichte 1916 mit seiner Gravitationstheorie ein Papier über die allgemeine Relativitätstheorie. Er beschäftigte sich weiterhin mit Problemen der statistischen Mechanik und Quantentheorie, die zu seinen Erklärungen der Partikeltheorie und der Bewegung von Molekülen führten. Er untersuchte auch die thermischen Eigenschaften von Licht, die den Grundstein für die Photonentheorie des Lichts legten. Im Jahre 1917 wandte er die allgemeine Relativitätstheorie an, um die Struktur des Universums zu modellieren."
+```
+Wow!
