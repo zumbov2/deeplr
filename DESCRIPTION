@@ -14,6 +14,6 @@ RoxygenNote: 6.0.1
 Imports: utf8, httr, tibble, jsonlite
 Suggests: purrr, dplyr
 NeedsCompilation: no
-Packaged: 2018-05-24 15:26:43 UTC; David Zumbach
+Packaged: 2018-05-24 15:34:52 UTC; David Zumbach
 Author: David Zumbach [aut, cre]
 Maintainer: David Zumbach <david.zumbach@gfzb.ch>
