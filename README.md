@@ -10,7 +10,11 @@ texts between different languages. The following languages are currently availab
 Access to the API is subject to a monthly fee (see [DeepL Pro](https://www.deepl.com/pro.html)). You can currently translate 1,000,000 characters per month for 20 euros (see [DeepL Pro Pricing](https://www.deepl.com/pro-pricing.html)).
 
 ## Installation
-For regularly updated version (latest: 0.1.1), install from GitHub:
+The version 0.1.0 is on CRAN, and you can install it by:
+```
+install.packages("deeplr")
+```
+For regularly updated version (latest: 0.2.0), install from GitHub:
 ```
 install.packages("devtools")
 devtools::install_github("zumbov2/deeplr")
