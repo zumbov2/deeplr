@@ -1,7 +1,8 @@
-deeplr 0.1.1
+deeplr 0.2.0
 -------------
 
-* Changed from GET requests to POST requests
+* Changed from GET to POST requests
+* Integration of the usage API call
 
 
 deeplr 0.1.0

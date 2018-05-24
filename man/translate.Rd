@@ -12,8 +12,8 @@ translate(text, source_lang = NULL, target_lang = "EN",
 \item{text}{text to be translated. Only UTF8-encoded plain text is supported. May contain multiple sentences.
 The request size should not exceed 30kbytes.}
 
-\item{source_lang}{language of the text to be translated (see below). If parameter \code{is.null}, the API will detect
-the language of the text and translate it.}
+\item{source_lang}{language of the text to be translated (see below). If parameter \code{is.null}, the API will try to detect
+the language of the text.}
 
 \item{target_lang}{language into which to translate. Can be one of the following:
 \itemize{
@@ -49,7 +49,7 @@ If \code{get_detect} is set to \code{FALSE} a \code{character vector} containing
 }
 }
 \description{
-\code{translate} calls the DeepL Translator API and translates texts between English, German,
+\code{translate} calls the DeepL Translator API that translates texts between English, German,
     French, Spanish, Italian, Dutch and Polish.
 }
 \details{

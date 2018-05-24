@@ -1,7 +1,7 @@
 Package: deeplr
 Type: Package
 Title: Interface to the 'DeepL' Translation API
-Version: 0.1.1
+Version: 0.2.0
 Authors@R: person("David", "Zumbach", role = c("aut", "cre"), email = "david.zumbach@gfzb.ch")
 Description: A wrapper for the 'DeepL' API (see <https://www.deepl.com/translator>), a web service that translates
     texts between different languages. Access to the API is subject to a monthly fee.
@@ -11,9 +11,9 @@ LazyData: true
 URL: <https://www.deepl.com/translator
 BugReports: https://github.com/zumbov2/deeplr/issues
 RoxygenNote: 6.0.1
-Imports: utf8, httr, tibble
+Imports: utf8, httr, tibble, jsonlite
 Suggests: purrr, dplyr
 NeedsCompilation: no
-Packaged: 2018-05-22 09:32:12 UTC; David Zumbach
+Packaged: 2018-05-24 15:26:43 UTC; David Zumbach
 Author: David Zumbach [aut, cre]
 Maintainer: David Zumbach <david.zumbach@gfzb.ch>
