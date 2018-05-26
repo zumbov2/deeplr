@@ -2,7 +2,7 @@
 % Please edit documentation in R/translate.R
 \name{translate}
 \alias{translate}
-\title{Issue a DeepL Translator API query}
+\title{Translate texts with the official DeepL Translator API}
 \usage{
 translate(text, source_lang = NULL, target_lang = "EN",
   tag_handling = NULL, split_sentences = TRUE,
@@ -13,7 +13,7 @@ translate(text, source_lang = NULL, target_lang = "EN",
 The request size should not exceed 30kbytes.}
 
 \item{source_lang}{language of the text to be translated (see below). If parameter \code{is.null}, the API will try to detect
-the language of the text.}
+the language of the source.}
 
 \item{target_lang}{language into which to translate. Can be one of the following:
 \itemize{
@@ -49,8 +49,8 @@ If \code{get_detect} is set to \code{FALSE} a \code{character vector} containing
 }
 }
 \description{
-\code{translate} calls the DeepL Translator API that translates texts between English, German,
-    French, Spanish, Italian, Dutch and Polish.
+\code{translate} calls the official DeepL Translator API and translates texts between English, German,
+    French, Spanish, Italian, Dutch and Polish. To use this service, an authentication key is required.
 }
 \details{
 To get an authentication key, you need to register for a DeepL Pro account (\url{https://www.deepl.com/pro.html}).

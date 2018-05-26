@@ -1,7 +1,7 @@
-#' Issue a DeepL Translator API query
+#' Translate texts with the official DeepL Translator API
 #'
-#' \code{translate} calls the DeepL Translator API that translates texts between English, German,
-#'     French, Spanish, Italian, Dutch and Polish.
+#' \code{translate} calls the official DeepL Translator API and translates texts between English, German,
+#'     French, Spanish, Italian, Dutch and Polish. To use this service, an authentication key is required.
 #'
 #' @importFrom utf8 utf8_valid as_utf8
 #' @importFrom utils URLencode
@@ -11,7 +11,7 @@
 #' @param text text to be translated. Only UTF8-encoded plain text is supported. May contain multiple sentences.
 #'     The request size should not exceed 30kbytes.
 #' @param source_lang language of the text to be translated (see below). If parameter \code{is.null}, the API will try to detect
-#'     the language of the text.
+#'     the language of the source.
 #' @param target_lang language into which to translate. Can be one of the following:
 #' \itemize{
 #' \item \code{EN} English

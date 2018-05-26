@@ -3,7 +3,7 @@
 #' \code{usage} returns the character usage and the configured limit for the current period of a DeepL Pro Account.
 #'
 #' @importFrom httr GET content
-#' @importFrom jsonlite fromJSON
+#' @importFrom rjson fromJSON
 #'
 #' @param auth_key your \code{DeepL} authentication key which provides access to the API.
 #'
@@ -37,6 +37,6 @@ usage <- function(auth_key = "your_key") {
   response_check(response)
 
   # Extract content -------------------------------------------------------------------------------
-  unlist(jsonlite::fromJSON(rawToChar(httr::content(response))))
+  unlist(rjson::fromJSON(rawToChar(httr::content(response))))
 
 }

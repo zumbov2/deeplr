@@ -1,3 +1,10 @@
+deeplr 0.3.0
+-------------
+
+* Integration of functions (translate2, toEnglish2 etc.) that call the DeepL API
+  via JSON-RPC. No authentication key is required to use this service.
+
+
 deeplr 0.2.0
 -------------
 
