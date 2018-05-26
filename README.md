@@ -7,7 +7,7 @@
 This R package is an interface to the [DeepL Translator API](https://www.deepl.com/api.html) that translates
 texts between different languages. The following languages are currently available: English (`EN`), German (`DE`), French (`FR`), Spanish (`ES`), Italian (`IT`), Dutch (`NL`) and Polish (`PL`).
 
-Access to the official API is subject to a monthly fee (see [DeepL Pro](https://www.deepl.com/pro.html)). You can currently translate 1,000,000 characters per month for 20 euros (see [DeepL Pro Pricing](https://www.deepl.com/pro-pricing.html)). However, almost identical API calls can be made via JSON-RPC. No authentication key is required to use this service.
+Access to the official API is subject to a monthly fee (see [DeepL Pro](https://www.deepl.com/pro.html)). You can currently translate 1,000,000 characters per month for 20 euros (see [DeepL Pro Pricing](https://www.deepl.com/pro-pricing.html)). **However, almost identical API calls can be made via JSON-RPC. No authentication key is required to use this service.** `deeplr` includes functions for both types of API calls. The names of the functions for which *no* authentication key is required end with a 2 (e.g. `translate2`). 
 
 ## Installation
 The version 0.1.0 is on CRAN, and you can install it by:
