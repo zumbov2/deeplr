@@ -64,7 +64,7 @@ Let's check for the source languages detected. For this we combine `detect2` wit
 purrr::map_chr(hello, deeplr::detect2)
 [1] "DE" "FR" "ES" "ES" "EN" "PL"
 ```
-The API doesn't seem to not recognize all languages correctly. This is not uncommon with such short strings. 
+The API doesn't seem to recognize all languages correctly. This is not unusual with such short strings.
 
 ### Second try 
 Let's give it some help. We create a vector with the correct source languages. 
@@ -81,7 +81,7 @@ purrr::map2_chr(hello, source_lang, translator)
 Better!
 
 ## Example 3: Pimp your text
-DeepL can not only be used for translations, but also to improve texts. How does it work? We translate the text into a "help language" and back into the original language. Let's take a look at what DeepL does with typical mistakes that German speakers make in English.
+DeepL cannot only be used for translations, but also to improve texts. How does it work? We translate the text into a "help language" and back into the original language. Let's take a look at what DeepL does with typical mistakes that German speakers make in English.
 
 ### No. 1
 ```
