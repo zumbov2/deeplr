@@ -2,9 +2,9 @@
 % Please edit documentation in R/to_lang2.R
 \name{toEnglish2}
 \alias{toEnglish2}
-\title{Translate a text into English with DeepL}
+\title{Translate texts into English using DeepL}
 \usage{
-toEnglish2(text, source_lang = NULL, get_detect = FALSE, get_alt = FALSE)
+toEnglish2(text, source_lang = NULL, get_detect = FALSE)
 }
 \arguments{
 \item{text}{text to be translated. Must not exceed 5000 characters. Only UTF8-encoded plain text is supported.
@@ -23,31 +23,27 @@ May contain multiple sentences.}
 
 \item{get_detect}{if \code{TRUE}, the language detected for the source text is also inclued in the response. It corresponds to
 the value of the argument \code{source_lang} if it was specified. If \code{FALSE}, only the translated text is returned.}
-
-\item{get_alt}{if \code{TRUE}, alternative translations are also included in the response.}
 }
 \value{
-If \code{get_detect} is set to \code{FALSE} a \code{character vector} containing the translation(s)
-    (if \code{get_alt = TRUE}) is returned. Otherwise, a \code{data.frame} (\code{tibble::tibble}) is returned
-    with the following columns:
+If \code{get_detect} is set to \code{FALSE} a \code{character vector} containing the translation
+    is returned. Otherwise, a \code{data.frame} (\code{tibble::tibble}) is returned with the following columns:
 \itemize{
 \item \code{translation} the translated text(s).
 \item \code{source_lang} detected or specified language of the input text.
 }
 }
 \description{
-\code{toEnglish2} calls the DeepL API via a JSON-RPC call and translates a text from German, French,
-    Spanish, Italian, Dutch or Polish into English. No authentication key is required to use this service.
+\code{toEnglish2} translates a text from German, French, Spanish, Italian, Dutch or Polish into English
+    using the undocumented JSON-RPC DeepL API. No authentication key is required to use this service.
 }
 \examples{
 \donttest{
 # Simple translation
-toEnglish2("Hallo Welt!", auth_key = "my_key")
+toEnglish2("Hallo Welt!")
 
 # Customized translator applied to multiple strings
 txt1 <- c("Mein Name ist Albert.", "Ich bin Physiker.", "Ich wurde 1879 in Ulm geboren.")
-translator1 <- function(t) toEnglish2(text = t)
-purrr::map_chr(txt1, translator1)
+purrr::map_chr(txt1, toEnglish2)
 
 # Customized translator applied to multiple strings (with language detection response)
 txt2 <- c("Me llamo Fred.", "Je suis médecin.", "Ich komme aus der Schweiz.")

@@ -2,7 +2,7 @@
 % Please edit documentation in R/to_lang.R
 \name{toSpanish}
 \alias{toSpanish}
-\title{Translate a text into Spanish with the official DeepL Translator API}
+\title{Translate texts into Spanish using the official DeepL Translator API}
 \usage{
 toSpanish(text, source_lang = NULL, tag_handling = NULL,
   split_sentences = TRUE, preserve_formatting = FALSE, get_detect = FALSE,
@@ -46,8 +46,8 @@ If \code{get_detect} is set to \code{FALSE} a \code{character vector} containing
 }
 }
 \description{
-\code{toSpanish} calls the official DeepL translator API and translates a text from English, German,
-    French, Italian, Dutch or Polish into Spanish. To use this service, an authentication key is required.
+\code{toSpanish} translates a text from English, German, French, Italian, Dutch or Polish into Spanish
+    using the official DeepL Translator API. To use this service, an authentication key is required.
 }
 \details{
 To get an authentication key, you need to register for a DeepL Pro account (\url{https://www.deepl.com/pro.html}).

@@ -1,7 +1,7 @@
-#' Translate a text into English with the official DeepL Translator API
+#' Translate texts into English using the official DeepL Translator API
 #'
-#' \code{toEnglish} calls the official DeepL translator API and translates a text from German, French,
-#'     Spanish, Italian, Dutch or Polish into English. To use this service, an authentication key is required.
+#' \code{toEnglish} translates a text from German, French, Spanish, Italian, Dutch or Polish into English
+#'     using the official DeepL Translator API. To use this service, an authentication key is required.
 #'
 #' @importFrom utf8 utf8_valid as_utf8
 #' @importFrom utils URLencode
@@ -72,10 +72,10 @@ toEnglish <- function(text, source_lang = NULL, tag_handling = NULL, split_sente
 
 }
 
-#' Translate a text into German with the official DeepL Translator API
+#' Translate texts into German using the official DeepL Translator API
 #'
-#' \code{toGerman} calls the official DeepL translator API and translates a text from English, French,
-#'     Spanish, Italian, Dutch or Polish into German. To use this service, an authentication key is required.
+#' \code{toGerman} translates a text from English, French, Spanish, Italian, Dutch or Polish into German
+#'     using the official DeepL Translator API. To use this service, an authentication key is required.
 #'
 #' @importFrom utf8 utf8_valid as_utf8
 #' @importFrom utils URLencode
@@ -146,10 +146,10 @@ toGerman <- function(text, source_lang = NULL, tag_handling = NULL, split_senten
 
 }
 
-#' Translate a text into French with the official DeepL Translator API
+#' Translate texts into French using the official DeepL Translator API
 #'
-#' \code{toFrench} calls the official DeepL translator API and translates a text from English, German,
-#'     Spanish, Italian, Dutch or Polish into French. To use this service, an authentication key is required.
+#' \code{toFrench} translates a text from English, German, Spanish, Italian, Dutch or Polish into French
+#'     using the official DeepL Translator API. To use this service, an authentication key is required.
 #'
 #' @importFrom utf8 utf8_valid as_utf8
 #' @importFrom utils URLencode
@@ -219,10 +219,10 @@ toFrench <- function(text, source_lang = NULL, tag_handling = NULL, split_senten
 
 }
 
-#' Translate a text into Spanish with the official DeepL Translator API
+#' Translate texts into Spanish using the official DeepL Translator API
 #'
-#' \code{toSpanish} calls the official DeepL translator API and translates a text from English, German,
-#'     French, Italian, Dutch or Polish into Spanish. To use this service, an authentication key is required.
+#' \code{toSpanish} translates a text from English, German, French, Italian, Dutch or Polish into Spanish
+#'     using the official DeepL Translator API. To use this service, an authentication key is required.
 #'
 #' @importFrom utf8 utf8_valid as_utf8
 #' @importFrom utils URLencode
@@ -293,10 +293,10 @@ toSpanish <- function(text, source_lang = NULL, tag_handling = NULL, split_sente
 
 }
 
-#' Translate a text into Italian with the official DeepL Translator API
+#' Translate texts into Italian using the official DeepL Translator API
 #'
-#' \code{toItalian} calls the official DeepL translator API and translates a text from English, German,
-#'     French, Spanish, Dutch or Polish into Italian. To use this service, an authentication key is required.
+#' \code{toItalian} translates a text from English, German, French, Spanish, Dutch or Polish into Italian
+#'     using the official DeepL Translator API. To use this service, an authentication key is required.
 #'
 #' @importFrom utf8 utf8_valid as_utf8
 #' @importFrom utils URLencode
@@ -366,10 +366,10 @@ toItalian <- function(text, source_lang = NULL, tag_handling = NULL, split_sente
 
 }
 
-#' Translate a text into Dutch with the official DeepL Translator API
+#' Translate texts into Dutch using the official DeepL Translator API
 #'
-#' \code{toDutch} calls the official DeepL translator API and translates a text from English, German,
-#'     French, Spanish, Italian or Polish into Dutch. To use this service, an authentication key is required.
+#' \code{toDutch} translates a text from English, German, French, Spanish, Italian or Polish into Dutch
+#'     using the official DeepL Translator API. To use this service, an authentication key is required.
 #'
 #' @importFrom utf8 utf8_valid as_utf8
 #' @importFrom utils URLencode
@@ -439,10 +439,10 @@ toDutch <- function(text, source_lang = NULL, tag_handling = NULL, split_sentenc
 
 }
 
-#' Translate a text into Polish with the official DeepL Translator API
+#' Translate texts into Polish using the official DeepL Translator API
 #'
-#' \code{toPolish} calls the official DeepL translator API and translates a text from English, German,
-#'     French, Spanish, Italian or Dutch into Polish. To use this service, an authentication key is required.
+#' \code{toPolish} translates a text from English, German, French, Spanish, Italian or Dutch into Polish
+#'     using the official DeepL Translator API. To use this service, an authentication key is required.
 #'
 #' @importFrom utf8 utf8_valid as_utf8
 #' @importFrom utils URLencode

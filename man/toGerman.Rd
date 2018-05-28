@@ -2,7 +2,7 @@
 % Please edit documentation in R/to_lang.R
 \name{toGerman}
 \alias{toGerman}
-\title{Translate a text into German with the official DeepL Translator API}
+\title{Translate texts into German using the official DeepL Translator API}
 \usage{
 toGerman(text, source_lang = NULL, tag_handling = NULL,
   split_sentences = TRUE, preserve_formatting = FALSE, get_detect = FALSE,
@@ -46,8 +46,8 @@ If \code{get_detect} is set to \code{FALSE} a \code{character vector} containing
 }
 }
 \description{
-\code{toGerman} calls the official DeepL translator API and translates a text from English, French,
-    Spanish, Italian, Dutch or Polish into German. To use this service, an authentication key is required.
+\code{toGerman} translates a text from English, French, Spanish, Italian, Dutch or Polish into German
+    using the official DeepL Translator API. To use this service, an authentication key is required.
 }
 \details{
 To get an authentication key, you need to register for a DeepL Pro account (\url{https://www.deepl.com/pro.html}).

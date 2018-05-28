@@ -2,12 +2,12 @@
 % Please edit documentation in R/usage.R
 \name{usage}
 \alias{usage}
-\title{Get current usage information of a DeepL Pro account}
+\title{Retrieve current usage data of a DeepL Pro account}
 \usage{
 usage(auth_key = "your_key")
 }
 \arguments{
-\item{auth_key}{your \code{DeepL} authentication key which provides access to the API.}
+\item{auth_key}{authentication key of the corresponding DeepL Pro account.}
 }
 \description{
 \code{usage} returns the character usage and the configured limit for the current period of a DeepL Pro Account.

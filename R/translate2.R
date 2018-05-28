@@ -1,12 +1,14 @@
-#' Translate texts with DeepL
+#' Translate texts using DeepL
 #'
-#' \code{translate2} calls the DeepL API via a JSON-RPC call and translates texts between English, German,
-#'     French, Spanish, Italian, Dutch and Polish. No authentication key is required to use this service.
+#' \code{translate2} translates texts between English, German, French, Spanish, Italian, Dutch and Polish
+#'     using the undocumented JSON-RPC DeepL API. No authentication key is required to use this service.
 #'
 #' @importFrom utf8 utf8_valid as_utf8
 #' @importFrom httr POST content
 #' @importFrom rjson toJSON fromJSON
 #' @importFrom tibble tibble
+#' @importFrom purrr map
+#' @importFrom tokenizers tokenize_sentences
 #'
 #' @param text text to be translated. Must not exceed 5000 characters. Only UTF8-encoded plain text is supported.
 #'     May contain multiple sentences.
@@ -24,11 +26,9 @@
 #'  }
 #' @param get_detect if \code{TRUE}, the language detected for the source text is also inclued in the response. It corresponds to
 #'     the value of the argument \code{source_lang} if it was specified. If \code{FALSE}, only the translated text is returned.
-#' @param get_alt if \code{TRUE}, alternative translations are also included in the response.
 #'
-#' @return If \code{get_detect} is set to \code{FALSE} a \code{character vector} containing the translation(s)
-#'     (if \code{get_alt = TRUE}) is returned. Otherwise, a \code{data.frame} (\code{tibble::tibble}) is returned
-#'     with the following columns:
+#' @return If \code{get_detect} is set to \code{FALSE} a \code{character vector} containing the translation
+#'     is returned. Otherwise, a \code{data.frame} (\code{tibble::tibble}) is returned with the following columns:
 #' \itemize{
 #' \item \code{translation} the translated text(s).
 #' \item \code{source_lang} detected or specified language of the input text.
@@ -53,61 +53,46 @@
 #'
 #' }
 #'
-translate2 <- function(text, source_lang = NULL, target_lang = "EN", get_detect = FALSE, get_alt = FALSE){
+translate2 <- function(text, source_lang = NULL, target_lang = "EN", get_detect = FALSE) {
 
   # Text prep -------------------------------------------------------------------------------------
   text <- text_check2(text)
 
-  # Generate payload for free API request ----------------------------------------------------------------
+  # Get source language ---------------------------------------------------------------------------
+  if (is.null(source_lang)) source_lang <- detect2(text)
+
+  # Split text into sentences ---------------------------------------------------------------------
+  text <- unlist(tokenizers::tokenize_sentences(text))
+
+  # Define jobs -----------------------------------------------------------------------------------
+  jobs <- purrr::map(text, list_maker)
+
+  # Generate payload for free API request ---------------------------------------------------------
   payload <-
     list("jsonrpc" = "2.0",
          "method" = "LMT_handle_jobs",
          params = list(
-           "jobs" = list(
-             list("kind" = "default",
-                  "raw_en_sentence"= text
-                  )
-             ),
+           "jobs" = jobs,
            "lang" = list(
-             "user_preferred_langs" = list(target_lang, source_lang),
-             "source_lang_user_selected" = ifelse(is.null(source_lang), "auto", source_lang),
-             "target_lang" = target_lang
+             "source_lang_computed" = source_lang,
+             "target_lang" = target_lang,
+             "user_preferred_langs" = list("FR", "DE", "EN")
              )
            )
          )
 
+  # DeepL API call --------------------------------------------------------------------------------
   response <- httr::POST(
     "https://www.deepl.com/jsonrpc",
     body = rjson::toJSON(payload)
-    )
+  )
 
   # Check for HTTP error --------------------------------------------------------------------------
   response_check(response)
 
   # Extract content -------------------------------------------------------------------------------
-  cnt <- rjson::fromJSON(httr::content(response, "text"))
-  translations <- cnt$result$translations
-
-  if (get_alt) {
-
-    num <- (length(unlist(translations))-4)/4
-    translation <- NULL
-
-    # Get alternatives
-    for (i in 1:num) translation <- c(translation, translations[[1]]$beams[[i]]$postprocessed_sentence)
-
-    # Get source language
-    if (get_detect) translation <- tibble::tibble(translation = translation, source_lang = cnt$result$source_lang)
-
-  } else {
-
-    translation <- translations[[1]]$beams[[1]]$postprocessed_sentence
-
-    # Get source language
-    if (get_detect) translation <- tibble::tibble(translation = translation, source_lang = cnt$result$source_lang)
-
-  }
+  translation <- extractor(response, FALSE)
+  if (get_detect) translation <- tibble::tibble(translation = translation, source_lang = source_lang)
 
   return(translation)
-
 }

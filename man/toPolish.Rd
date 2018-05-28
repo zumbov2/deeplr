@@ -2,7 +2,7 @@
 % Please edit documentation in R/to_lang.R
 \name{toPolish}
 \alias{toPolish}
-\title{Translate a text into Polish with the official DeepL Translator API}
+\title{Translate texts into Polish using the official DeepL Translator API}
 \usage{
 toPolish(text, source_lang = NULL, tag_handling = NULL,
   split_sentences = TRUE, preserve_formatting = FALSE, get_detect = FALSE,
@@ -46,8 +46,8 @@ If \code{get_detect} is set to \code{FALSE} a \code{character vector} containing
 }
 }
 \description{
-\code{toPolish} calls the official DeepL translator API and translates a text from English, German,
-    French, Spanish, Italian or Dutch into Polish. To use this service, an authentication key is required.
+\code{toPolish} translates a text from English, German, French, Spanish, Italian or Dutch into Polish
+    using the official DeepL Translator API. To use this service, an authentication key is required.
 }
 \details{
 To get an authentication key, you need to register for a DeepL Pro account (\url{https://www.deepl.com/pro.html}).

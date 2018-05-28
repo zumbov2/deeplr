@@ -2,7 +2,7 @@
 % Please edit documentation in R/to_lang.R
 \name{toItalian}
 \alias{toItalian}
-\title{Translate a text into Italian with the official DeepL Translator API}
+\title{Translate texts into Italian using the official DeepL Translator API}
 \usage{
 toItalian(text, source_lang = NULL, tag_handling = NULL,
   split_sentences = TRUE, preserve_formatting = FALSE, get_detect = FALSE,
@@ -46,8 +46,8 @@ If \code{get_detect} is set to \code{FALSE} a \code{character vector} containing
 }
 }
 \description{
-\code{toItalian} calls the official DeepL translator API and translates a text from English, German,
-    French, Spanish, Dutch or Polish into Italian. To use this service, an authentication key is required.
+\code{toItalian} translates a text from English, German, French, Spanish, Dutch or Polish into Italian
+    using the official DeepL Translator API. To use this service, an authentication key is required.
 }
 \details{
 To get an authentication key, you need to register for a DeepL Pro account (\url{https://www.deepl.com/pro.html}).

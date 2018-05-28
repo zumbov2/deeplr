@@ -1,12 +1,14 @@
-#' Translate a text into English with DeepL
+#' Translate texts into English using DeepL
 #'
-#' \code{toEnglish2} calls the DeepL API via a JSON-RPC call and translates a text from German, French,
-#'     Spanish, Italian, Dutch or Polish into English. No authentication key is required to use this service.
+#' \code{toEnglish2} translates a text from German, French, Spanish, Italian, Dutch or Polish into English
+#'     using the undocumented JSON-RPC DeepL API. No authentication key is required to use this service.
 #'
 #' @importFrom utf8 utf8_valid as_utf8
 #' @importFrom httr POST content
 #' @importFrom rjson toJSON fromJSON
 #' @importFrom tibble tibble
+#' @importFrom purrr map
+#' @importFrom tokenizers tokenize_sentences
 #'
 #' @param text text to be translated. Must not exceed 5000 characters. Only UTF8-encoded plain text is supported.
 #'     May contain multiple sentences.
@@ -22,11 +24,8 @@
 #'     If parameter \code{is.null}, the API will try to detect the language of the text.
 #' @param get_detect if \code{TRUE}, the language detected for the source text is also inclued in the response. It corresponds to
 #'     the value of the argument \code{source_lang} if it was specified. If \code{FALSE}, only the translated text is returned.
-#' @param get_alt if \code{TRUE}, alternative translations are also included in the response.
-#'
-#' @return If \code{get_detect} is set to \code{FALSE} a \code{character vector} containing the translation(s)
-#'     (if \code{get_alt = TRUE}) is returned. Otherwise, a \code{data.frame} (\code{tibble::tibble}) is returned
-#'     with the following columns:
+#' @return If \code{get_detect} is set to \code{FALSE} a \code{character vector} containing the translation
+#'     is returned. Otherwise, a \code{data.frame} (\code{tibble::tibble}) is returned with the following columns:
 #' \itemize{
 #' \item \code{translation} the translated text(s).
 #' \item \code{source_lang} detected or specified language of the input text.
@@ -37,12 +36,11 @@
 #' @examples
 #' \donttest{
 #' # Simple translation
-#' toEnglish2("Hallo Welt!", auth_key = "my_key")
+#' toEnglish2("Hallo Welt!")
 #'
 #' # Customized translator applied to multiple strings
 #' txt1 <- c("Mein Name ist Albert.", "Ich bin Physiker.", "Ich wurde 1879 in Ulm geboren.")
-#' translator1 <- function(t) toEnglish2(text = t)
-#' purrr::map_chr(txt1, translator1)
+#' purrr::map_chr(txt1, toEnglish2)
 #'
 #' # Customized translator applied to multiple strings (with language detection response)
 #' txt2 <- c("Me llamo Fred.", "Je suis médecin.", "Ich komme aus der Schweiz.")
@@ -52,21 +50,23 @@
 #' }
 #'
 #'
-toEnglish2 <- function(text, source_lang = NULL, get_detect = FALSE, get_alt = FALSE) {
+toEnglish2 <- function(text, source_lang = NULL, get_detect = FALSE) {
 
-  translate2(text = text, source_lang = source_lang, target_lang = "EN", get_detect = get_detect, get_alt = get_alt)
+  translate2(text = text, source_lang = source_lang, target_lang = "EN", get_detect = get_detect)
 
 }
 
-#' Translate a text into German with DeepL
+#' Translate texts into German using DeepL
 #'
-#' \code{toGerman2}  calls the DeepL API via a JSON-RPC call and translates a text from English, French,
-#'     Spanish, Italian, Dutch or Polish into German. No authentication key is required to use this service.
+#' \code{toGerman2} ranslates a text from English, French, Spanish, Italian, Dutch or Polish into German
+#'     using the undocumented JSON-RPC DeepL API. No authentication key is required to use this service.
 #'
 #' @importFrom utf8 utf8_valid as_utf8
 #' @importFrom httr POST content
 #' @importFrom rjson toJSON fromJSON
 #' @importFrom tibble tibble
+#' @importFrom purrr map
+#' @importFrom tokenizers tokenize_sentences
 #'
 #' @param text text to be translated. Must not exceed 5000 characters. Only UTF8-encoded plain text is supported.
 #'     May contain multiple sentences.
@@ -82,11 +82,9 @@ toEnglish2 <- function(text, source_lang = NULL, get_detect = FALSE, get_alt = F
 #' If parameter \code{is.null}, the API will try to detect the language of the text.
 #' @param get_detect if \code{TRUE}, the language detected for the source text is also inclued in the response. It corresponds to
 #'     the value of the argument \code{source_lang} if it was specified. If \code{FALSE}, only the translated text is returned.
-#' @param get_alt if \code{TRUE}, alternative translations are also included in the response.
 #'
-#' @return If \code{get_detect} is set to \code{FALSE} a \code{character vector} containing the translation(s)
-#'     (if \code{get_alt = TRUE}) is returned. Otherwise, a \code{data.frame} (\code{tibble::tibble}) is returned
-#'     with the following columns:
+#' @return If \code{get_detect} is set to \code{FALSE} a \code{character vector} containing the translation
+#'     is returned. Otherwise, a \code{data.frame} (\code{tibble::tibble}) is returned with the following columns:
 #' \itemize{
 #' \item \code{translation} the translated text(s).
 #' \item \code{source_lang} detected or specified language of the input text.
@@ -97,12 +95,11 @@ toEnglish2 <- function(text, source_lang = NULL, get_detect = FALSE, get_alt = F
 #' @examples
 #' \donttest{
 #' # Simple translation
-#' toGerman2("Hallo Welt!", auth_key = "my_key")
+#' toGerman2("Hallo Welt!")
 #'
 #' # Customized translator applied to multiple strings
 #' txt1 <- c("My name is Albert.", "I'm a physicist.", "I was born in 1879 in Ulm.")
-#' translator1 <- function(t) toGerman2(text = t)
-#' purrr::map_chr(txt1, translator1)
+#' purrr::map_chr(txt1, toGerman2)
 #'
 #' # Customized translator applied to multiple strings (with language detection response)
 #' txt2 <- c("Me llamo Fred.", "Je suis médecin.", "I'm from Wales")
@@ -112,21 +109,23 @@ toEnglish2 <- function(text, source_lang = NULL, get_detect = FALSE, get_alt = F
 #' }
 #'
 #'
-toGerman2 <- function(text, source_lang = NULL, get_detect = FALSE, get_alt = FALSE) {
+toGerman2 <- function(text, source_lang = NULL, get_detect = FALSE) {
 
-  translate2(text = text, source_lang = source_lang, target_lang = "DE", get_detect = get_detect, get_alt = get_alt)
+  translate2(text = text, source_lang = source_lang, target_lang = "DE", get_detect = get_detect)
 
 }
 
-#' Translate a text into French with DeepL
+#' Translate texts into French using DeepL
 #'
-#' \code{toFrench2} calls the DeepL API via a JSON-RPC call and translates a text from English, German,
-#'     Spanish, Italian, Dutch or Polish into French. No authentication key is required to use this service.
+#' \code{toFrench2} ranslates a text from English, German, Spanish, Italian, Dutch or Polish into French
+#'     using the undocumented JSON-RPC DeepL API. No authentication key is required to use this service.
 #'
 #' @importFrom utf8 utf8_valid as_utf8
 #' @importFrom httr POST content
 #' @importFrom rjson toJSON fromJSON
 #' @importFrom tibble tibble
+#' @importFrom purrr map
+#' @importFrom tokenizers tokenize_sentences
 #'
 #' @param text text to be translated. Must not exceed 5000 characters. Only UTF8-encoded plain text is supported.
 #'     May contain multiple sentences.
@@ -142,11 +141,9 @@ toGerman2 <- function(text, source_lang = NULL, get_detect = FALSE, get_alt = FA
 #'     If parameter \code{is.null}, the API will try to detect the language of the text.
 #' @param get_detect if \code{TRUE}, the language detected for the source text is also inclued in the response. It corresponds to
 #'     the value of the argument \code{source_lang} if it was specified. If \code{FALSE}, only the translated text is returned.
-#' @param get_alt if \code{TRUE}, alternative translations are also included in the response.
 #'
-#' @return If \code{get_detect} is set to \code{FALSE} a \code{character vector} containing the translation(s)
-#'     (if \code{get_alt = TRUE}) is returned. Otherwise, a \code{data.frame} (\code{tibble::tibble}) is returned
-#'     with the following columns:
+#' @return If \code{get_detect} is set to \code{FALSE} a \code{character vector} containing the translation
+#'     is returned. Otherwise, a \code{data.frame} (\code{tibble::tibble}) is returned with the following columns:
 #' \itemize{
 #' \item \code{translation} the translated text(s).
 #' \item \code{source_lang} detected or specified language of the input text.
@@ -157,12 +154,11 @@ toGerman2 <- function(text, source_lang = NULL, get_detect = FALSE, get_alt = FA
 #' @examples
 #' \donttest{
 #' # Simple translation
-#' toFrench2("Hallo Welt!", auth_key = "my_key")
+#' toFrench2("Hallo Welt!")
 #'
 #' # Customized translator applied to multiple strings
 #' txt1 <- c("My name is Albert.", "I'm a physicist.", "I was born in 1879 in Ulm.")
-#' translator1 <- function(t) toFrench2(text = t)
-#' purrr::map_chr(txt1, translator1)
+#' purrr::map_chr(txt1, toFrench2)
 #'
 #' # Customized translator applied to multiple strings (with language detection response)
 #' txt2 <- c("Me llamo Fred.", "Ich bin Arzt.", "I'm from Wales")
@@ -171,21 +167,23 @@ toGerman2 <- function(text, source_lang = NULL, get_detect = FALSE, get_alt = FA
 #'
 #' }
 #'
-toFrench2 <- function(text, source_lang = NULL, get_detect = FALSE, get_alt = FALSE) {
+toFrench2 <- function(text, source_lang = NULL, get_detect = FALSE) {
 
-  translate2(text = text, source_lang = source_lang, target_lang = "FR", get_detect = get_detect, get_alt = get_alt)
+  translate2(text = text, source_lang = source_lang, target_lang = "FR", get_detect = get_detect)
 
 }
 
-#' Translate a text into Spanish with DeepL
+#' Translate texts into Spanish using DeepL
 #'
-#' \code{toSpanish2} calls the DeepL API via a JSON-RPC call and translates a text from English, German,
-#'     French, Italian, Dutch or Polish into Spanish. No authentication key is required to use this service.
+#' \code{toSpanish2} ranslates a text from English, German, French, Italian, Dutch or Polish into Spanish
+#'     using the undocumented JSON-RPC DeepL API. No authentication key is required to use this service.
 #'
 #' @importFrom utf8 utf8_valid as_utf8
 #' @importFrom httr POST content
 #' @importFrom rjson toJSON fromJSON
 #' @importFrom tibble tibble
+#' @importFrom purrr map
+#' @importFrom tokenizers tokenize_sentences
 #'
 #' @param text text to be translated. Must not exceed 5000 characters. Only UTF8-encoded plain text is supported.
 #'     May contain multiple sentences.
@@ -201,11 +199,9 @@ toFrench2 <- function(text, source_lang = NULL, get_detect = FALSE, get_alt = FA
 #'     If parameter \code{is.null}, the API will try to detect the language of the text.
 #' @param get_detect if \code{TRUE}, the language detected for the source text is also inclued in the response. It corresponds to
 #'     the value of the argument \code{source_lang} if it was specified. If \code{FALSE}, only the translated text is returned.
-#' @param get_alt if \code{TRUE}, alternative translations are also included in the response.
 #'
-#' @return If \code{get_detect} is set to \code{FALSE} a \code{character vector} containing the translation(s)
-#'     (if \code{get_alt = TRUE}) is returned. Otherwise, a \code{data.frame} (\code{tibble::tibble}) is returned
-#'     with the following columns:
+#' @return If \code{get_detect} is set to \code{FALSE} a \code{character vector} containing the translation
+#'     is returned. Otherwise, a \code{data.frame} (\code{tibble::tibble}) is returned with the following columns:
 #' \itemize{
 #' \item \code{translation} the translated text(s).
 #' \item \code{source_lang} detected or specified language of the input text.
@@ -216,12 +212,11 @@ toFrench2 <- function(text, source_lang = NULL, get_detect = FALSE, get_alt = FA
 #' @examples
 #' \donttest{
 #' # Simple translation
-#' toSpanish2("Hallo Welt!", auth_key = "my_key")
+#' toSpanish2("Hallo Welt!")
 #'
 #' # Customized translator applied to multiple strings
 #' txt1 <- c("My name is Albert.", "I'm a physicist.", "I was born in 1879 in Ulm.")
-#' translator1 <- function(t) toSpanish2(text = t)
-#' purrr::map_chr(txt1, translator1)
+#' purrr::map_chr(txt1, toSpanish2)
 #'
 #' # Customized translator applied to multiple strings (with language detection response)
 #' txt2 <- c("Je m'appelle Jean.", "Ich bin Arzt.", "I'm from Wales")
@@ -231,21 +226,23 @@ toFrench2 <- function(text, source_lang = NULL, get_detect = FALSE, get_alt = FA
 #' }
 #'
 #'
-toSpanish2 <- function(text, source_lang = NULL, get_detect = FALSE, get_alt = FALSE) {
+toSpanish2 <- function(text, source_lang = NULL, get_detect = FALSE) {
 
-  translate2(text = text, source_lang = source_lang, target_lang = "ES", get_detect = get_detect, get_alt = get_alt)
+  translate2(text = text, source_lang = source_lang, target_lang = "ES", get_detect = get_detect)
 
 }
 
-#' Translate a text into Italian with DeepL
+#' Translate texts into Italian using DeepL
 #'
-#' \code{toItalian2} calls the DeepL API via a JSON-RPC call and translates a text from English, German,
-#'     French, Spanish, Dutch or Polish into Italian. No authentication key is required to use this service.
+#' \code{toItalian2} ranslates a text from English, German, French, Sapnish, Dutch or Polish into Italian
+#'     using the undocumented JSON-RPC DeepL API. No authentication key is required to use this service.
 #'
 #' @importFrom utf8 utf8_valid as_utf8
 #' @importFrom httr POST content
 #' @importFrom rjson toJSON fromJSON
 #' @importFrom tibble tibble
+#' @importFrom purrr map
+#' @importFrom tokenizers tokenize_sentences
 #'
 #' @param text text to be translated. Must not exceed 5000 characters. Only UTF8-encoded plain text is supported.
 #'     May contain multiple sentences.
@@ -261,11 +258,9 @@ toSpanish2 <- function(text, source_lang = NULL, get_detect = FALSE, get_alt = F
 #'     If parameter \code{is.null}, the API will try to detect the language of the text.
 #' @param get_detect if \code{TRUE}, the language detected for the source text is also inclued in the response. It corresponds to
 #'     the value of the argument \code{source_lang} if it was specified. If \code{FALSE}, only the translated text is returned.
-#' @param get_alt if \code{TRUE}, alternative translations are also included in the response.
 #'
-#' @return If \code{get_detect} is set to \code{FALSE} a \code{character vector} containing the translation(s)
-#'     (if \code{get_alt = TRUE}) is returned. Otherwise, a \code{data.frame} (\code{tibble::tibble}) is returned
-#'     with the following columns:
+#' @return If \code{get_detect} is set to \code{FALSE} a \code{character vector} containing the translation
+#'     is returned. Otherwise, a \code{data.frame} (\code{tibble::tibble}) is returned with the following columns:
 #' \itemize{
 #' \item \code{translation} the translated text(s).
 #' \item \code{source_lang} detected or specified language of the input text.
@@ -276,12 +271,11 @@ toSpanish2 <- function(text, source_lang = NULL, get_detect = FALSE, get_alt = F
 #' @examples
 #' \donttest{
 #' # Simple translation
-#' toItalian2("Hallo Welt!", auth_key = "my_key")
+#' toItalian2("Hallo Welt!")
 #'
 #' # Customized translator applied to multiple strings
 #' txt1 <- c("My name is Albert.", "I'm a physicist.", "I was born in 1879 in Ulm.")
-#' translator1 <- function(t) toItalian2(text = t)
-#' purrr::map_chr(txt1, translator1)
+#' purrr::map_chr(txt1, toItalian2)
 #'
 #' # Customized translator applied to multiple strings (with language detection response)
 #' txt2 <- c("Je m'appelle Jean.", "Ich bin Arzt.", "I'm from Wales")
@@ -290,21 +284,23 @@ toSpanish2 <- function(text, source_lang = NULL, get_detect = FALSE, get_alt = F
 #'
 #' }
 #'
-toItalian2 <- function(text, source_lang = NULL, get_detect = FALSE, get_alt = FALSE) {
+toItalian2 <- function(text, source_lang = NULL, get_detect = FALSE) {
 
-  translate2(text = text, source_lang = source_lang, target_lang = "IT", get_detect = get_detect, get_alt = get_alt)
+  translate2(text = text, source_lang = source_lang, target_lang = "IT", get_detect = get_detect)
 
 }
 
-#' Translate a text into Dutch with DeepL
+#' Translate texts into Dutch using DeepL
 #'
-#' \code{toDutch2} calls the DeepL API via a JSON-RPC call and translates a text from English, German,
-#'     French, Spanish, Italian or Polish into Dutch. No authentication key is required to use this service.
+#' \code{toDutch2} ranslates a text from English, German, French, Sapnish, Italian or Polish into Dutch
+#'     using the undocumented JSON-RPC DeepL API. No authentication key is required to use this service.
 #'
 #' @importFrom utf8 utf8_valid as_utf8
 #' @importFrom httr POST content
 #' @importFrom rjson toJSON fromJSON
 #' @importFrom tibble tibble
+#' @importFrom purrr map
+#' @importFrom tokenizers tokenize_sentences
 #'
 #' @param text text to be translated. Must not exceed 5000 characters. Only UTF8-encoded plain text is supported.
 #'     May contain multiple sentences.
@@ -320,11 +316,9 @@ toItalian2 <- function(text, source_lang = NULL, get_detect = FALSE, get_alt = F
 #'     If parameter \code{is.null}, the API will try to detect the language of the text.
 #' @param get_detect if \code{TRUE}, the language detected for the source text is also inclued in the response. It corresponds to
 #'     the value of the argument \code{source_lang} if it was specified. If \code{FALSE}, only the translated text is returned.
-#' @param get_alt if \code{TRUE}, alternative translations are also included in the response.
 #'
-#' @return If \code{get_detect} is set to \code{FALSE} a \code{character vector} containing the translation(s)
-#'     (if \code{get_alt = TRUE}) is returned. Otherwise, a \code{data.frame} (\code{tibble::tibble}) is returned
-#'     with the following columns:
+#' @return If \code{get_detect} is set to \code{FALSE} a \code{character vector} containing the translation
+#'     is returned. Otherwise, a \code{data.frame} (\code{tibble::tibble}) is returned with the following columns:
 #' \itemize{
 #' \item \code{translation} the translated text(s).
 #' \item \code{source_lang} detected or specified language of the input text.
@@ -335,12 +329,11 @@ toItalian2 <- function(text, source_lang = NULL, get_detect = FALSE, get_alt = F
 #' @examples
 #' \donttest{
 #' # Simple translation
-#' toDutch2("Hallo Welt!", auth_key = "my_key")
+#' toDutch2("Hallo Welt!")
 #'
 #' # Customized translator applied to multiple strings
 #' txt1 <- c("My name is Albert.", "I'm a physicist.", "I was born in 1879 in Ulm.")
-#' translator1 <- function(t) toDutch2(text = t)
-#' purrr::map_chr(txt1, translator1)
+#' purrr::map_chr(txt1, toDutch2)
 #'
 #' # Customized translator applied to multiple strings (with language detection response)
 #' txt2 <- c("Je m'appelle Jean.", "Ich bin Arzt.", "I'm from Wales")
@@ -349,21 +342,23 @@ toItalian2 <- function(text, source_lang = NULL, get_detect = FALSE, get_alt = F
 #'
 #' }
 #'
-toDutch2 <- function(text, source_lang = NULL, get_detect = FALSE, get_alt = FALSE) {
+toDutch2 <- function(text, source_lang = NULL, get_detect = FALSE) {
 
-  translate2(text = text, source_lang = source_lang, target_lang = "NL", get_detect = get_detect, get_alt = get_alt)
+  translate2(text = text, source_lang = source_lang, target_lang = "NL", get_detect = get_detect)
 
 }
 
-#' Translate a text into Polish with DeepL
+#' Translate texts into Polish using DeepL
 #'
-#' \code{toPolish2} calls the DeepL API via a JSON-RPC call and translates a text from English, German,
-#'     French, Spanish, Italian or Dutch into Polish. No authentication key is required to use this service.
+#' \code{toPolish2} ranslates a text from English, German, French, Sapnish, Italian or Dutch into Polish
+#'     using the undocumented JSON-RPC DeepL API. No authentication key is required to use this service.
 #'
 #' @importFrom utf8 utf8_valid as_utf8
 #' @importFrom httr POST content
 #' @importFrom rjson toJSON fromJSON
 #' @importFrom tibble tibble
+#' @importFrom purrr map
+#' @importFrom tokenizers tokenize_sentences
 #'
 #' @param text text to be translated. Must not exceed 5000 characters. Only UTF8-encoded plain text is supported.
 #'     May contain multiple sentences.
@@ -379,11 +374,9 @@ toDutch2 <- function(text, source_lang = NULL, get_detect = FALSE, get_alt = FAL
 #'     If parameter \code{is.null}, the API will try to detect the language of the text.
 #' @param get_detect if \code{TRUE}, the language detected for the source text is also inclued in the response. It corresponds to
 #'     the value of the argument \code{source_lang} if it was specified. If \code{FALSE}, only the translated text is returned.
-#' @param get_alt if \code{TRUE}, alternative translations are also included in the response.
 #'
-#' @return If \code{get_detect} is set to \code{FALSE} a \code{character vector} containing the translation(s)
-#'     (if \code{get_alt = TRUE}) is returned. Otherwise, a \code{data.frame} (\code{tibble::tibble}) is returned
-#'     with the following columns:
+#' @return If \code{get_detect} is set to \code{FALSE} a \code{character vector} containing the translation
+#'     is returned. Otherwise, a \code{data.frame} (\code{tibble::tibble}) is returned with the following columns:
 #' \itemize{
 #' \item \code{translation} the translated text(s).
 #' \item \code{source_lang} detected or specified language of the input text.
@@ -394,12 +387,11 @@ toDutch2 <- function(text, source_lang = NULL, get_detect = FALSE, get_alt = FAL
 #' @examples
 #' \donttest{
 #' # Simple translation
-#' toPolish2("Hallo Welt!", auth_key = "my_key")
+#' toPolish2("Hallo Welt!")
 #'
 #' # Customized translator applied to multiple strings
 #' txt1 <- c("My name is Albert.", "I'm a physicist.", "I was born in 1879 in Ulm.")
-#' translator1 <- function(t) toPolish2(text = t)
-#' purrr::map_chr(txt1, translator1)
+#' purrr::map_chr(txt1, toPolish2)
 #'
 #' # Customized translator applied to multiple strings (with language detection response)
 #' txt2 <- c("Je m'appelle Jean.", "Ich bin Arzt.", "I'm from Wales")
@@ -408,8 +400,8 @@ toDutch2 <- function(text, source_lang = NULL, get_detect = FALSE, get_alt = FAL
 #'
 #' }
 #'
-toPolish2 <- function(text, source_lang = NULL, get_detect = FALSE, get_alt = FALSE) {
+toPolish2 <- function(text, source_lang = NULL, get_detect = FALSE) {
 
-  translate2(text = text, source_lang = source_lang, target_lang = "PL", get_detect = get_detect, get_alt = get_alt)
+  translate2(text = text, source_lang = source_lang, target_lang = "PL", get_detect = get_detect)
 
 }

@@ -1,7 +1,7 @@
-#' Translate texts with the official DeepL Translator API
+#' Translate texts using the official DeepL Translator API
 #'
-#' \code{translate} calls the official DeepL Translator API and translates texts between English, German,
-#'     French, Spanish, Italian, Dutch and Polish. To use this service, an authentication key is required.
+#' \code{translate2} translates texts between English, German, French, Spanish, Italian, Dutch and Polish
+#'     using the official DeepL Translator API. To use this service, an authentication key is required.
 #'
 #' @importFrom utf8 utf8_valid as_utf8
 #' @importFrom utils URLencode

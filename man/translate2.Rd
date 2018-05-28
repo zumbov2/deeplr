@@ -2,10 +2,10 @@
 % Please edit documentation in R/translate2.R
 \name{translate2}
 \alias{translate2}
-\title{Translate texts with DeepL}
+\title{Translate texts using DeepL}
 \usage{
 translate2(text, source_lang = NULL, target_lang = "EN",
-  get_detect = FALSE, get_alt = FALSE)
+  get_detect = FALSE)
 }
 \arguments{
 \item{text}{text to be translated. Must not exceed 5000 characters. Only UTF8-encoded plain text is supported.
@@ -27,21 +27,18 @@ the language of the source.}
 
 \item{get_detect}{if \code{TRUE}, the language detected for the source text is also inclued in the response. It corresponds to
 the value of the argument \code{source_lang} if it was specified. If \code{FALSE}, only the translated text is returned.}
-
-\item{get_alt}{if \code{TRUE}, alternative translations are also included in the response.}
 }
 \value{
-If \code{get_detect} is set to \code{FALSE} a \code{character vector} containing the translation(s)
-    (if \code{get_alt = TRUE}) is returned. Otherwise, a \code{data.frame} (\code{tibble::tibble}) is returned
-    with the following columns:
+If \code{get_detect} is set to \code{FALSE} a \code{character vector} containing the translation
+    is returned. Otherwise, a \code{data.frame} (\code{tibble::tibble}) is returned with the following columns:
 \itemize{
 \item \code{translation} the translated text(s).
 \item \code{source_lang} detected or specified language of the input text.
 }
 }
 \description{
-\code{translate2} calls the DeepL API via a JSON-RPC call and translates texts between English, German,
-    French, Spanish, Italian, Dutch and Polish. No authentication key is required to use this service.
+\code{translate2} translates texts between English, German, French, Spanish, Italian, Dutch and Polish
+    using the undocumented JSON-RPC DeepL API. No authentication key is required to use this service.
 }
 \examples{
 \donttest{
