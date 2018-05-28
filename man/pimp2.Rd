@@ -2,7 +2,7 @@
 % Please edit documentation in R/pimp2.R
 \name{pimp2}
 \alias{pimp2}
-\title{Fix and improve texts with DeepL}
+\title{Fix and improve texts using DeepL}
 \usage{
 pimp2(text, help_lang)
 }

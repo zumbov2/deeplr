@@ -1,4 +1,4 @@
-#' Fix and improve texts with DeepL
+#' Fix and improve texts using DeepL
 #'
 #' \code{pimp2} translates a text into a help language and then back into the original language
 #'     using the undocumented JSON-RPC DeepL API. No authentication key is required to use this service.

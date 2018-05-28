@@ -28,7 +28,7 @@
 #'     and end of the sentence, upper/lower case at the beginning of the sentence) of the formatting.
 #' @param get_detect if \code{TRUE}, the language detected for the source text is also inclued in the response. It corresponds to
 #'     the value of the argument \code{source_lang} if it was specified. If \code{FALSE}, only the translated text is returned.
-#' @param auth_key your \code{DeepL} authentication key which provides access to the API.
+#' @param auth_key DeepL authentication key which provides access to the API.
 #'
 #' @details To get an authentication key, you need to register for a DeepL Pro account (\url{https://www.deepl.com/pro.html}).
 #'     This currently costs 20 euros per month and allows the translation of 1,000,000 characters per month (see
@@ -102,7 +102,7 @@ toEnglish <- function(text, source_lang = NULL, tag_handling = NULL, split_sente
 #'     and end of the sentence, upper/lower case at the beginning of the sentence) of the formatting.
 #' @param get_detect if \code{TRUE}, the language detected for the source text is also inclued in the response. It corresponds to
 #'     the value of the argument \code{source_lang} if it was specified. If \code{FALSE}, only the translated text is returned.
-#' @param auth_key your \code{DeepL} authentication key which provides access to the API.
+#' @param auth_key DeepL authentication key which provides access to the API.
 #'
 #' @details To get an authentication key, you need to register for a DeepL Pro account (\url{https://www.deepl.com/pro.html}).
 #'     This currently costs 20 euros per month and allows the translation of 1,000,000 characters per month (see
@@ -176,7 +176,7 @@ toGerman <- function(text, source_lang = NULL, tag_handling = NULL, split_senten
 #'     and end of the sentence, upper/lower case at the beginning of the sentence) of the formatting.
 #' @param get_detect if \code{TRUE}, the language detected for the source text is also inclued in the response. It corresponds to
 #'     the value of the argument \code{source_lang} if it was specified. If \code{FALSE}, only the translated text is returned.
-#' @param auth_key your \code{DeepL} authentication key which provides access to the API.
+#' @param auth_key DeepL authentication key which provides access to the API.
 #'
 #' @details To get an authentication key, you need to register for a DeepL Pro account (\url{https://www.deepl.com/pro.html}).
 #'     This currently costs 20 euros per month and allows the translation of 1,000,000 characters per month (see
@@ -249,7 +249,7 @@ toFrench <- function(text, source_lang = NULL, tag_handling = NULL, split_senten
 #'     and end of the sentence, upper/lower case at the beginning of the sentence) of the formatting.
 #' @param get_detect if \code{TRUE}, the language detected for the source text is also inclued in the response. It corresponds to
 #'     the value of the argument \code{source_lang} if it was specified. If \code{FALSE}, only the translated text is returned.
-#' @param auth_key your \code{DeepL} authentication key which provides access to the API.
+#' @param auth_key DeepL authentication key which provides access to the API.
 #'
 #' @details To get an authentication key, you need to register for a DeepL Pro account (\url{https://www.deepl.com/pro.html}).
 #'     This currently costs 20 euros per month and allows the translation of 1,000,000 characters per month (see
@@ -323,7 +323,7 @@ toSpanish <- function(text, source_lang = NULL, tag_handling = NULL, split_sente
 #'     and end of the sentence, upper/lower case at the beginning of the sentence) of the formatting.
 #' @param get_detect if \code{TRUE}, the language detected for the source text is also inclued in the response. It corresponds to
 #'     the value of the argument \code{source_lang} if it was specified. If \code{FALSE}, only the translated text is returned.
-#' @param auth_key your \code{DeepL} authentication key which provides access to the API.
+#' @param auth_key DeepL authentication key which provides access to the API.
 #'
 #' @details To get an authentication key, you need to register for a DeepL Pro account (\url{https://www.deepl.com/pro.html}).
 #'     This currently costs 20 euros per month and allows the translation of 1,000,000 characters per month (see
@@ -396,7 +396,7 @@ toItalian <- function(text, source_lang = NULL, tag_handling = NULL, split_sente
 #'     and end of the sentence, upper/lower case at the beginning of the sentence) of the formatting.
 #' @param get_detect if \code{TRUE}, the language detected for the source text is also inclued in the response. It corresponds to
 #'     the value of the argument \code{source_lang} if it was specified. If \code{FALSE}, only the translated text is returned.
-#' @param auth_key your \code{DeepL} authentication key which provides access to the API.
+#' @param auth_key DeepL authentication key which provides access to the API.
 #'
 #' @details To get an authentication key, you need to register for a DeepL Pro account (\url{https://www.deepl.com/pro.html}).
 #'     This currently costs 20 euros per month and allows the translation of 1,000,000 characters per month (see
@@ -469,7 +469,7 @@ toDutch <- function(text, source_lang = NULL, tag_handling = NULL, split_sentenc
 #'     and end of the sentence, upper/lower case at the beginning of the sentence) of the formatting.
 #' @param get_detect if \code{TRUE}, the language detected for the source text is also inclued in the response. It corresponds to
 #'     the value of the argument \code{source_lang} if it was specified. If \code{FALSE}, only the translated text is returned.
-#' @param auth_key your \code{DeepL} authentication key which provides access to the API.
+#' @param auth_key DeepL authentication key which provides access to the API.
 #'
 #' @details To get an authentication key, you need to register for a DeepL Pro account (\url{https://www.deepl.com/pro.html}).
 #'     This currently costs 20 euros per month and allows the translation of 1,000,000 characters per month (see

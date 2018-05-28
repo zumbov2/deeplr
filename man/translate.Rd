@@ -38,7 +38,7 @@ and end of the sentence, upper/lower case at the beginning of the sentence) of t
 \item{get_detect}{if \code{TRUE}, the language detected for the source text is also inclued in the response. It corresponds to
 the value of the argument \code{source_lang} if it was specified. If \code{FALSE}, only the translated text is returned.}
 
-\item{auth_key}{your \code{DeepL} authentication key which provides access to the API.}
+\item{auth_key}{DeepLauthentication key which provides access to the API.}
 }
 \value{
 If \code{get_detect} is set to \code{FALSE} a \code{character vector} containing the translation is returned. Otherwise,
