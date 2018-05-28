@@ -13,7 +13,7 @@ The version 0.1.0 is on CRAN, and you can install it by:
 ```
 install.packages("deeplr")
 ```
-For regularly updated version (latest: 0.3.2), install from GitHub:
+For regularly updated version (latest: 1.0.0), install from GitHub:
 ```
 install.packages("devtools")
 devtools::install_github("zumbov2/deeplr")
