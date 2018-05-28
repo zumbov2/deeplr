@@ -4,21 +4,23 @@
 [![cranlogs](https://cranlogs.r-pkg.org/badges/grand-total/deeplr)](http://cran.rstudio.com/web/packages/deeplr/index.html)
 
 # deeplr
-This R package is an interface to the [DeepL Translator API](https://www.deepl.com/api.html) that translates
-texts between different languages. The following languages are currently available: English (`EN`), German (`DE`), French (`FR`), Spanish (`ES`), Italian (`IT`), Dutch (`NL`) and Polish (`PL`).
+This R package is an interface to the official [DeepL Translator API](https://www.deepl.com/api.html) and to the undocumented DeepL JSON-RPC API used on the [DeepL website](https://www.deepl.com/translator) to translate short texts of up to 5000 characters. The following languages are currently available: English (`EN`), German (`DE`), French (`FR`), Spanish (`ES`), Italian (`IT`), Dutch (`NL`) and Polish (`PL`). 
 
-Access to the official API is subject to a monthly fee (see [DeepL Pro](https://www.deepl.com/pro.html)). You can currently translate 1,000,000 characters per month for 20 euros (see [DeepL Pro Pricing](https://www.deepl.com/pro-pricing.html)). **However, almost identical API calls can be made via JSON-RPC. No authentication key is required to use this service.** `deeplr` includes functions for both types of API calls. The names of the functions for which *no* authentication key is required end with a 2 (e.g. `translate2`). 
+Access to the official API is subject to a monthly fee (see [DeepL Pro Pricing](https://www.deepl.com/pro-pricing.html)). The undocumented API can currently be used free of charge.
 
 ## Installation
 The version 0.1.0 is on CRAN, and you can install it by:
 ```
 install.packages("deeplr")
 ```
-For regularly updated version (latest: 0.3.0), install from GitHub:
+For regularly updated version (latest: 0.3.2), install from GitHub:
 ```
 install.packages("devtools")
 devtools::install_github("zumbov2/deeplr")
 ```
+
+# Examples
+The package provides all functions for both types of API calls. Functions that call the free API end with a `2`. Only these functions are used in the following examples.
 
 ## Example 1: `Hello World!`
 ```
