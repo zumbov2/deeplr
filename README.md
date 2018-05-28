@@ -27,7 +27,7 @@ The package provides all functions for both types of API calls. Functions that c
 deeplr::translate2("Hallo Welt!", target_lang = "DE")
 [1] "Hello World!"
 ```
-In the frist examples, we let the API guess the language of the source text. If `get_detect = TRUE`, the detected language is 
+In the first examples, we let the API guess the language of the source text. If `get_detect = TRUE`, the detected language is 
 included in the response.
 ```
 deeplr::translate2("Hallo Welt!", target_lang = "EN", get_detect = T)
