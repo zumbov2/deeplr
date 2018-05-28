@@ -24,7 +24,7 @@ The package provides all functions for both types of API calls. Functions that c
 
 ## Example 1: `Hello World!`
 ```
-deeplr::translate2("Hallo Welt!", target_lang = "DE")
+deeplr::translate2("Hallo Welt!", target_lang = "EN")
 [1] "Hello World!"
 ```
 In the first examples, we let the API guess the language of the source text. If `get_detect = TRUE`, the detected language is 
@@ -44,8 +44,7 @@ Or we can just use `source_lang = "DE"` to tell the API what the source language
 hello <- c("Hallo Welt!", "Bonjour le monde !", "Hola Mundo!", "Ciao Mondo!", 
            "Hallo wereld!", "Witajcie świat!")
 ```
-We want to translate the above strings into English. To do this, we first define our translation function. `toEnglish` is 
-a simple wrapper and identical to `translate(target_lang = "EN")`. We use `map_chr` from the `purrr` package to apply the function to all elements of the character vector. 
+We want to translate the above strings into English. We use `toEnglish2`, a simple wrapper for `translate2(target_lang = "EN")`. With `map_chr` from the `purrr` package we apply the function to all elements of the character vector. 
 ```
 purrr::map_chr(hello, deeplr::toEnglish2)
 [1] "Hello world!"  "Hello, world!"  "Hello World!"  "Ciao Mondo!"  "Hallo wereld!"  "Hello the world!"
@@ -53,32 +52,23 @@ purrr::map_chr(hello, deeplr::toEnglish2)
 4 out of 6. Not a bad start.
 
 ### What went wrong?
-Let's check for the source languages detected. We specify a translator function and use `purrr`'s `map_df` function to get a data frame with the source languages.
+Let's check for the source languages detected. For this we combine `detect2` with `map_chr`.
 ```
-translator <- function(text) deeplr::toEnglish2(text = text, get_detect = T)
+purrr::map_chr(hello, deeplr::detect2)
+[1] "DE" "FR" "ES" "ES" "EN" "PL"
+```
+The API doesn't seem to not recognize all languages correctly. This is not uncommon with such short strings. 
 
-purrr::map_df(hello, translator)
-# A tibble: 6 x 2
-  translation      source_lang
-  <chr>            <chr>      
-1 Hello world!     DE         
-2 Hello, world!    FR         
-3 Hello World!     ES         
-4 Ciao Mondo!      ES         
-5 Hallo wereld!    EN         
-6 Hello the world! PL     
-```
 ### Second try 
-The API didn't recognize all source languages correctly. Let's give it some help. We create a vector with the correct 
-source languages. 
+Let's give it some help. We create a vector with the correct source languages. 
 ```
 source_lang <- c("DE", "FR", "ES", "IT", "NL", "PL")
 ```
-We respecify our translator and use another `purrr` function (`map2_chr`) to map over the two inputs simultaneously.
+We specify a translator function and use another `purrr` function (`map2_chr`) to map over the two inputs simultaneously.
 ```
-translator2 <- function(text, source_lang) deeplr::toEnglish(text = text, source_lang = source_lang)
+translator <- function(text, source_lang) deeplr::toEnglish2(text = text, source_lang = source_lang)
 
-purrr::map2_chr(hello, source_lang, translator3)
+purrr::map2_chr(hello, source_lang, translator)
 [1] "Hello world!"  "Hello, world!"  "Hello World!"  "Hello World!"  "Hello world!"  "Hello the world!
 ```
 Better!
