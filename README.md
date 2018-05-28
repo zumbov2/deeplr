@@ -30,7 +30,7 @@ deeplr::translate2("Hallo Welt!", target_lang = "DE")
 In the frist examples, we let the API guess the language of the source text. If `get_detect = TRUE`, the detected language is 
 included in the response.
 ```
-deeplr::translate2("Hallo Welt!", target_lang = "DE", get_detect = T)
+deeplr::translate2("Hallo Welt!", target_lang = "EN", get_detect = T)
 # A tibble: 1 x 2
   translation  source_lang
   <chr>        <chr>      
