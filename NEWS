@@ -1,25 +1,32 @@
-deeplr 0.3.1
--------------
+deeplr 1.0.0
+----------------------------
+
+* Improved documentation
+* New functions: detect, pimp
+
+
+deeplr 0.3.1 (GitHub only)
+----------------------------
 
 * New functions: detect2, pimp2
 * Small adjustments to the existing functions
 
 
 deeplr 0.3.0 (GitHub only)
--------------
+----------------------------
 
 * Integration of functions (translate2, toEnglish2 etc.) that call the DeepL API
   via JSON-RPC. No authentication key is required to use this service.
 
 
 deeplr 0.2.0 (GitHub only)
--------------
+----------------------------
 
 * Changed from GET to POST requests
 * Integration of the usage API call
 
 
 deeplr 0.1.0
--------------
+----------------------------
 
 * First version of the package.
