@@ -16,7 +16,7 @@ This R package is an interface to the official [DeepL Translator API](https://ww
 Access to the official API is subject to a monthly fee (see [DeepL Pro Pricing](https://www.deepl.com/pro-pricing.html)). The undocumented API can currently be used free of charge.
 
 ## Installation
-The version 0.1.0 is on CRAN, and you can install it by:
+The version 1.0.0 is on CRAN, and you can install it by:
 ```
 install.packages("deeplr")
 ```
