@@ -28,7 +28,7 @@ devtools::install_github("zumbov2/deeplr")
 ```
 
 # Examples
-The package provides all functions for both types of API calls. Functions that call the free API end with a `2`. Only these functions are used in the following examples.
+The package provides all functions for both types of API calls. Functions that call the free API end with a `2`.
 
 ## Example 1: `Hello World!`
 ```
