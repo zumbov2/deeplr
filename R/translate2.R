@@ -26,6 +26,7 @@
 #'  }
 #' @param get_detect if \code{TRUE}, the language detected for the source text is also inclued in the response. It corresponds to
 #'     the value of the argument \code{source_lang} if it was specified. If \code{FALSE}, only the translated text is returned.
+#' @param subdomain specifies the deepl subdomain to be used for the translation request. Currently: 'www2'
 #'
 #' @return If \code{get_detect} is set to \code{FALSE} a \code{character vector} containing the translation
 #'     is returned. Otherwise, a \code{data.frame} (\code{tibble::tibble}) is returned with the following columns:
@@ -53,7 +54,8 @@
 #'
 #' }
 #'
-translate2 <- function(text, source_lang = NULL, target_lang = "EN", get_detect = FALSE) {
+translate2 <- function(text, source_lang = NULL, target_lang = "EN", get_detect = FALSE,
+                       subdomain = "www2") {
 
   # Text prep -------------------------------------------------------------------------------------
   text <- text_check2(text)
@@ -83,7 +85,7 @@ translate2 <- function(text, source_lang = NULL, target_lang = "EN", get_detect 
 
   # DeepL API call --------------------------------------------------------------------------------
   response <- httr::POST(
-    "https://www.deepl.com/jsonrpc",
+    paste0("https://", subdomain, ".deepl.com/jsonrpc"),
     body = rjson::toJSON(payload)
   )
 

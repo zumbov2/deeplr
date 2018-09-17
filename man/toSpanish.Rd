@@ -5,8 +5,8 @@
 \title{Translate texts into Spanish using the official DeepL Translator API}
 \usage{
 toSpanish(text, source_lang = NULL, tag_handling = NULL,
-  split_sentences = TRUE, preserve_formatting = FALSE, get_detect = FALSE,
-  auth_key = "your_key")
+  split_sentences = TRUE, preserve_formatting = FALSE,
+  get_detect = FALSE, auth_key = "your_key")
 }
 \arguments{
 \item{text}{text to be translated. Only UTF8-encoded plain text is supported. May contain multiple sentences.

@@ -9,6 +9,7 @@
 #'
 #' @param text text to be translated. Must not exceed 5000 characters. Only UTF8-encoded plain text is supported.
 #'     May contain multiple sentences.
+#' @param subdomain specifies the deepl subdomain to be used for the translation request. Currently: 'www2'
 #'
 #' @export
 #'
@@ -17,7 +18,7 @@
 #' detect2("My name is Hans.")
 #'
 #' }
-detect2 <- function(text) {
+detect2 <- function(text, subdomain = "www2") {
 
   # Text prep -------------------------------------------------------------------------------------
   text <- text_check2(text)
@@ -37,7 +38,7 @@ detect2 <- function(text) {
 
   # DeepL API call via JSON-RPC -------------------------------------------------------------------
   response <- httr::POST(
-    "https://www.deepl.com/jsonrpc",
+    paste0("https://", subdomain, ".deepl.com/jsonrpc"),
     body = rjson::toJSON(payload)
   )
 

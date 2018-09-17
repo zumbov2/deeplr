@@ -4,7 +4,8 @@
 \alias{toGerman2}
 \title{Translate texts into German using DeepL}
 \usage{
-toGerman2(text, source_lang = NULL, get_detect = FALSE)
+toGerman2(text, source_lang = NULL, get_detect = FALSE,
+  subdomain = "www2")
 }
 \arguments{
 \item{text}{text to be translated. Must not exceed 5000 characters. Only UTF8-encoded plain text is supported.
@@ -23,6 +24,8 @@ If parameter \code{is.null}, the API will try to detect the language of the text
 
 \item{get_detect}{if \code{TRUE}, the language detected for the source text is also inclued in the response. It corresponds to
 the value of the argument \code{source_lang} if it was specified. If \code{FALSE}, only the translated text is returned.}
+
+\item{subdomain}{specifies the deepl subdomain to be used for the translation request. Currently: 'www2'}
 }
 \value{
 If \code{get_detect} is set to \code{FALSE} a \code{character vector} containing the translation
@@ -46,7 +49,7 @@ txt1 <- c("My name is Albert.", "I'm a physicist.", "I was born in 1879 in Ulm."
 purrr::map_chr(txt1, toGerman2)
 
 # Customized translator applied to multiple strings (with language detection response)
-txt2 <- c("Me llamo Fred.", "Je suis médecin.", "I'm from Wales")
+txt2 <- c("Me llamo Fred.", "Je suis mÃ©decin.", "I'm from Wales")
 translator2 <- function(t) toGerman2(text = t, get_detect = T)
 purrr::map_df(txt2, translator2)
 

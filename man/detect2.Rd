@@ -4,11 +4,13 @@
 \alias{detect2}
 \title{Detect the language of a text using DeepL}
 \usage{
-detect2(text)
+detect2(text, subdomain = "www2")
 }
 \arguments{
 \item{text}{text to be translated. Must not exceed 5000 characters. Only UTF8-encoded plain text is supported.
 May contain multiple sentences.}
+
+\item{subdomain}{specifies the deepl subdomain to be used for the translation request. Currently: 'www2'}
 }
 \description{
 \code{detect2} detects the language of a text using the undocumented JSON-RPC DeepL API. English, German, French,

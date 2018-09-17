@@ -5,8 +5,8 @@
 \title{Translate texts into German using the official DeepL Translator API}
 \usage{
 toGerman(text, source_lang = NULL, tag_handling = NULL,
-  split_sentences = TRUE, preserve_formatting = FALSE, get_detect = FALSE,
-  auth_key = "your_key")
+  split_sentences = TRUE, preserve_formatting = FALSE,
+  get_detect = FALSE, auth_key = "your_key")
 }
 \arguments{
 \item{text}{text to be translated. Only UTF8-encoded plain text is supported. May contain multiple sentences.
@@ -65,7 +65,7 @@ translator1 <- function(t) toGerman(text = t, auth_key = "x")
 purrr::map_chr(txt1, translator1)
 
 # Customized translator applied to multiple strings (with language detection response)
-txt2 <- c("Me llamo Fred.", "Je suis médecin.", "I'm from Wales")
+txt2 <- c("Me llamo Fred.", "Je suis mÃ©decin.", "I'm from Wales")
 translator2 <- function(t) toGerman(text = t, get_detect = T, auth_key = "x")
 purrr::map_df(txt2, translator2)
 

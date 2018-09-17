@@ -24,6 +24,8 @@
 #'     If parameter \code{is.null}, the API will try to detect the language of the text.
 #' @param get_detect if \code{TRUE}, the language detected for the source text is also inclued in the response. It corresponds to
 #'     the value of the argument \code{source_lang} if it was specified. If \code{FALSE}, only the translated text is returned.
+#' @param subdomain specifies the deepl subdomain to be used for the translation request. Currently: 'www2'
+#'
 #' @return If \code{get_detect} is set to \code{FALSE} a \code{character vector} containing the translation
 #'     is returned. Otherwise, a \code{data.frame} (\code{tibble::tibble}) is returned with the following columns:
 #' \itemize{
@@ -50,9 +52,10 @@
 #' }
 #'
 #'
-toEnglish2 <- function(text, source_lang = NULL, get_detect = FALSE) {
+toEnglish2 <- function(text, source_lang = NULL, get_detect = FALSE, subdomain = "www2") {
 
-  translate2(text = text, source_lang = source_lang, target_lang = "EN", get_detect = get_detect)
+  translate2(text = text, source_lang = source_lang, target_lang = "EN", get_detect = get_detect,
+             subdomain = subdomain)
 
 }
 
@@ -82,6 +85,7 @@ toEnglish2 <- function(text, source_lang = NULL, get_detect = FALSE) {
 #' If parameter \code{is.null}, the API will try to detect the language of the text.
 #' @param get_detect if \code{TRUE}, the language detected for the source text is also inclued in the response. It corresponds to
 #'     the value of the argument \code{source_lang} if it was specified. If \code{FALSE}, only the translated text is returned.
+#' @param subdomain specifies the deepl subdomain to be used for the translation request. Currently: 'www2'
 #'
 #' @return If \code{get_detect} is set to \code{FALSE} a \code{character vector} containing the translation
 #'     is returned. Otherwise, a \code{data.frame} (\code{tibble::tibble}) is returned with the following columns:
@@ -109,9 +113,10 @@ toEnglish2 <- function(text, source_lang = NULL, get_detect = FALSE) {
 #' }
 #'
 #'
-toGerman2 <- function(text, source_lang = NULL, get_detect = FALSE) {
+toGerman2 <- function(text, source_lang = NULL, get_detect = FALSE, subdomain = "www2") {
 
-  translate2(text = text, source_lang = source_lang, target_lang = "DE", get_detect = get_detect)
+  translate2(text = text, source_lang = source_lang, target_lang = "DE", get_detect = get_detect,
+             subdomain = subdomain)
 
 }
 
@@ -141,6 +146,7 @@ toGerman2 <- function(text, source_lang = NULL, get_detect = FALSE) {
 #'     If parameter \code{is.null}, the API will try to detect the language of the text.
 #' @param get_detect if \code{TRUE}, the language detected for the source text is also inclued in the response. It corresponds to
 #'     the value of the argument \code{source_lang} if it was specified. If \code{FALSE}, only the translated text is returned.
+#' @param subdomain specifies the deepl subdomain to be used for the translation request. Currently: 'www2'
 #'
 #' @return If \code{get_detect} is set to \code{FALSE} a \code{character vector} containing the translation
 #'     is returned. Otherwise, a \code{data.frame} (\code{tibble::tibble}) is returned with the following columns:
@@ -167,9 +173,10 @@ toGerman2 <- function(text, source_lang = NULL, get_detect = FALSE) {
 #'
 #' }
 #'
-toFrench2 <- function(text, source_lang = NULL, get_detect = FALSE) {
+toFrench2 <- function(text, source_lang = NULL, get_detect = FALSE, subdomain = "www2") {
 
-  translate2(text = text, source_lang = source_lang, target_lang = "FR", get_detect = get_detect)
+  translate2(text = text, source_lang = source_lang, target_lang = "FR", get_detect = get_detect,
+             subdomain = subdomain)
 
 }
 
@@ -199,6 +206,7 @@ toFrench2 <- function(text, source_lang = NULL, get_detect = FALSE) {
 #'     If parameter \code{is.null}, the API will try to detect the language of the text.
 #' @param get_detect if \code{TRUE}, the language detected for the source text is also inclued in the response. It corresponds to
 #'     the value of the argument \code{source_lang} if it was specified. If \code{FALSE}, only the translated text is returned.
+#' @param subdomain specifies the deepl subdomain to be used for the translation request. Currently: 'www2'
 #'
 #' @return If \code{get_detect} is set to \code{FALSE} a \code{character vector} containing the translation
 #'     is returned. Otherwise, a \code{data.frame} (\code{tibble::tibble}) is returned with the following columns:
@@ -226,9 +234,10 @@ toFrench2 <- function(text, source_lang = NULL, get_detect = FALSE) {
 #' }
 #'
 #'
-toSpanish2 <- function(text, source_lang = NULL, get_detect = FALSE) {
+toSpanish2 <- function(text, source_lang = NULL, get_detect = FALSE, subdomain = "www2") {
 
-  translate2(text = text, source_lang = source_lang, target_lang = "ES", get_detect = get_detect)
+  translate2(text = text, source_lang = source_lang, target_lang = "ES", get_detect = get_detect,
+             subdomain = subdomain)
 
 }
 
@@ -258,6 +267,7 @@ toSpanish2 <- function(text, source_lang = NULL, get_detect = FALSE) {
 #'     If parameter \code{is.null}, the API will try to detect the language of the text.
 #' @param get_detect if \code{TRUE}, the language detected for the source text is also inclued in the response. It corresponds to
 #'     the value of the argument \code{source_lang} if it was specified. If \code{FALSE}, only the translated text is returned.
+#' @param subdomain specifies the deepl subdomain to be used for the translation request. Currently: 'www2'
 #'
 #' @return If \code{get_detect} is set to \code{FALSE} a \code{character vector} containing the translation
 #'     is returned. Otherwise, a \code{data.frame} (\code{tibble::tibble}) is returned with the following columns:
@@ -284,9 +294,10 @@ toSpanish2 <- function(text, source_lang = NULL, get_detect = FALSE) {
 #'
 #' }
 #'
-toItalian2 <- function(text, source_lang = NULL, get_detect = FALSE) {
+toItalian2 <- function(text, source_lang = NULL, get_detect = FALSE, subdomain = "www2") {
 
-  translate2(text = text, source_lang = source_lang, target_lang = "IT", get_detect = get_detect)
+  translate2(text = text, source_lang = source_lang, target_lang = "IT", get_detect = get_detect,
+             subdomain = subdomain)
 
 }
 
@@ -316,6 +327,7 @@ toItalian2 <- function(text, source_lang = NULL, get_detect = FALSE) {
 #'     If parameter \code{is.null}, the API will try to detect the language of the text.
 #' @param get_detect if \code{TRUE}, the language detected for the source text is also inclued in the response. It corresponds to
 #'     the value of the argument \code{source_lang} if it was specified. If \code{FALSE}, only the translated text is returned.
+#' @param subdomain specifies the deepl subdomain to be used for the translation request. Currently: 'www2'
 #'
 #' @return If \code{get_detect} is set to \code{FALSE} a \code{character vector} containing the translation
 #'     is returned. Otherwise, a \code{data.frame} (\code{tibble::tibble}) is returned with the following columns:
@@ -342,9 +354,10 @@ toItalian2 <- function(text, source_lang = NULL, get_detect = FALSE) {
 #'
 #' }
 #'
-toDutch2 <- function(text, source_lang = NULL, get_detect = FALSE) {
+toDutch2 <- function(text, source_lang = NULL, get_detect = FALSE, subdomain = "www2") {
 
-  translate2(text = text, source_lang = source_lang, target_lang = "NL", get_detect = get_detect)
+  translate2(text = text, source_lang = source_lang, target_lang = "NL", get_detect = get_detect,
+             subdomain = subdomain)
 
 }
 
@@ -374,6 +387,7 @@ toDutch2 <- function(text, source_lang = NULL, get_detect = FALSE) {
 #'     If parameter \code{is.null}, the API will try to detect the language of the text.
 #' @param get_detect if \code{TRUE}, the language detected for the source text is also inclued in the response. It corresponds to
 #'     the value of the argument \code{source_lang} if it was specified. If \code{FALSE}, only the translated text is returned.
+#' @param subdomain specifies the deepl subdomain to be used for the translation request. Currently: 'www2'
 #'
 #' @return If \code{get_detect} is set to \code{FALSE} a \code{character vector} containing the translation
 #'     is returned. Otherwise, a \code{data.frame} (\code{tibble::tibble}) is returned with the following columns:
@@ -400,8 +414,9 @@ toDutch2 <- function(text, source_lang = NULL, get_detect = FALSE) {
 #'
 #' }
 #'
-toPolish2 <- function(text, source_lang = NULL, get_detect = FALSE) {
+toPolish2 <- function(text, source_lang = NULL, get_detect = FALSE, subdomain = "www2") {
 
-  translate2(text = text, source_lang = source_lang, target_lang = "PL", get_detect = get_detect)
+  translate2(text = text, source_lang = source_lang, target_lang = "PL", get_detect = get_detect,
+             subdomain = subdomain)
 
 }

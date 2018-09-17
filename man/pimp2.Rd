@@ -4,7 +4,7 @@
 \alias{pimp2}
 \title{Fix and improve texts using DeepL}
 \usage{
-pimp2(text, help_lang)
+pimp2(text, help_lang, subdomain = "www2")
 }
 \arguments{
 \item{text}{text to be translated. Must not exceed 5000 characters. Only UTF8-encoded plain text is supported.
@@ -20,6 +20,8 @@ May contain multiple sentences.}
 \item \code{NL} Dutch
 \item \code{PL} Polish
  }}
+
+\item{subdomain}{specifies the deepl subdomain to be used for the translation request. Currently: 'www2'}
 }
 \description{
 \code{pimp2} translates a text into a help language and then back into the original language

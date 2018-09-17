@@ -4,7 +4,8 @@
 \alias{toItalian2}
 \title{Translate texts into Italian using DeepL}
 \usage{
-toItalian2(text, source_lang = NULL, get_detect = FALSE)
+toItalian2(text, source_lang = NULL, get_detect = FALSE,
+  subdomain = "www2")
 }
 \arguments{
 \item{text}{text to be translated. Must not exceed 5000 characters. Only UTF8-encoded plain text is supported.
@@ -23,6 +24,8 @@ May contain multiple sentences.}
 
 \item{get_detect}{if \code{TRUE}, the language detected for the source text is also inclued in the response. It corresponds to
 the value of the argument \code{source_lang} if it was specified. If \code{FALSE}, only the translated text is returned.}
+
+\item{subdomain}{specifies the deepl subdomain to be used for the translation request. Currently: 'www2'}
 }
 \value{
 If \code{get_detect} is set to \code{FALSE} a \code{character vector} containing the translation

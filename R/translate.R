@@ -1,6 +1,6 @@
 #' Translate texts using the official DeepL Translator API
 #'
-#' \code{translate2} translates texts between English, German, French, Spanish, Italian, Dutch and Polish
+#' \code{translate} translates texts between English, German, French, Spanish, Italian, Dutch and Polish
 #'     using the official DeepL Translator API. To use this service, an authentication key is required.
 #'
 #' @importFrom utf8 utf8_valid as_utf8
@@ -28,7 +28,7 @@
 #'     is translated, it is recommended to set to \code{FALSE} to prevent the engine from unintentionally splitting the sentence.
 #' @param preserve_formatting if \code{TRUE}, the translation engine tries to preserve some aspects (e.g. punctuation at the beginning
 #'     and end of the sentence, upper/lower case at the beginning of the sentence) of the formatting.
-#' @param get_detect if \code{TRUE}, the language detected for the source text is also inclued in the response. It corresponds to
+#' @param get_detect if \code{TRUE}, the language detected for the source text is also included in the response. It corresponds to
 #'     the value of the argument \code{source_lang} if it was specified. If \code{FALSE}, only the translated text is returned.
 #' @param auth_key DeepLauthentication key which provides access to the API.
 #'

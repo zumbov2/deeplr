@@ -6,7 +6,8 @@
 \usage{
 translate(text, source_lang = NULL, target_lang = "EN",
   tag_handling = NULL, split_sentences = TRUE,
-  preserve_formatting = FALSE, get_detect = FALSE, auth_key = "your_key")
+  preserve_formatting = FALSE, get_detect = FALSE,
+  auth_key = "your_key")
 }
 \arguments{
 \item{text}{text to be translated. Only UTF8-encoded plain text is supported. May contain multiple sentences.
@@ -35,7 +36,7 @@ is translated, it is recommended to set to \code{FALSE} to prevent the engine fr
 \item{preserve_formatting}{if \code{TRUE}, the translation engine tries to preserve some aspects (e.g. punctuation at the beginning
 and end of the sentence, upper/lower case at the beginning of the sentence) of the formatting.}
 
-\item{get_detect}{if \code{TRUE}, the language detected for the source text is also inclued in the response. It corresponds to
+\item{get_detect}{if \code{TRUE}, the language detected for the source text is also included in the response. It corresponds to
 the value of the argument \code{source_lang} if it was specified. If \code{FALSE}, only the translated text is returned.}
 
 \item{auth_key}{DeepLauthentication key which provides access to the API.}
@@ -49,7 +50,7 @@ If \code{get_detect} is set to \code{FALSE} a \code{character vector} containing
 }
 }
 \description{
-\code{translate2} translates texts between English, German, French, Spanish, Italian, Dutch and Polish
+\code{translate} translates texts between English, German, French, Spanish, Italian, Dutch and Polish
     using the official DeepL Translator API. To use this service, an authentication key is required.
 }
 \details{
@@ -68,7 +69,7 @@ translator1 <- function(t) translate(text = t, target_lang = "FR", auth_key = "x
 purrr::map_chr(txt1, translator1)
 
 # Customized translator applied to multiple strings (with language detection response)
-txt2 <- c("My name is Fred.", "Je suis médecin.", "Ich komme aus der Schweiz.")
+txt2 <- c("My name is Fred.", "Je suis mÃ©decin.", "Ich komme aus der Schweiz.")
 translator2 <- function(t) translate(text = t, target_lang = "ES", get_detect = T, auth_key = "x")
 purrr::map_df(txt2, translator2)
 

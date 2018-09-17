@@ -82,15 +82,14 @@ extractor <- function(response, alternatives) {
 
       translation <- NULL
       for (i in 1:number_of_sentences) {
-
-        sentence <- translations[[i]]$beams[[1]]$postprocessed_sentence
-        translation <- c(translation, sentence)
-
-      }
+          sentence <- translations[[i]]$beams[[1]]$postprocessed_sentence
+          translation <- c(translation, sentence)
+          }
       output <- paste0(translation, collapse = " ")
     }
 
     # Return
     return(output)
 
-  }
+    }
+

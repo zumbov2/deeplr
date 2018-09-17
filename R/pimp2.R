@@ -22,6 +22,7 @@
 #' \item \code{NL} Dutch
 #' \item \code{PL} Polish
 #'  }
+#' @param subdomain specifies the deepl subdomain to be used for the translation request. Currently: 'www2'
 #'
 #' @export
 #'
@@ -30,17 +31,19 @@
 #' pimp2("In former times I lived in Zurich", help_lang = "DE")
 #' }
 #'
-pimp2 <- function(text, help_lang) {
+pimp2 <- function(text, help_lang, subdomain = "www2") {
 
   # Detect language of source
-  source_lang <- detect2(text)
+  source_lang <- detect2(text, subdomain = subdomain)
   if (source_lang == help_lang) stop("Help language corresponds to the source language.")
 
   # Translate to helper language
-  text2 <- translate2(text = text, source_lang = source_lang, target_lang = help_lang, get_detect = FALSE)
+  text2 <- translate2(text = text, source_lang = source_lang, target_lang = help_lang, get_detect = FALSE,
+                      subdomain = subdomain)
 
   # Translate back into source language
-  pimped <- translate2(text = text2, source_lang = help_lang, target_lang = source_lang, get_detect = FALSE)
+  pimped <- translate2(text = text2, source_lang = help_lang, target_lang = source_lang, get_detect = FALSE,
+                       subdomain = subdomain)
 
   return(pimped)
 
