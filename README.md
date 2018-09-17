@@ -1,4 +1,4 @@
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/deeplr)](https://cran.r-project.org/package=deeplr)
+﻿[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/deeplr)](https://cran.r-project.org/package=deeplr)
 [![Build Status](https://travis-ci.org/zumbov2/deeplr.svg?branch=master)](https://travis-ci.org/zumbov2/deeplr)
 [![Licence](https://img.shields.io/badge/licence-GPL--3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html)
 [![cranlogs](https://cranlogs.r-pkg.org/badges/grand-total/deeplr)](http://cran.rstudio.com/web/packages/deeplr/index.html)
@@ -21,7 +21,7 @@ The version 1.0.0 is on CRAN, and you can install it by:
 ```
 install.packages("deeplr")
 ```
-For regularly updated version (latest: 1.0.0), install from GitHub:
+For regularly updated version (latest: 1.1.0), install from GitHub:
 ```
 install.packages("devtools")
 devtools::install_github("zumbov2/deeplr")
