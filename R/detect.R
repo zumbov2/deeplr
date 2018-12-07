@@ -1,7 +1,8 @@
 #' Detect the language of a text using the official DeepL Translator API
 #'
-#' \code{detect} detects the language of a text using the official DeepL Translator API. English, German, French,
-#'     Spanish, Italian, Dutch and Polish are currently available. To use this service, an authentication key is required.
+#' \code{detect} detects the language of a text using the official DeepL Translator API. English, German,
+#'     French, Spanish, Portuguese, Italian, Dutch, Polish and Russian  are currently available. To use
+#'     this service, an authentication key is required.
 #'
 #' @importFrom utf8 utf8_valid as_utf8
 #' @importFrom utils URLencode

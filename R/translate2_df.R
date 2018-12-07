@@ -1,7 +1,8 @@
 #' Translate a character vector of a data frame element by element using DeepL
 #'
-#' \code{translate2_df} translates a character vector of a given data frame between English, German, French, Spanish, Italian,
-#'     Dutch and Polish using the undocumented JSON-RPC DeepL API. No authentication key is required to use this service.
+#' \code{translate2_df} translates a character vector of a given data frame between English, German, French,
+#'     Spanish, Portuguese, Italian, Dutch, Polish and Russian using the undocumented JSON-RPC DeepL API.
+#'     No authentication key is required to use this service.
 #'
 #' @importFrom utf8 utf8_valid as_utf8
 #' @importFrom httr POST content
@@ -22,9 +23,11 @@
 #' \item \code{DE} German
 #' \item \code{FR} French
 #' \item \code{ES} Spanish
+#' \item \code{PT} Portuguese
 #' \item \code{IT} Italian
 #' \item \code{NL} Dutch
 #' \item \code{PL} Polish
+#' \item \code{RU} Russian
 #'  }
 #' @param get_detect if \code{TRUE}, the languages detected for the source texts are also included in the response. It corresponds to
 #'     the values of the argument \code{source_lang} if it was specified. If \code{FALSE}, only the translated texts are returned.
@@ -48,7 +51,7 @@
 #'            ), stringsAsFactors = F)
 #'
 #' # Translate
-#' translate2_df(dat, text, target_lang = "DE")
+#' translate2_df(dat, "text", target_lang = "DE")
 #' }
 #'
 translate2_df <- function(data, column_name, source_lang = NULL, target_lang = "EN", get_detect = FALSE,

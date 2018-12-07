@@ -17,9 +17,11 @@ The request size should not exceed 30kbytes.}
 \item \code{EN} English
 \item \code{DE} German
 \item \code{FR} French
+\item \code{PT} Portuguese
 \item \code{IT} Italian
 \item \code{NL} Dutch
 \item \code{PL} Polish
+\item \code{RU} Russian
  }
     If parameter \code{is.null}, the API will try to detect the language of the source}
 
@@ -46,8 +48,9 @@ If \code{get_detect} is set to \code{FALSE} a \code{character vector} containing
 }
 }
 \description{
-\code{toSpanish} translates a text from English, German, French, Italian, Dutch or Polish into Spanish
-    using the official DeepL Translator API. To use this service, an authentication key is required.
+\code{toSpanish} translates a text from English, German, French, Portuguese, Italian, Dutch, Polish or
+    Russian into Spanish using the official DeepL Translator API. To use this service, an authentication
+    key is required.
 }
 \details{
 To get an authentication key, you need to register for a DeepL Pro account (\url{https://www.deepl.com/pro.html}).
@@ -59,15 +62,13 @@ To get an authentication key, you need to register for a DeepL Pro account (\url
 # Simple translation
 toSpanish("Hallo Welt!", auth_key = "my_key")
 
-# Customized translator applied to multiple strings
+# toSpanish applied to multiple strings
 txt1 <- c("My name is Albert.", "I'm a physicist.", "I was born in 1879 in Ulm.")
-translator1 <- function(t) toSpanish(text = t, auth_key = "x")
-purrr::map_chr(txt1, translator1)
+purrr::map_chr(txt1, toSpanish, auth_key = "x")
 
-# Customized translator applied to multiple strings (with language detection response)
+# toSpanish applied to multiple strings (with language detection response)
 txt2 <- c("Je m'appelle Jean.", "Ich bin Arzt.", "I'm from Wales")
-translator2 <- function(t) toSpanish(text = t, get_detect = T, auth_key = "x")
-purrr::map_df(txt2, translator2)
+purrr::map_df(txt2, toSpanish, get_detect = T, auth_key = "x")
 
 }
 

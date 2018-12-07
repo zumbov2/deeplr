@@ -16,9 +16,11 @@ May contain multiple sentences.}
 \item \code{EN} English
 \item \code{FR} French
 \item \code{ES} Spanish
+\item \code{PT} Portuguese
 \item \code{IT} Italian
 \item \code{NL} Dutch
 \item \code{PL} Polish
+\item \code{RU} Russian
  }
 If parameter \code{is.null}, the API will try to detect the language of the text.}
 
@@ -36,22 +38,18 @@ If \code{get_detect} is set to \code{FALSE} a \code{character vector} containing
 }
 }
 \description{
-\code{toGerman2} ranslates a text from English, French, Spanish, Italian, Dutch or Polish into German
-    using the undocumented JSON-RPC DeepL API. No authentication key is required to use this service.
+\code{toGerman2} translates a text from English, French, Spanish, Portuguese, Italian, Dutch, Polish or
+    Russian into German using the undocumented JSON-RPC DeepL API. No authentication key is required
+    to use this service.
 }
 \examples{
 \donttest{
 # Simple translation
 toGerman2("Hallo Welt!")
 
-# Customized translator applied to multiple strings
+# toGerman2 applied to multiple strings
 txt1 <- c("My name is Albert.", "I'm a physicist.", "I was born in 1879 in Ulm.")
 purrr::map_chr(txt1, toGerman2)
-
-# Customized translator applied to multiple strings (with language detection response)
-txt2 <- c("Me llamo Fred.", "Je suis mÃ©decin.", "I'm from Wales")
-translator2 <- function(t) toGerman2(text = t, get_detect = T)
-purrr::map_df(txt2, translator2)
 
 }
 

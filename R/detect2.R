@@ -1,7 +1,8 @@
 #' Detect the language of a text using DeepL
 #'
-#' \code{detect2} detects the language of a text using the undocumented JSON-RPC DeepL API. English, German, French,
-#'     Spanish, Italian, Dutch and Polish are currently available. No authentication key is required to use this service.
+#' \code{detect2} detects the language of a text using the undocumented JSON-RPC DeepL API. English, German,
+#'     French, Spanish, Portuguese, Italian, Dutch, Polish and Russian are currently available. No authentication
+#'     key is required to use this service.
 #'
 #' @importFrom utf8 utf8_valid as_utf8
 #' @importFrom httr POST content
@@ -15,7 +16,7 @@
 #'
 #' @examples
 #' \donttest{
-#' detect2("My name is Hans.")
+#' detect2("My name is John.")
 #'
 #' }
 detect2 <- function(text, subdomain = "www2") {

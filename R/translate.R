@@ -1,7 +1,8 @@
 #' Translate texts using the official DeepL Translator API
 #'
-#' \code{translate} translates texts between English, German, French, Spanish, Italian, Dutch and Polish
-#'     using the official DeepL Translator API. To use this service, an authentication key is required.
+#' \code{translate} translates texts between English, German, French, Spanish, Portuguese, Italian, Dutch,
+#'     Polish and Russian using the official DeepL Translator API. To use this service, an authentication
+#'     key is required.
 #'
 #' @importFrom utf8 utf8_valid as_utf8
 #' @importFrom utils URLencode
@@ -18,9 +19,11 @@
 #' \item \code{DE} German
 #' \item \code{FR} French
 #' \item \code{ES} Spanish
+#' \item \code{PT} Portuguese
 #' \item \code{IT} Italian
 #' \item \code{NL} Dutch
 #' \item \code{PL} Polish
+#' \item \code{RU} Russian
 #'  }
 #' @param tag_handling if set to \code{"xml"}, the translation engine tries to find matches for XML enclosed words in
 #'     the translated sentence and enclose them with the same tags. If no matching words are found, the tags are removed.
@@ -52,15 +55,13 @@
 #' # Simple translation
 #' translate("Hallo Welt!", target_lang = "EN", auth_key = "my_key")
 #'
-#' # Customized translator applied to multiple strings
+#' # translate applied to multiple strings
 #' txt1 <- c("Mein Name ist Albert.", "Ich bin Physiker.", "Ich wurde 1879 in Ulm geboren.")
-#' translator1 <- function(t) translate(text = t, target_lang = "FR", auth_key = "x")
-#' purrr::map_chr(txt1, translator1)
+#' purrr::map_chr(txt1, translator1, target_lang = "FR", auth_key = "x")
 #'
-#' # Customized translator applied to multiple strings (with language detection response)
+#' # translate applied to multiple strings (with language detection response)
 #' txt2 <- c("My name is Fred.", "Je suis médecin.", "Ich komme aus der Schweiz.")
-#' translator2 <- function(t) translate(text = t, target_lang = "ES", get_detect = T, auth_key = "x")
-#' purrr::map_df(txt2, translator2)
+#' purrr::map_df(txt2, translator2, target_lang = "ES", get_detect = T, auth_key = "x")
 #'
 #' }
 #'

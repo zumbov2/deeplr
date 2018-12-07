@@ -20,9 +20,11 @@ the language of the source.}
 \item \code{DE} German
 \item \code{FR} French
 \item \code{ES} Spanish
+\item \code{PT} Portuguese
 \item \code{IT} Italian
 \item \code{NL} Dutch
 \item \code{PL} Polish
+\item \code{RU} Russian
  }}
 
 \item{get_detect}{if \code{TRUE}, the language detected for the source text is also inclued in the response. It corresponds to
@@ -39,23 +41,22 @@ If \code{get_detect} is set to \code{FALSE} a \code{character vector} containing
 }
 }
 \description{
-\code{translate2} translates texts between English, German, French, Spanish, Italian, Dutch and Polish
-    using the undocumented JSON-RPC DeepL API. No authentication key is required to use this service.
+\code{translate2} translates texts between English, German, French, Spanish, Portuguese, Italian, Dutch,
+    Polish and Russian using the undocumented JSON-RPC DeepL API. No authentication key is required
+    to use this service.
 }
 \examples{
 \donttest{
 # Simple translation
 translate2("Hallo Welt!", target_lang = "EN")
 
-# Customized translator applied to multiple strings
+# translate2 applied to multiple strings
 txt1 <- c("Mein Name ist Albert.", "Ich bin Physiker.", "Ich wurde 1879 in Ulm geboren.")
-translator1 <- function(t) translate2(text = t, target_lang = "FR")
-purrr::map_chr(txt1, translator1)
+purrr::map_chr(txt1, translate2, target_lang = "FR")
 
-# Customized translator applied to multiple strings (with language detection response)
+# translate2 applied to multiple strings (with language detection response)
 txt2 <- c("My name is Fred.", "Je suis mÃ©decin.", "Ich komme aus der Schweiz.")
-translator2 <- function(t) translate2(text = t, target_lang = "ES", get_detect = T)
-purrr::map_df(txt2, translator2)
+purrr::map_df(txt2, translate2, target_lang = "ES", get_detect = T)
 
 }
 

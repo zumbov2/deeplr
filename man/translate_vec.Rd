@@ -23,9 +23,11 @@ the API will try to detect the languages of the source. If input is of length 1,
 \item \code{DE} German
 \item \code{FR} French
 \item \code{ES} Spanish
+\item \code{PT} Portuguese
 \item \code{IT} Italian
 \item \code{NL} Dutch
 \item \code{PL} Polish
+\item \code{RU} Russian
  }}
 
 \item{tag_handling}{if set to \code{"xml"}, the translation engine tries to find matches for XML enclosed words in
@@ -51,8 +53,9 @@ If \code{get_detect} is set to \code{FALSE} a \code{character vector} containing
 }
 }
 \description{
-\code{translate_vec} translates character vectors between English, German, French, Spanish, Italian, Dutch and Polish
-    using the official DeepL Translator API. To use this service, an authentication key is required.
+\code{translate_vec} translates character vectors between  English, German, French, Spanish, Portuguese,
+    Italian, Dutch, Polish and Russian using the official DeepL Translator API. To use this service,
+    an authentication key is required.
 }
 \details{
 To get an authentication key, you need to register for a DeepL Pro account (\url{https://www.deepl.com/pro.html}).
@@ -65,7 +68,7 @@ To get an authentication key, you need to register for a DeepL Pro account (\url
 dat <- c("A dog.", "Un chien.", "Un perro.", "Un cane.", "Een hond.")
 
 # Translate
-translate_vec(dat, target_lang = "DE", auth_key = auth_key)
+translate_vec(dat, target_lang = "DE", auth_key = "x")
 }
 
 }

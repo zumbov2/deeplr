@@ -1,7 +1,8 @@
 #' Translate a character vector of a data frame element by element using DeepL
 #'
-#' \code{translate_df} translates a character vector of a given data frame between English, German, French, Spanish, Italian,
-#'     Dutch and Polish using the official DeepL Translator API. To use this service, an authentication key is required.
+#' \code{translate_df} translates a character vector of a given data frame between  English, German, French,
+#'     Spanish, Portuguese, Italian, Dutch, Polish and Russian using the official DeepL Translator API. To use
+#'     this service, an authentication key is required.
 #'
 #' @importFrom utf8 utf8_valid as_utf8
 #' @importFrom utils URLencode
@@ -20,9 +21,11 @@
 #' \item \code{DE} German
 #' \item \code{FR} French
 #' \item \code{ES} Spanish
+#' \item \code{PT} Portuguese
 #' \item \code{IT} Italian
 #' \item \code{NL} Dutch
 #' \item \code{PL} Polish
+#' \item \code{RU} Russian
 #'  }
 #' @param tag_handling if set to \code{"xml"}, the translation engine tries to find matches for XML enclosed words in
 #'     the translated sentence and enclose them with the same tags. If no matching words are found, the tags are removed.
@@ -54,11 +57,11 @@
 #' # Data frame
 #' dat <- data.frame(
 #'   text = c("La seule facon de savoir ce qui se passe est de perturberle systeme.",
-#'            "The whole problem with the world is that fools are always so certain of themselves"
+#'            "The whole problem with the world is that fools are always so certain of themselves."
 #'            ), stringsAsFactors = F)
 #'
 #' # Translate
-#' translate_df(dat, text, target_lang = "DE")
+#' translate_df(dat, "text", target_lang = "DE", auth_key = "x")
 #' }
 #'
 translate_df <- function(data, column_name, source_lang = NULL, target_lang = "EN", tag_handling = NULL,

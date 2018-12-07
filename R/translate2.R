@@ -1,7 +1,8 @@
 #' Translate texts using DeepL
 #'
-#' \code{translate2} translates texts between English, German, French, Spanish, Italian, Dutch and Polish
-#'     using the undocumented JSON-RPC DeepL API. No authentication key is required to use this service.
+#' \code{translate2} translates texts between English, German, French, Spanish, Portuguese, Italian, Dutch,
+#'     Polish and Russian using the undocumented JSON-RPC DeepL API. No authentication key is required
+#'     to use this service.
 #'
 #' @importFrom utf8 utf8_valid as_utf8
 #' @importFrom httr POST content
@@ -20,9 +21,11 @@
 #' \item \code{DE} German
 #' \item \code{FR} French
 #' \item \code{ES} Spanish
+#' \item \code{PT} Portuguese
 #' \item \code{IT} Italian
 #' \item \code{NL} Dutch
 #' \item \code{PL} Polish
+#' \item \code{RU} Russian
 #'  }
 #' @param get_detect if \code{TRUE}, the language detected for the source text is also inclued in the response. It corresponds to
 #'     the value of the argument \code{source_lang} if it was specified. If \code{FALSE}, only the translated text is returned.
@@ -42,15 +45,13 @@
 #' # Simple translation
 #' translate2("Hallo Welt!", target_lang = "EN")
 #'
-#' # Customized translator applied to multiple strings
+#' # translate2 applied to multiple strings
 #' txt1 <- c("Mein Name ist Albert.", "Ich bin Physiker.", "Ich wurde 1879 in Ulm geboren.")
-#' translator1 <- function(t) translate2(text = t, target_lang = "FR")
-#' purrr::map_chr(txt1, translator1)
+#' purrr::map_chr(txt1, translate2, target_lang = "FR")
 #'
-#' # Customized translator applied to multiple strings (with language detection response)
+#' # translate2 applied to multiple strings (with language detection response)
 #' txt2 <- c("My name is Fred.", "Je suis médecin.", "Ich komme aus der Schweiz.")
-#' translator2 <- function(t) translate2(text = t, target_lang = "ES", get_detect = T)
-#' purrr::map_df(txt2, translator2)
+#' purrr::map_df(txt2, translate2, target_lang = "ES", get_detect = T)
 #'
 #' }
 #'
@@ -84,9 +85,11 @@ translate2 <- function(text, source_lang = NULL, target_lang = "EN", get_detect 
          )
 
   # DeepL API call --------------------------------------------------------------------------------
+  new_handle <- httr::handle("")
   response <- httr::POST(
     paste0("https://", subdomain, ".deepl.com/jsonrpc"),
-    body = rjson::toJSON(payload)
+    body = rjson::toJSON(payload),
+    handle = new_handle
   )
 
   # Check for HTTP error --------------------------------------------------------------------------

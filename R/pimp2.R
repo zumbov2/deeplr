@@ -18,9 +18,11 @@
 #' \item \code{DE} German
 #' \item \code{FR} French
 #' \item \code{ES} Spanish
+#' \item \code{PT} Portuguese
 #' \item \code{IT} Italian
 #' \item \code{NL} Dutch
 #' \item \code{PL} Polish
+#' \item \code{RU} Russian
 #'  }
 #' @param subdomain specifies the deepl subdomain to be used for the translation request. Currently: 'www2'
 #'

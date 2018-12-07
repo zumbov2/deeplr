@@ -1,7 +1,8 @@
 #' Translate character vectors element by element using DeepL
 #'
-#' \code{translate_vec} translates character vectors between English, German, French, Spanish, Italian, Dutch and Polish
-#'     using the official DeepL Translator API. To use this service, an authentication key is required.
+#' \code{translate_vec} translates character vectors between  English, German, French, Spanish, Portuguese,
+#'     Italian, Dutch, Polish and Russian using the official DeepL Translator API. To use this service,
+#'     an authentication key is required.
 #'
 #' @importFrom utf8 utf8_valid as_utf8
 #' @importFrom utils URLencode
@@ -19,9 +20,11 @@
 #' \item \code{DE} German
 #' \item \code{FR} French
 #' \item \code{ES} Spanish
+#' \item \code{PT} Portuguese
 #' \item \code{IT} Italian
 #' \item \code{NL} Dutch
 #' \item \code{PL} Polish
+#' \item \code{RU} Russian
 #'  }
 #' @param tag_handling if set to \code{"xml"}, the translation engine tries to find matches for XML enclosed words in
 #'     the translated sentence and enclose them with the same tags. If no matching words are found, the tags are removed.
@@ -54,7 +57,7 @@
 #' dat <- c("A dog.", "Un chien.", "Un perro.", "Un cane.", "Een hond.")
 #'
 #' # Translate
-#' translate_vec(dat, target_lang = "DE", auth_key = auth_key)
+#' translate_vec(dat, target_lang = "DE", auth_key = "x")
 #' }
 #'
 translate_vec <- function(text, source_lang = NULL, target_lang = "EN", tag_handling = NULL,

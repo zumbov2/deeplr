@@ -13,12 +13,13 @@ May contain multiple sentences.}
 \item{subdomain}{specifies the deepl subdomain to be used for the translation request. Currently: 'www2'}
 }
 \description{
-\code{detect2} detects the language of a text using the undocumented JSON-RPC DeepL API. English, German, French,
-    Spanish, Italian, Dutch and Polish are currently available. No authentication key is required to use this service.
+\code{detect2} detects the language of a text using the undocumented JSON-RPC DeepL API. English, German,
+    French, Spanish, Portuguese, Italian, Dutch, Polish and Russian are currently available. No authentication
+    key is required to use this service.
 }
 \examples{
 \donttest{
-detect2("My name is Hans.")
+detect2("My name is John.")
 
 }
 }

@@ -13,8 +13,9 @@ The request size should not exceed 30kbytes.}
 \item{auth_key}{DeepL authentication key which provides access to the API.}
 }
 \description{
-\code{detect} detects the language of a text using the official DeepL Translator API. English, German, French,
-    Spanish, Italian, Dutch and Polish are currently available. To use this service, an authentication key is required.
+\code{detect} detects the language of a text using the official DeepL Translator API. English, German,
+    French, Spanish, Portuguese, Italian, Dutch, Polish and Russian  are currently available. To use
+    this service, an authentication key is required.
 }
 \examples{
 \donttest{

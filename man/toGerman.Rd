@@ -17,9 +17,11 @@ The request size should not exceed 30kbytes.}
 \item \code{EN} English
 \item \code{FR} French
 \item \code{ES} Spanish
+\item \code{PT} Portuguese
 \item \code{IT} Italian
 \item \code{NL} Dutch
 \item \code{PL} Polish
+\item \code{RU} Russian
  }
 If parameter \code{is.null}, the API will try to detect the language of the source}
 
@@ -46,8 +48,9 @@ If \code{get_detect} is set to \code{FALSE} a \code{character vector} containing
 }
 }
 \description{
-\code{toGerman} translates a text from English, French, Spanish, Italian, Dutch or Polish into German
-    using the official DeepL Translator API. To use this service, an authentication key is required.
+\code{toGerman} translates a text from English, French, Spanish, Portuguese, Italian, Dutch, Polish or
+    Russian into German using the official DeepL Translator API. To use this service, an authentication
+    key is required.
 }
 \details{
 To get an authentication key, you need to register for a DeepL Pro account (\url{https://www.deepl.com/pro.html}).
@@ -59,15 +62,13 @@ To get an authentication key, you need to register for a DeepL Pro account (\url
 # Simple translation
 toGerman("Hallo Welt!", auth_key = "my_key")
 
-# Customized translator applied to multiple strings
+# toGerman applied to multiple strings
 txt1 <- c("My name is Albert.", "I'm a physicist.", "I was born in 1879 in Ulm.")
-translator1 <- function(t) toGerman(text = t, auth_key = "x")
-purrr::map_chr(txt1, translator1)
+purrr::map_chr(txt1, toGerman, auth_key = "x")
 
-# Customized translator applied to multiple strings (with language detection response)
+# toGerman applied to multiple strings (with language detection response)
 txt2 <- c("Me llamo Fred.", "Je suis mÃ©decin.", "I'm from Wales")
-translator2 <- function(t) toGerman(text = t, get_detect = T, auth_key = "x")
-purrr::map_df(txt2, translator2)
+purrr::map_df(txt2, toGerman, get_detect = T, auth_key = "x")
 
 }
 
