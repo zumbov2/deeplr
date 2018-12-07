@@ -40,7 +40,8 @@ detect2 <- function(text, subdomain = "www2") {
   # DeepL API call via JSON-RPC -------------------------------------------------------------------
   response <- httr::POST(
     paste0("https://", subdomain, ".deepl.com/jsonrpc"),
-    body = rjson::toJSON(payload)
+    body = rjson::toJSON(payload),
+    handle = httr::handle("")
   )
 
   # Check for HTTP error --------------------------------------------------------------------------

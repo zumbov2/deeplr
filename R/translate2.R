@@ -85,11 +85,10 @@ translate2 <- function(text, source_lang = NULL, target_lang = "EN", get_detect 
          )
 
   # DeepL API call --------------------------------------------------------------------------------
-  new_handle <- httr::handle("")
   response <- httr::POST(
     paste0("https://", subdomain, ".deepl.com/jsonrpc"),
     body = rjson::toJSON(payload),
-    handle = new_handle
+    handle = httr::handle("")
   )
 
   # Check for HTTP error --------------------------------------------------------------------------
