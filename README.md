@@ -10,9 +10,11 @@ This R package is an interface to the official [DeepL Translator API](https://ww
 * German (`DE`)
 * French (`FR`)
 * Spanish (`ES`)
+* Portuguese (`PT`)
 * Italian (`IT`)
 * Dutch (`NL`) 
-* Polish (`PL`). 
+* Polish (`PL`) 
+* Russian (`RU`). 
 
 Access to the official API is subject to a monthly fee (see [DeepL Pro Pricing](https://www.deepl.com/pro-pricing.html)). The undocumented API can currently be used free of charge.
 
@@ -21,7 +23,7 @@ Version 1.0.0 is on CRAN, and you can install it by:
 ```r
 install.packages("deeplr")
 ```
-For regularly updated version (latest: 1.1.0), install from GitHub:
+For regularly updated version (latest: 1.1.1), install from GitHub:
 ```r
 install.packages("devtools")
 devtools::install_github("zumbov2/deeplr")
@@ -72,11 +74,9 @@ Let's give it some help. We create a vector with the correct source languages.
 ```r
 source_lang <- c("DE", "FR", "ES", "IT", "NL", "PL")
 ```
-We specify a translator function and use another `purrr` function (`map2_chr`) to map over the two inputs simultaneously.
+We use another `purrr` function (`map2_chr`) to map over the two inputs simultaneously.
 ```r
-translator <- function(text, source_lang) deeplr::toEnglish2(text = text, source_lang = source_lang)
-
-purrr::map2_chr(hello, source_lang, translator)
+purrr::map2_chr(hello, source_lang, toEnglish2)
 [1] "Hello world!"  "Hello, world!"  "Hello World!"  "Hello World!"  "Hello world!"  "Hello the world!
 ```
 Better!
