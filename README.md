@@ -3,7 +3,6 @@
 [![Build Status](https://travis-ci.org/zumbov2/deeplr.svg?branch=master)](https://travis-ci.org/zumbov2/deeplr)
 [![Licence](https://img.shields.io/badge/licence-GPL--3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html)
 [![cranlogs](https://cranlogs.r-pkg.org/badges/grand-total/deeplr)](http://cran.rstudio.com/web/packages/deeplr/index.html)
-[![Rdoc](http://www.rdocumentation.org/badges/version/deeplr)](http://www.rdocumentation.org/packages/deeplr)
 
 # deeplr
 This R package is an interface to the official [DeepL Translator API](https://www.deepl.com/api.html) and ~~the undocumented DeepL JSON-RPC API used on the [DeepL website](https://www.deepl.com/translator) to translate short texts of up to 5000 characters~~. The following languages are currently available: 
