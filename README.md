@@ -16,7 +16,7 @@ devtools::install_github("zumbov2/deeplr")
 # Functions
 The package provides functions for both subscriptions plans. Functions that call the free API end with a `2`.
 
-## `available_languages`
+## `available_languages`/`available_languages2`
 
 ``` r
 al <- deeplr::available_languages2(my_key)
