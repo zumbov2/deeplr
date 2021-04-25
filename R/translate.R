@@ -1,110 +1,130 @@
-#' Translate texts using the official DeepL Translator API
+#' Translate texts with DeepL API Pro
 #'
-#' \code{translate} translates texts between English, German, French, Spanish, Portuguese, Italian, Dutch,
-#'     Polish and Russian using the official DeepL Translator API. To use this service, an authentication
-#'     key is required.
+#' \code{translate} translates texts between different languages using DeepL API Pro.
+#'     Use \code{available_languages} to list all supported languages. An authentication key
+#'     is required to use this service. The service costs depending
+#'     on the number of translated characters.
 #'
-#' @importFrom utf8 utf8_valid as_utf8
-#' @importFrom utils URLencode
-#' @importFrom httr POST add_headers status_code content
-#' @importFrom tibble tibble
+#' @importFrom purrr map2_chr map2_dfr pmap_chr pmap_dfr
 #'
-#' @param text text to be translated. Only UTF8-encoded plain text is supported. May contain multiple sentences.
-#'     The request size should not exceed 30kbytes.
-#' @param source_lang language of the text to be translated (see below). If parameter \code{is.null}, the API will try to detect
-#'     the language of the source.
-#' @param target_lang language into which to translate. Can be one of the following:
-#' \itemize{
-#' \item \code{EN} English
-#' \item \code{DE} German
-#' \item \code{FR} French
-#' \item \code{ES} Spanish
-#' \item \code{PT} Portuguese
-#' \item \code{IT} Italian
-#' \item \code{NL} Dutch
-#' \item \code{PL} Polish
-#' \item \code{RU} Russian
-#'  }
-#' @param tag_handling if set to \code{"xml"}, the translation engine tries to find matches for XML enclosed words in
-#'     the translated sentence and enclose them with the same tags. If no matching words are found, the tags are removed.
-#' @param split_sentences if \code{TRUE}, the translation engine splits the input into sentences. If only one sentence
-#'     is translated, it is recommended to set to \code{FALSE} to prevent the engine from unintentionally splitting the sentence.
-#' @param preserve_formatting if \code{TRUE}, the translation engine tries to preserve some aspects (e.g. punctuation at the beginning
-#'     and end of the sentence, upper/lower case at the beginning of the sentence) of the formatting.
-#' @param get_detect if \code{TRUE}, the language detected for the source text is also included in the response. It corresponds to
-#'     the value of the argument \code{source_lang} if it was specified. If \code{FALSE}, only the translated text is returned.
-#' @param auth_key DeepLauthentication key which provides access to the API.
+#' @param text character vector to be translated. Only UTF8-encoded plain text is supported.
+#'     An element can contain several sentences, but should not exceed 30kbytes.
+#' @param target_lang target language of the translation. If input is of length 1, all elements
+#'     are translated into the same language.
+#' @param source_lang language of the text to be translated. If parameter \code{is.null}, the
+#'     API guesses the language of the source. If input is of length 1, the same source
+#'     language is applied to all elements.
+#' @param split_sentences if \code{TRUE}, the translation engine splits the input into sentences.
+#'     If only one sentence is translated, it is recommended to set to \code{FALSE} to prevent
+#'     the engine from unintentionally splitting the sentence.
+#' @param preserve_formatting if \code{TRUE}, the translation engine tries to preserve some aspects
+#'     (e.g. punctuation at the beginning and end of the sentence, upper/lower case at the beginning
+#'     of the sentence) of the formatting.
+#' @param get_detect if \code{TRUE}, the language detected for the source text is included in
+#'     the response.
+#' @param auth_key Authentication key.
 #'
-#' @details To get an authentication key, you need to register for a DeepL Pro account (\url{https://www.deepl.com/pro.html}).
-#'     This currently costs 20 euros per month and allows the translation of 1,000,000 characters per month (see
-#'     \url{https://www.deepl.com/pro-pricing.html}).
+#' @details To get an authentication key, you need to register for a DeepL API Pro
+#'     account (\url{https://www.deepl.com/pro#developer}).
 #'
-#' @return If \code{get_detect} is set to \code{FALSE} a \code{character vector} containing the translation is returned. Otherwise,
-#'    a \code{data.frame} (\code{tibble::tibble}) is returned with the following columns:
+#' @return If \code{get_detect} is set to \code{FALSE} a \code{character vector} containing the
+#'    translation is returned. Otherwise, a (\code{tibble}) is returned with the following columns:
 #' \itemize{
 #' \item \code{translation} the translated text.
 #' \item \code{source_lang} detected or specified language of the input text.
 #' }
 #'
-#' @references \href{https://www.deepl.com/api.html}{DeepL API documentations}
+#' @references \href{https://www.deepl.com/pro#developer}{DeepL API documentations}
 #'
 #' @export
 #'
 #' @examples
-#' \donttest{
-#' # Simple translation
-#' translate("Hallo Welt!", target_lang = "EN", auth_key = "my_key")
+#' \dontrun{
+#' # Translate a single text
+#' translate("I like to translate texts.", target_lang = "DE", auth_key = "x")
 #'
-#' # translate applied to multiple strings
-#' txt1 <- c("Mein Name ist Albert.", "Ich bin Physiker.", "Ich wurde 1879 in Ulm geboren.")
-#' purrr::map_chr(txt1, translator1, target_lang = "FR", auth_key = "x")
+#' # Translate multiple texts into one target language
+#' texts <- c("I like to translate texts.", "Ich übersetze gerne Texte.")
+#' translate(texts, target_lang = "FR", auth_key = "x")
 #'
-#' # translate applied to multiple strings (with language detection response)
-#' txt2 <- c("My name is Fred.", "Je suis médecin.", "Ich komme aus der Schweiz.")
-#' purrr::map_df(txt2, translator2, target_lang = "ES", get_detect = T, auth_key = "x")
+#' # Translate a single text into multiple target languages
+#' translate("I like to translate texts.", target_lang = c("FR", "DE", "IT"), auth_key = "x")
+#'
+#' # Translate multiple texts into different languages
+#' texts <- c("I like to translate texts.", "Ich übersetze gerne Texte.")
+#' translate(texts, target_lang = c("FR", "IT"), auth_key = "x")
 #'
 #' }
 #'
-translate <- function(text, source_lang = NULL, target_lang = "EN", tag_handling = NULL,
-                      split_sentences = TRUE, preserve_formatting = FALSE, get_detect = FALSE,
-                      auth_key = "your_key") {
+translate <- function(text, target_lang = "EN", source_lang = NULL, split_sentences = TRUE,
+                      preserve_formatting = FALSE, get_detect = FALSE, auth_key = "your_key") {
 
-  # Text prep -------------------------------------------------------------------------------------
-  text <- text_check(text)
+  # Inputs variables
+  if (length(source_lang) == 1) source_lang <- rep(source_lang, length(text))
+  if (length(target_lang) == 1) target_lang <- rep(target_lang, length(text))
+  if (length(target_lang) > 1 & length(text) == 1) text <- rep(text, length(target_lang))
 
-  # Generate body for POST request ----------------------------------------------------------------
-  body <- paste0(
-    "auth_key=", auth_key,
-    "&text=", utils::URLencode(text),
-    "&target_lang=", target_lang,
-    if (!is.null(split_sentences)) "&split_sentences=", as.numeric(split_sentences),
-    if (!is.null(preserve_formatting)) "&preserve_formatting=", as.numeric(preserve_formatting),
-    if (!is.null(source_lang)) "&source_lang=", source_lang,
-    if (!is.null(tag_handling)) "&tag_handling=", tag_handling
-  )
+  # Without source_lang
+  if (is.null(source_lang)) {
 
-  # DeepL API call --------------------------------------------------------------------------------
-  response <- httr::POST(
-    "https://api.deepl.com/v1/translate",
-    body = body,
-    httr::add_headers(
-      "Content-Type" = "application/x-www-form-urlencoded",
-      "Content-Length" = nchar(body)
-    )
-  )
+    if (!get_detect) {
 
-  # Check for HTTP error --------------------------------------------------------------------------
-  response_check(response)
+      translation_vec <- purrr::map2_chr(
+        text,
+        target_lang,
+        translate_wh,
+        split_sentences = split_sentences,
+        preserve_formatting = preserve_formatting,
+        get_detect = get_detect,
+        auth_key = auth_key
+      )
 
-  # Extract content -------------------------------------------------------------------------------
-  if (get_detect) {
-    translation <- tibble::tibble(
-      translation = unlist(httr::content(response))[2],
-      source_lang = unlist(httr::content(response))[1]
-    )
-  } else {
-    translation <- unname(unlist(httr::content(response))[2])
+    } else {
+
+      translation_vec <- purrr::map2_dfr(
+        text,
+        target_lang,
+        translate_wh,
+        split_sentences = split_sentences,
+        preserve_formatting = preserve_formatting,
+        get_detect = get_detect,
+        auth_key = auth_key
+      )
+
+    }
+
   }
 
-  return(translation)
+  # With source_lang
+  if (!is.null(source_lang)) {
+
+    if (!get_detect) {
+
+      translation_vec <- purrr::pmap_chr(
+        list(text = text, target_lang = target_lang, source_lang = source_lang),
+        translate_wh,
+        split_sentences = split_sentences,
+        preserve_formatting = preserve_formatting,
+        get_detect = get_detect,
+        auth_key = auth_key
+      )
+
+    } else {
+
+      translation_vec <- purrr::pmap_chr(
+        list(text = text, target_lang = target_lang, source_lang = source_lang),
+        translate_wh,
+        split_sentences = split_sentences,
+        preserve_formatting = preserve_formatting,
+        get_detect = get_detect,
+        auth_key = auth_key
+      )
+
+    }
+
+  }
+
+  # Return
+  return(translation_vec)
+
 }

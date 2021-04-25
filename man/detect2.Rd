@@ -2,24 +2,32 @@
 % Please edit documentation in R/detect2.R
 \name{detect2}
 \alias{detect2}
-\title{Detect the language of a text using DeepL}
+\title{Language detection using DeepL API Free}
 \usage{
-detect2(text, subdomain = "www2")
+detect2(text, auth_key = "your_key")
 }
 \arguments{
-\item{text}{text to be translated. Must not exceed 5000 characters. Only UTF8-encoded plain text is supported.
-May contain multiple sentences.}
+\item{text}{character vector with texts to classify. Only UTF8-encoded plain text is supported.
+An element can contain several sentences, but should not exceed 30kbytes.}
 
-\item{subdomain}{specifies the deepl subdomain to be used for the translation request. Currently: 'www2'}
+\item{auth_key}{Authentication key.}
 }
 \description{
-\code{detect2} detects the language of a text using the undocumented JSON-RPC DeepL API. English, German,
-    French, Spanish, Portuguese, Italian, Dutch, Polish and Russian are currently available. No authentication
-    key is required to use this service.
+\code{detect2} guesses the language of a text using DeepL API Free.
+    Use \code{available_languages} to list all supported languages. An authentication key
+    is required to use this service. With the DeepL API Free package, developers can translate
+    up to 500,000 characters per month for free.
+}
+\details{
+To get an authentication key, you need to register for a DeepL API Free
+    account (\url{https://www.deepl.com/pro#developer}).
 }
 \examples{
-\donttest{
-detect2("My name is John.")
+\dontrun{
+detect2("My name is Hans.", auth_key = "my_key")
+}
 
 }
+\references{
+\href{https://www.deepl.com/pro#developer}{DeepL API documentations}
 }

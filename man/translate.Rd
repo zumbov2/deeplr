@@ -2,81 +2,79 @@
 % Please edit documentation in R/translate.R
 \name{translate}
 \alias{translate}
-\title{Translate texts using the official DeepL Translator API}
+\title{Translate texts with DeepL API Pro}
 \usage{
-translate(text, source_lang = NULL, target_lang = "EN",
-  tag_handling = NULL, split_sentences = TRUE,
-  preserve_formatting = FALSE, get_detect = FALSE,
-  auth_key = "your_key")
+translate(
+  text,
+  target_lang = "EN",
+  source_lang = NULL,
+  split_sentences = TRUE,
+  preserve_formatting = FALSE,
+  get_detect = FALSE,
+  auth_key = "your_key"
+)
 }
 \arguments{
-\item{text}{text to be translated. Only UTF8-encoded plain text is supported. May contain multiple sentences.
-The request size should not exceed 30kbytes.}
+\item{text}{character vector to be translated. Only UTF8-encoded plain text is supported.
+An element can contain several sentences, but should not exceed 30kbytes.}
 
-\item{source_lang}{language of the text to be translated (see below). If parameter \code{is.null}, the API will try to detect
-the language of the source.}
+\item{target_lang}{target language of the translation. If input is of length 1, all elements
+are translated into the same language.}
 
-\item{target_lang}{language into which to translate. Can be one of the following:
-\itemize{
-\item \code{EN} English
-\item \code{DE} German
-\item \code{FR} French
-\item \code{ES} Spanish
-\item \code{PT} Portuguese
-\item \code{IT} Italian
-\item \code{NL} Dutch
-\item \code{PL} Polish
-\item \code{RU} Russian
- }}
+\item{source_lang}{language of the text to be translated. If parameter \code{is.null}, the
+API guesses the language of the source. If input is of length 1, the same source
+language is applied to all elements.}
 
-\item{tag_handling}{if set to \code{"xml"}, the translation engine tries to find matches for XML enclosed words in
-the translated sentence and enclose them with the same tags. If no matching words are found, the tags are removed.}
+\item{split_sentences}{if \code{TRUE}, the translation engine splits the input into sentences.
+If only one sentence is translated, it is recommended to set to \code{FALSE} to prevent
+the engine from unintentionally splitting the sentence.}
 
-\item{split_sentences}{if \code{TRUE}, the translation engine splits the input into sentences. If only one sentence
-is translated, it is recommended to set to \code{FALSE} to prevent the engine from unintentionally splitting the sentence.}
+\item{preserve_formatting}{if \code{TRUE}, the translation engine tries to preserve some aspects
+(e.g. punctuation at the beginning and end of the sentence, upper/lower case at the beginning
+of the sentence) of the formatting.}
 
-\item{preserve_formatting}{if \code{TRUE}, the translation engine tries to preserve some aspects (e.g. punctuation at the beginning
-and end of the sentence, upper/lower case at the beginning of the sentence) of the formatting.}
+\item{get_detect}{if \code{TRUE}, the language detected for the source text is included in
+the response.}
 
-\item{get_detect}{if \code{TRUE}, the language detected for the source text is also included in the response. It corresponds to
-the value of the argument \code{source_lang} if it was specified. If \code{FALSE}, only the translated text is returned.}
-
-\item{auth_key}{DeepLauthentication key which provides access to the API.}
+\item{auth_key}{Authentication key.}
 }
 \value{
-If \code{get_detect} is set to \code{FALSE} a \code{character vector} containing the translation is returned. Otherwise,
-   a \code{data.frame} (\code{tibble::tibble}) is returned with the following columns:
+If \code{get_detect} is set to \code{FALSE} a \code{character vector} containing the
+   translation is returned. Otherwise, a (\code{tibble}) is returned with the following columns:
 \itemize{
 \item \code{translation} the translated text.
 \item \code{source_lang} detected or specified language of the input text.
 }
 }
 \description{
-\code{translate} translates texts between English, German, French, Spanish, Portuguese, Italian, Dutch,
-    Polish and Russian using the official DeepL Translator API. To use this service, an authentication
-    key is required.
+\code{translate} translates texts between different languages using DeepL API Pro.
+    Use \code{available_languages} to list all supported languages. An authentication key
+    is required to use this service. The service costs depending
+    on the number of translated characters.
 }
 \details{
-To get an authentication key, you need to register for a DeepL Pro account (\url{https://www.deepl.com/pro.html}).
-    This currently costs 20 euros per month and allows the translation of 1,000,000 characters per month (see
-    \url{https://www.deepl.com/pro-pricing.html}).
+To get an authentication key, you need to register for a DeepL API Pro
+    account (\url{https://www.deepl.com/pro#developer}).
 }
 \examples{
-\donttest{
-# Simple translation
-translate("Hallo Welt!", target_lang = "EN", auth_key = "my_key")
+\dontrun{
+# Translate a single text
+translate("I like to translate texts.", target_lang = "DE", auth_key = "x")
 
-# translate applied to multiple strings
-txt1 <- c("Mein Name ist Albert.", "Ich bin Physiker.", "Ich wurde 1879 in Ulm geboren.")
-purrr::map_chr(txt1, translator1, target_lang = "FR", auth_key = "x")
+# Translate multiple texts into one target language
+texts <- c("I like to translate texts.", "Ich Ã¼bersetze gerne Texte.")
+translate(texts, target_lang = "FR", auth_key = "x")
 
-# translate applied to multiple strings (with language detection response)
-txt2 <- c("My name is Fred.", "Je suis mÃ©decin.", "Ich komme aus der Schweiz.")
-purrr::map_df(txt2, translator2, target_lang = "ES", get_detect = T, auth_key = "x")
+# Translate a single text into multiple target languages
+translate("I like to translate texts.", target_lang = c("FR", "DE", "IT"), auth_key = "x")
+
+# Translate multiple texts into different languages
+texts <- c("I like to translate texts.", "Ich Ã¼bersetze gerne Texte.")
+translate(texts, target_lang = c("FR", "IT"), auth_key = "x")
 
 }
 
 }
 \references{
-\href{https://www.deepl.com/api.html}{DeepL API documentations}
+\href{https://www.deepl.com/pro#developer}{DeepL API documentations}
 }

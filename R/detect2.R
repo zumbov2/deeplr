@@ -1,55 +1,32 @@
-#' Detect the language of a text using DeepL
+#' Language detection using DeepL API Free
 #'
-#' \code{detect2} detects the language of a text using the undocumented JSON-RPC DeepL API. English, German,
-#'     French, Spanish, Portuguese, Italian, Dutch, Polish and Russian are currently available. No authentication
-#'     key is required to use this service.
+#' \code{detect2} guesses the language of a text using DeepL API Free.
+#'     Use \code{available_languages} to list all supported languages. An authentication key
+#'     is required to use this service. With the DeepL API Free package, developers can translate
+#'     up to 500,000 characters per month for free.
 #'
-#' @importFrom utf8 utf8_valid as_utf8
-#' @importFrom httr POST content
-#' @importFrom rjson toJSON fromJSON
+#' @param text character vector with texts to classify. Only UTF8-encoded plain text is supported.
+#'     An element can contain several sentences, but should not exceed 30kbytes.
+#' @param auth_key Authentication key.
 #'
-#' @param text text to be translated. Must not exceed 5000 characters. Only UTF8-encoded plain text is supported.
-#'     May contain multiple sentences.
-#' @param subdomain specifies the deepl subdomain to be used for the translation request. Currently: 'www2'
+#' @details To get an authentication key, you need to register for a DeepL API Free
+#'     account (\url{https://www.deepl.com/pro#developer}).
+#'
+#' @references \href{https://www.deepl.com/pro#developer}{DeepL API documentations}
 #'
 #' @export
 #'
 #' @examples
-#' \donttest{
-#' detect2("My name is John.")
-#'
+#' \dontrun{
+#' detect2("My name is Hans.", auth_key = "my_key")
 #' }
-detect2 <- function(text, subdomain = "www2") {
+#'
+detect2 <- function(text, auth_key = "your_key") {
 
-  # Text prep -------------------------------------------------------------------------------------
-  text <- text_check2(text)
+  res <- translate2(text = text, target_lang = "PL", source_lang = NULL, split_sentences = TRUE,
+                   preserve_formatting = FALSE, get_detect = TRUE, auth_key = auth_key)
 
-  # Generate payload for free API request ---------------------------------------------------------
-  payload <-
-    list("jsonrpc" = "2.0",
-         "method" = "LMT_split_into_sentences",
-         params = list(
-           "texts" = list(text),
-           "lang" = list(
-             "lang_user_selected" = "auto",
-             "user_preferred_langs" = list("FR", "DE", "EN")
-           )
-         )
-    )
-
-  # DeepL API call via JSON-RPC -------------------------------------------------------------------
-  response <- httr::POST(
-    paste0("https://", subdomain, ".deepl.com/jsonrpc"),
-    body = rjson::toJSON(payload),
-    handle = httr::handle("")
-  )
-
-  # Check for HTTP error --------------------------------------------------------------------------
-  response_check(response)
-
-  # Extract language detected ---------------------------------------------------------------------
-  cnt <- rjson::fromJSON(httr::content(response, "text"))
-  source_lang <- cnt$result$lang
+  source_lang <- res[["source_lang"]]
 
   return(source_lang)
 

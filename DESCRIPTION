@@ -1,25 +1,24 @@
 Package: deeplr
 Type: Package
 Title: Interface to the 'DeepL' Translation API
-Version: 1.1.1
+Version: 2.0.0
 Authors@R: c(
     person("David", "Zumbach", role = c("aut", "cre"), email = "david.zumbach@gfzb.ch"), 
     person("Paul C.", "Bauer", role = c("aut"), email = "mail@paulcbauer.eu")
     )
-Description: A wrapper for the 'DeepL' API, a web service for translating texts between different languages. 
-    Access to the official API (see <https://www.deepl.com/translator>) is subject to a monthly fee.
-    No authentication key is required for the undocumented DeepL JSON-RPC API. The package provides functions
-    for both types of API calls.
+Description: A wrapper for the 'DeepL' API <https://www.deepl.com/docs-api>, a web service
+    for translating texts between different languages. A DeepL API account is required to use
+    the service (see <https://www.deepl.com/pro#developer).
 License: GPL (>= 2)
 Encoding: UTF-8
 LazyData: true
-URL: <https://www.deepl.com/translator
+URL: https://www.deepl.com/translator
 BugReports: https://github.com/zumbov2/deeplr/issues
-RoxygenNote: 6.1.0
-Imports: utf8, httr, tibble, rjson, purrr, tokenizers, stringr
+Imports: utf8, httr, tibble, purrr, tokenizers
 Suggests: dplyr
+RoxygenNote: 7.1.1
 NeedsCompilation: no
-Packaged: 2018-12-07 21:32:46 UTC; david
+Packaged: 2021-04-25 16:28:48 UTC; david
 Author: David Zumbach [aut, cre],
   Paul C. Bauer [aut]
 Maintainer: David Zumbach <david.zumbach@gfzb.ch>

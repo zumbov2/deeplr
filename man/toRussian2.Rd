@@ -2,56 +2,69 @@
 % Please edit documentation in R/to_lang2.R
 \name{toRussian2}
 \alias{toRussian2}
-\title{Translate texts into Russian using DeepL}
+\title{Translate texts into Russian using DeepL API Free}
 \usage{
-toRussian2(text, source_lang = NULL, get_detect = FALSE,
-  subdomain = "www2")
+toRussian2(
+  text,
+  source_lang = NULL,
+  split_sentences = TRUE,
+  preserve_formatting = FALSE,
+  get_detect = FALSE,
+  auth_key = "your_key"
+)
 }
 \arguments{
-\item{text}{text to be translated. Must not exceed 5000 characters. Only UTF8-encoded plain text is supported.
-May contain multiple sentences.}
+\item{text}{character vector to be translated. Only UTF8-encoded plain text is supported.
+An element can contain several sentences, but should not exceed 30kbytes.}
 
-\item{source_lang}{language of the text to be translated. Can be one of the following:
-\itemize{
-\item \code{EN} English
-\item \code{DE} German
-\item \code{FR} French
-\item \code{ES} Spanish
-\item \code{PT} Portuguese
-\item \code{IT} Italian
-\item \code{NL} Dutch
-\item \code{PL} Polish
- }
-    If parameter \code{is.null}, the API will try to detect the language of the text.}
+\item{source_lang}{language of the text to be translated. If parameter \code{is.null},
+the API guesses the language of the source. If input is of length 1, the same source
+language is applied to all elements.}
 
-\item{get_detect}{if \code{TRUE}, the language detected for the source text is also inclued in the response. It corresponds to
-the value of the argument \code{source_lang} if it was specified. If \code{FALSE}, only the translated text is returned.}
+\item{split_sentences}{if \code{TRUE}, the translation engine splits the input into sentences.
+If only one sentence is translated, it is recommended to set to \code{FALSE} to prevent
+the engine from unintentionally splitting the sentence.}
 
-\item{subdomain}{specifies the deepl subdomain to be used for the translation request. Currently: 'www2'}
+\item{preserve_formatting}{if \code{TRUE}, the translation engine tries to preserve some aspects
+(e.g. punctuation at the beginning and end of the sentence, upper/lower case at the beginning
+of the sentence) of the formatting.}
+
+\item{get_detect}{if \code{TRUE}, the language detected for the source text is included in
+the response.}
+
+\item{auth_key}{Authentication key.}
 }
 \value{
-If \code{get_detect} is set to \code{FALSE} a \code{character vector} containing the translation
-    is returned. Otherwise, a \code{data.frame} (\code{tibble::tibble}) is returned with the following columns:
+If \code{get_detect} is set to \code{FALSE} a \code{character vector} containing the
+   translation is returned. Otherwise, a (\code{tibble}) is returned with the following columns:
 \itemize{
-\item \code{translation} the translated text(s).
+\item \code{translation} the translated text.
 \item \code{source_lang} detected or specified language of the input text.
 }
 }
 \description{
-\code{toRussian2} translates a text from English, German, French, Spanish, Portuguese, Italian, Dutch or
-    Polish into Russian using the undocumented JSON-RPC DeepL API. No authentication key is required
-    to use this service.
+\code{toRussian2} translates a text from an available language into Russian
+    using DeepL API Free. Use \code{available_languages2} to list all supported languages.
+    An authentication key is required to use this service. With the DeepL API Free package,
+    developers can translate up to 500,000 characters per month for free.
+}
+\details{
+To get an authentication key, you need to register for a DeepL API Free
+    account (\url{https://www.deepl.com/pro#developer}).
 }
 \examples{
-\donttest{
-# Simple translation
-toRussian2("Hallo Welt!")
+\dontrun{
+# Translate a single text
+toRussian2("Hallo Welt!", auth_key = "my_key")
 
-# toRussian2 applied to multiple strings
-txt1 <- c("Mein Name ist Albert.", "Ich bin Physiker.", "Ich wurde 1879 in Ulm geboren.")
-purrr::map_chr(txt1, toRussian2)
+# Translate multiple texts and return the detected language
+texts <- c("My name is Fred.", "Je suis mÃ©decin.", "Ich komme aus der Schweiz.")
+toRussian2(texts, get_detect = T, auth_key = "x")
 
 }
 
 
+}
+\references{
+\href{https://www.deepl.com/pro#developer}{DeepL API documentations}
 }

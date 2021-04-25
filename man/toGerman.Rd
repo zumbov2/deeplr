@@ -2,78 +2,69 @@
 % Please edit documentation in R/to_lang.R
 \name{toGerman}
 \alias{toGerman}
-\title{Translate texts into German using the official DeepL Translator API}
+\title{Translate texts into German using DeepL API Pro}
 \usage{
-toGerman(text, source_lang = NULL, tag_handling = NULL,
-  split_sentences = TRUE, preserve_formatting = FALSE,
-  get_detect = FALSE, auth_key = "your_key")
+toGerman(
+  text,
+  source_lang = NULL,
+  split_sentences = TRUE,
+  preserve_formatting = FALSE,
+  get_detect = FALSE,
+  auth_key = "your_key"
+)
 }
 \arguments{
-\item{text}{text to be translated. Only UTF8-encoded plain text is supported. May contain multiple sentences.
-The request size should not exceed 30kbytes.}
+\item{text}{character vector to be translated. Only UTF8-encoded plain text is supported.
+An element can contain several sentences, but should not exceed 30kbytes.}
 
-\item{source_lang}{language of the text to be translated. Can be one of the following:
-\itemize{
-\item \code{EN} English
-\item \code{FR} French
-\item \code{ES} Spanish
-\item \code{PT} Portuguese
-\item \code{IT} Italian
-\item \code{NL} Dutch
-\item \code{PL} Polish
-\item \code{RU} Russian
- }
-If parameter \code{is.null}, the API will try to detect the language of the source}
+\item{source_lang}{language of the text to be translated. If parameter \code{is.null},
+the API guesses the language of the source. If input is of length 1, the same source
+language is applied to all elements.}
 
-\item{tag_handling}{if set to \code{"xml"}, the translation engine tries to find matches for XML enclosed words in
-the translated sentence and enclose them with the same tags. If no matching words are found, the tags are removed.}
+\item{split_sentences}{if \code{TRUE}, the translation engine splits the input into sentences.
+If only one sentence is translated, it is recommended to set to \code{FALSE} to prevent
+the engine from unintentionally splitting the sentence.}
 
-\item{split_sentences}{if \code{TRUE}, the translation engine splits the input into sentences. If only one sentence
-is translated, it is recommended to set to \code{FALSE} to prevent the engine from unintentionally splitting the sentence.}
+\item{preserve_formatting}{if \code{TRUE}, the translation engine tries to preserve some aspects
+(e.g. punctuation at the beginning and end of the sentence, upper/lower case at the beginning
+of the sentence) of the formatting.}
 
-\item{preserve_formatting}{if \code{TRUE}, the translation engine tries to preserve some aspects (e.g. punctuation at the beginning
-and end of the sentence, upper/lower case at the beginning of the sentence) of the formatting.}
+\item{get_detect}{if \code{TRUE}, the language detected for the source text is included in
+the response.}
 
-\item{get_detect}{if \code{TRUE}, the language detected for the source text is also inclued in the response. It corresponds to
-the value of the argument \code{source_lang} if it was specified. If \code{FALSE}, only the translated text is returned.}
-
-\item{auth_key}{DeepL authentication key which provides access to the API.}
+\item{auth_key}{Authentication key.}
 }
 \value{
-If \code{get_detect} is set to \code{FALSE} a \code{character vector} containing the translation is returned. Otherwise,
-   a \code{data.frame} (\code{tibble::tibble}) is returned with the following columns:
+If \code{get_detect} is set to \code{FALSE} a \code{character vector} containing the
+   translation is returned. Otherwise, a (\code{tibble}) is returned with the following columns:
 \itemize{
 \item \code{translation} the translated text.
 \item \code{source_lang} detected or specified language of the input text.
 }
 }
 \description{
-\code{toGerman} translates a text from English, French, Spanish, Portuguese, Italian, Dutch, Polish or
-    Russian into German using the official DeepL Translator API. To use this service, an authentication
-    key is required.
+\code{toGerman} translates a text from an available language into German
+    using DeepL API Pro. Use \code{available_languages} to list all supported languages.
+    An authentication key is required to use this service.
+    The service costs depending on the number of translated characters.
 }
 \details{
-To get an authentication key, you need to register for a DeepL Pro account (\url{https://www.deepl.com/pro.html}).
-    This currently costs 20 euros per month and allows the translation of 1,000,000 characters per month (see
-    \url{https://www.deepl.com/pro-pricing.html}).
+To get an authentication key, you need to register for a DeepL API Pro
+    account (\url{https://www.deepl.com/pro#developer}).
 }
 \examples{
-\donttest{
-# Simple translation
-toGerman("Hallo Welt!", auth_key = "my_key")
+\dontrun{
+# Translate a single text
+toGerman("Hello world!", auth_key = "my_key")
 
-# toGerman applied to multiple strings
-txt1 <- c("My name is Albert.", "I'm a physicist.", "I was born in 1879 in Ulm.")
-purrr::map_chr(txt1, toGerman, auth_key = "x")
-
-# toGerman applied to multiple strings (with language detection response)
-txt2 <- c("Me llamo Fred.", "Je suis mÃ©decin.", "I'm from Wales")
-purrr::map_df(txt2, toGerman, get_detect = T, auth_key = "x")
+# Translate multiple texts and return the detected language
+texts <- c("Me llamo Fred.", "Je suis mÃ©decin.", "I'm from Brisbane.")
+toGerman(texts, get_detect = T, auth_key = "x")
 
 }
 
 
 }
 \references{
-\href{https://www.deepl.com/api.html}{DeepL API documentations}
+\href{https://www.deepl.com/pro#developer}{DeepL API documentations}
 }

@@ -2,36 +2,37 @@
 % Please edit documentation in R/pimp.R
 \name{pimp}
 \alias{pimp}
-\title{Fix and improve texts using the official DeepL Translator API}
+\title{Fix and improve texts using DeepL API Pro}
 \usage{
-pimp(text, help_lang, auth_key = "your_key")
+pimp(text, source_lang, help_lang, auth_key = "your_key")
 }
 \arguments{
-\item{text}{text to be translated. Only UTF8-encoded plain text is supported. May contain multiple sentences.
-The request size should not exceed 30kbytes.}
+\item{text}{character vector with texts to be improved. Only UTF8-encoded plain text is supported.
+An element can contain several sentences, but should not exceed 30kbytes.}
 
-\item{help_lang}{language used as a help language for reverse translation. Can be one of the following:
-\itemize{
-\item \code{EN} English
-\item \code{DE} German
-\item \code{FR} French
-\item \code{ES} Spanish
-\item \code{PT} Portuguese
-\item \code{IT} Italian
-\item \code{NL} Dutch
-\item \code{PL} Polish
-\item \code{RU} Russian
- }}
+\item{source_lang}{language of the text to be improved. If input is of length 1, the same source
+language is applied to all elements.}
 
-\item{auth_key}{DeepL authentication key which provides access to the API.}
+\item{help_lang}{language used as a help language for reverse translation.}
+
+\item{auth_key}{authentication key.}
 }
 \description{
-\code{pimp} translates a text into a help language and then back into the original language
-    using the official DeepL Translator API. To use this service, an authentication key is required.
+\code{pimp} translates a text into a support language and back into the original language
+    using DeepL API Pro. Use \code{available_languages} to list all supported languages.
+    An authentication key is required to use this service.
+    The service costs depending on the number of translated characters.
+}
+\details{
+To get an authentication key, you need to register for a DeepL API Pro
+    account (\url{https://www.deepl.com/pro#developer}).
 }
 \examples{
-\donttest{
-pimp("In former times I lived in Zurich", help_lang = "DE", auth_key = "my_key")
+\dontrun{
+pimp("In former times I lived in Zurich", source_lang = "EN", help_lang = "DE", auth_key = "my_key")
 }
 
+}
+\references{
+\href{https://www.deepl.com/pro#developer}{DeepL API documentations}
 }
