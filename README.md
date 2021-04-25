@@ -19,9 +19,8 @@ The package provides functions for both subscriptions plans. Functions that call
 ## `available_languages`/`available_languages2`
 
 ``` r
-al <- deeplr::available_languages2(my_key)
+as.data.frame(deeplr::available_languages2(my_key))
 
-as.data.frame(al)
 #>    language       name
 #> 1        BG  Bulgarian
 #> 2        CS      Czech
@@ -50,7 +49,4 @@ as.data.frame(al)
 ```
 
 ## translate
-
-<sup>Created on 2021-04-25 by the [reprex package](https://reprex.tidyverse.org) (v1.0.0)</sup>
-
 
