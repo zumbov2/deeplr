@@ -18,10 +18,11 @@ The package provides functions for both subscriptions plans. Functions that call
 
 ## Helpers
 ### `available_languages`/`available_languages2`
-
+These functions allow you to list all supported languages of the API.
 
 ``` r
-as.data.frame(deeplr::available_languages2(my_key))
+langs <- deeplr::available_languages2(my_key)
+as.data.frame(langs)
 
 #>    language       name
 #> 1        BG  Bulgarian
@@ -50,5 +51,18 @@ as.data.frame(deeplr::available_languages2(my_key))
 #> 24       ZH    Chinese
 ```
 
-## translate
+### `usage`/`usage2`
+These functions allow you to monitor how much you translate, as well as the limits set. 
+
+``` r
+deeplr::usage2(my_key)
+
+#> $character_count
+#> [1] 413
+#> 
+#> $character_limit
+#> [1] 500000
+```
+
+## Main functions `translate`/`translate2`
 
