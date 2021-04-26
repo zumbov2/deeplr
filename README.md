@@ -92,6 +92,41 @@ deeplr::translate2(
 #> [1] "J'aime traduire des textes." "Mi piace tradurre testi."
 ```
 
-Use `source_lang` when you want to be sure that the correct source language is used. If `source_lang = NULL`, DeepL will guess the language. In some cases this can lead to problems.
+Use `source_lang` when you want to be sure that the correct source language is used. If `source_lang = NULL`, DeepL will guess the language. In some cases this can lead to problems. If you want to know which language the system has chosen as the source language, you can display this information in the result.
 
+``` r
+deeplr::translate2(
+  text = "Me llamo Javier.",
+  target_lang = "EN",
+  auth_key = my_key,
+  get_detect = T
+  )
+
+#> # A tibble: 1 x 2
+#>   translation        source_lang
+#>   <chr>              <chr>      
+#> 1 My name is Javier. ES
+```
+
+## Convenience functions
+The package offers the following convenience functions.
+
+* `toChinese`/`toChinese2`
+* `toEnglish`/`toEnglish2`
+* `toFrench`/`toFrench2`
+* `toGerman`/`toGerman2`
+* `toItalian`/`toItalian2`
+* `toJapanese`/`toJapanese2`
+* `toPortuguese`/`toPortuguese2`
+* `toRussian`/`toRussian2`
+* `toSpanish`/`toSpanish2`
+
+``` r
+deeplr::toEnglish2(
+  text = "機械学習とは、経験からの学習により自動で改善するコンピューターアルゴリズムもしくはその研究領域で",
+  auth_key = my_key
+  )
+
+#> [1] "Machine learning is a computer algorithm or research area that automatically improves by learning from experience."
+```
 
