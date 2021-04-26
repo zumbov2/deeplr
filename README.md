@@ -109,7 +109,7 @@ deeplr::translate2(
 ```
 
 ## Convenience functions
-The package offers the following convenience functions.
+The package offers the following convenience functions:
 
 * `toChinese`/`toChinese2`
 * `toEnglish`/`toEnglish2`
@@ -129,4 +129,41 @@ deeplr::toEnglish2(
 
 #> [1] "Machine learning is a computer algorithm or research area that automatically improves by learning from experience."
 ```
+
+## Additional functions
+### `pimp`/`pimp2`
+These functions translate a text into an auxiliary language and back into the original language, leading to sometimes astonishing improvements in linguistic correctness.
+
+``` r
+deeplr::pimp2(
+  text = "In former times I lived in Zurich.",
+  source_lang = "EN",
+  help_lang = "DE",
+  auth_key = my_key
+  )
+
+#> [1] "I used to live in Zurich."
+```
+
+### `split_text`
+Since a single API request can be no larger than 30 kbytes, large texts must be preprocessed, i.e. broken down into smaller pieces of text. This can be done with `split_text`, which splits texts into segments of a selectable maximum number of bytes.
+
+``` r
+text <- paste0(rep("This is a very long text.", 10000), collapse = " ")
+deeplr::split_text(text, max_size_bytes = 29000)
+
+#> # A tibble: 9 x 3
+#>   text_id segment_id segment_text                                               
+#>     <int>      <int> <chr>                                                      
+#> 1       1          1 This is a very long text. This is a very long text. This i~
+#> 2       1          2 This is a very long text. This is a very long text. This i~
+#> 3       1          3 This is a very long text. This is a very long text. This i~
+#> 4       1          4 This is a very long text. This is a very long text. This i~
+#> 5       1          5 This is a very long text. This is a very long text. This i~
+#> 6       1          6 This is a very long text. This is a very long text. This i~
+#> 7       1          7 This is a very long text. This is a very long text. This i~
+#> 8       1          8 This is a very long text. This is a very long text. This i~
+#> 9       1          9 This is a very long text. This is a very long text. This i~
+```
+
 
