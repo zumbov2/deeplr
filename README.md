@@ -92,6 +92,24 @@ deeplr::translate2(
 #> [1] "J'aime traduire des textes." "Mi piace tradurre testi."
 ```
 
+If you want to translate several texts into the same language, then specify only one language in `target_lang`.
+
+``` r
+deeplr::translate2(
+  text = c(
+    "I like to translate texts.",
+    "Ich übersetze gerne Texte."
+  ),
+  target_lang = "ZH",
+  auth_key = my_key
+)
+
+#> [1] "我喜欢翻译文本。" "我喜欢翻译文本。"
+```
+
+<sup>Created on 2021-04-26 by the [reprex package](https://reprex.tidyverse.org) (v1.0.0)</sup>
+
+
 Use `source_lang` when you want to be sure that the correct source language is used. If `source_lang = NULL`, DeepL will guess the language. In some cases this can lead to problems. If you want to know which language the system has chosen as the source language, you can display this information in the result.
 
 ``` r
