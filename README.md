@@ -65,4 +65,33 @@ deeplr::usage2(my_key)
 ```
 
 ## Main functions `translate`/`translate2`
+With the main functions of the package, texts can be translated between the available languages. 
+
+``` r
+deeplr::translate2(
+  text = "Das ist ein erster Test.",
+  target_lang = "EN",
+  auth_key = my_key
+  )
+
+#> [1] "This is a first test."
+```
+
+The functions are vectorised with respect to the inputs `text`, `target_lang` and `source_lang`. Accordingly, several texts can be translated from different languages into other languages in one API call.
+
+``` r
+deeplr::translate2(
+  text = c(
+    "I like to translate texts.",
+    "Ich übersetze gerne Texte."
+  ),
+  target_lang = c("FR", "IT"),
+  auth_key = my_key
+  )
+
+#> [1] "J'aime traduire des textes." "Mi piace tradurre testi."
+```
+
+Use `source_lang` when you want to be sure that the correct source language is used. If `source_lang = NULL`, DeepL will guess the language. In some cases this can lead to problems.
+
 
