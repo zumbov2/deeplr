@@ -7,13 +7,14 @@
 This R package is an interface to the [DeepL API](https://www.deepl.com/docs-api). A [developer account](https://www.deepl.com/pro#developer) is required to use the service. There are currently **two different** subscriptions plans. The [DeepL API Free](https://www.deepl.com/pro#developer) is free of charge and allows a maximum of 500,000 characters/month to be translated. For the [DeepL API Pro](https://www.deepl.com/pro#developer) you pay a monthly fee and usage-dependent costs.
 
 ## Installation
+For regularly updated version (latest: 2.0.0), install from GitHub:
 ```r
 install.packages("devtools")
 devtools::install_github("zumbov2/deeplr")
 ```
 
 # Functions
-The package provides separate functions for both subscriptions plans. Functions that call the free API end with a `2`.
+The package provides functions for both subscriptions plans. Functions that call the free API end with a `2`.
 
 ## Helpers
 ### `available_languages`/`available_languages2`
@@ -105,9 +106,6 @@ deeplr::translate2(
 
 #> [1] "我喜欢翻译文本。" "我喜欢翻译文本。"
 ```
-
-<sup>Created on 2021-04-26 by the [reprex package](https://reprex.tidyverse.org) (v1.0.0)</sup>
-
 
 Use `source_lang` when you want to be sure that the correct source language is used. If `source_lang = NULL`, DeepL will guess the language. In some cases this can lead to problems. If you want to know which language the system has chosen as the source language, you can display this information in the result.
 
