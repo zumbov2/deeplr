@@ -5,9 +5,7 @@
 #' See the README on
 #' \href{https://github.com/zumbov2/deeplr#readme}{GitHub}
 #'
-#' @docType package
-#' @name deeplr
-NULL
+"_PACKAGE"
 
 ## quiets concerns of R CMD check re: the .'s that appear in pipelines
 if(getRversion() >= "2.15.1") {

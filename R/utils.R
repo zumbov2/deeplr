@@ -23,12 +23,12 @@ translate_wh <- function(text, target_lang = "EN", source_lang = NULL, split_sen
     url = "https://api.deepl.com/v2/translate",
     body = list(
       text = text,
-      auth_key = auth_key,
       source_lang = source_lang,
       target_lang = target_lang,
       split_sentences = split_sentences,
       preserve_formatting = preserve_formatting
-    )
+      ),
+    httr::add_headers("Authorization" = paste("DeepL-Auth-Key", auth_key))
   )
 
   # Check for HTTP error
@@ -79,12 +79,12 @@ translate2_wh <- function(text, target_lang = "EN", source_lang = NULL, split_se
     url = "https://api-free.deepl.com/v2/translate",
     body = list(
       text = text,
-      auth_key = auth_key,
       source_lang = source_lang,
       target_lang = target_lang,
       split_sentences = split_sentences,
       preserve_formatting = preserve_formatting
-    )
+      ),
+    httr::add_headers("Authorization" = paste("DeepL-Auth-Key", auth_key))
   )
 
   # Check for HTTP error

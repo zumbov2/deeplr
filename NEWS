@@ -1,3 +1,9 @@
+deeplr 2.0.1
+----------------------------
+
+* Authentication key moved into the header.
+* deeplr is now licensed under the MIT licence.
+
 deeplr 2.0.0
 ----------------------------
 

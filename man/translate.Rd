@@ -62,14 +62,14 @@ To get an authentication key, you need to register for a DeepL API Pro
 translate("I like to translate texts.", target_lang = "DE", auth_key = "x")
 
 # Translate multiple texts into one target language
-texts <- c("I like to translate texts.", "Ich Ã¼bersetze gerne Texte.")
+texts <- c("I like to translate texts.", "Ich übersetze gerne Texte.")
 translate(texts, target_lang = "FR", auth_key = "x")
 
 # Translate a single text into multiple target languages
 translate("I like to translate texts.", target_lang = c("FR", "DE", "IT"), auth_key = "x")
 
 # Translate multiple texts into different languages
-texts <- c("I like to translate texts.", "Ich Ã¼bersetze gerne Texte.")
+texts <- c("I like to translate texts.", "Ich übersetze gerne Texte.")
 translate(texts, target_lang = c("FR", "IT"), auth_key = "x")
 
 }

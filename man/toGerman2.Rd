@@ -58,7 +58,7 @@ To get an authentication key, you need to register for a DeepL API Free
 toGerman2("Hello world!", auth_key = "my_key")
 
 # Translate multiple texts and return the detected language
-texts <- c("Me llamo Fred.", "Je suis mÃ©decin.", "I'm from Brisbane.")
+texts <- c("Me llamo Fred.", "Je suis médecin.", "I'm from Brisbane.")
 toGerman2(texts, get_detect = T, auth_key = "x")
 
 }

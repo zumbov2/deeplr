@@ -25,7 +25,7 @@ available_languages2 <- function(auth_key = "your_key") {
   # DeepL API call
   response <- httr::POST(
     url = "https://api-free.deepl.com/v2/languages",
-    body = list(auth_key = auth_key)
+    httr::add_headers("Authorization" = paste("DeepL-Auth-Key", auth_key))
     )
 
   response_check(response)

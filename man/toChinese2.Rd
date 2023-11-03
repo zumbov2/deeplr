@@ -58,7 +58,7 @@ To get an authentication key, you need to register for a DeepL API Free
 toChinese2("Hallo Welt!", auth_key = "my_key")
 
 # Translate multiple texts and return the detected language
-texts <- c("My name is Fred.", "Je suis mÃ©decin.", "Ich komme aus der Schweiz.")
+texts <- c("My name is Fred.", "Je suis médecin.", "Ich komme aus der Schweiz.")
 toChinese2(texts, get_detect = T, auth_key = "x")
 
 }
