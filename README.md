@@ -74,7 +74,7 @@ With the main functions of the package, texts can be translated between the avai
 deeplr::translate2(
   text = "Das ist ein erster Test.",
   target_lang = "EN"
-)
+  )
 #> [1] "This is a first test."
 ```
 
