@@ -4,6 +4,9 @@
 # deeplr
 This R package is an interface to the [DeepL API](https://developers.deepl.com/docs). A [developer account](https://www.deepl.com/pro#developer) is required to use the service. There are currently **two different** subscription plans. The [DeepL API Free](https://www.deepl.com/pro#developer) is free of charge and allows a maximum of 500,000 characters/month to be translated. For the [DeepL API Pro](https://www.deepl.com/pro#developer) you pay a monthly fee and usage-dependent costs.
 
+## Important Notice
+Due to changes at DeepL, all users must update to version 2.1.0 or newer after May 18, 2025 to ensure continued functionality of the package.
+
 ## Installation
 For regularly updated version (latest: 2.1.0), install from GitHub:
 
