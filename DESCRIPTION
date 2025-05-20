@@ -17,7 +17,6 @@ Suggests: dplyr
 RoxygenNote: 7.3.2
 License: MIT + file LICENSE
 NeedsCompilation: no
-Packaged: 2023-11-03 11:06:23 UTC; DavidZumbach
 Author: David Zumbach [aut, cre],
   Paul C. Bauer [aut]
 Maintainer: David Zumbach <david.zumbach@gfzb.ch>

@@ -19,7 +19,7 @@
 #'   \item \code{character_limit} – Total character limit for the current billing period.
 #' }
 #'
-#' @references \href{https://developers.deepl.com/docs/api-reference/usage/get-usage-information}{DeepL API Documentation — Usage}
+#' @references \href{https://developers.deepl.com/docs/api-reference/usage-and-quota}{DeepL API Documentation — Usage}
 #'
 #' @export
 #'
