@@ -168,7 +168,7 @@ deeplr::translate2(
 #> [1] "Exgüsi, ich hätte gerne zwei Gipfeli, bitte."
 
 # Delete glossary when no longer needed
-deeplr::delete_glossary(glossary$glossary_id)
+deeplr::delete_glossary2(glossary$glossary_id)
 #> Glossary '76e7296a-edb0-438e-97f7-72bc12f1971b' has been successfully deleted.
 ```
 
