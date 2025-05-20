@@ -147,27 +147,30 @@ glossary <- deeplr::create_glossary2(
   name = "Schwiizerdütsch",
   source_lang = "EN",
   target_lang = "DE",
-  entries_source_lang = c("Sorry", "Croissants"),
+  entries_source_lang = c("Sorry", "Croissant"),
   entries_target_lang = c("Exgüsi", "Gipfeli")
   )
 
 # Inspect entries
 deeplr::get_glossary_entries2(glossary$glossary_id)
-# A tibble: 2 × 2
-  EN         DE   
-  <chr>      <chr>
-1 Sorry      Exgüsi
-2 Croissants Gipfeli
+#> # A tibble: 2 × 2
+#>   EN        DE     
+#>   <chr>     <chr>  
+#> 1 Croissant Gipfeli
+#> 2 Sorry     Exgüsi
 
-# Use glossary in translation
+# Use glossary in translation (source and target lang must be set)
 deeplr::translate2(
   "Sorry, I would like two croissants, please.", 
-  target_lang = "DE"
+  source_lang = "EN",
+  target_lang = "DE",
+  glossary_id = glossary$glossary_id
   )
 #> [1] "Exgüsi, ich hätte gerne zwei Gipfeli, bitte."
 
 # Delete glossary when no longer needed
-deeplr::delete_glossary2(glossary$glossary_id)
+deeplr::delete_glossary(glossary$glossary_id)
+#> Glossary '76e7296a-edb0-438e-97f7-72bc12f1971b' has been successfully deleted.
 ```
 
 ## Additional functions
