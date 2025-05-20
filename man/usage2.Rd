@@ -33,5 +33,5 @@ usage2()
 
 }
 \references{
-\href{https://developers.deepl.com/docs/api-reference/usage/get-usage-information}{DeepL API Documentation — Usage}
+\href{https://developers.deepl.com/docs/api-reference/usage-and-quota}{DeepL API Documentation — Usage}
 }
