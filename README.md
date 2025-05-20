@@ -130,6 +130,46 @@ deeplr::toEnglish2("機械学習とは、経験からの学習により自動で
 #> [1] "Machine learning is a computer algorithm or area of research that automatically improves by learning from experience."
 ```
 
+## Handling glossaries (from version 2.1.0)
+
+As of version **2.1.0**, the `deeplr` package supports [DeepL glossaries](https://developers.deepl.com/docs/api-reference/glossaries), which allow you to define and manage your own custom translation pairs.
+
+* `supported_glossary_language_pairs()`/`supported_glossary_language_pairs2()` – check which language pairs are supported for glossaries
+* `create_glossary()`/`create_glossary2()` – create a new glossary
+* `get_glossary_entries()`/`get_glossary_entries2()` – list the entries of a glossary
+* `delete_glossary()`/`delete_glossary2()` – delete a glossary
+
+### Example: Create and use a glossary
+
+``` r
+# Create glossary (e.g. for English–German)
+glossary <- deeplr::create_glossary2(
+  name = "Schwiizerdütsch",
+  source_lang = "EN",
+  target_lang = "DE",
+  entries_source_lang = c("Sorry", "Croissants"),
+  entries_target_lang = c("Exgüsi", "Gipfeli")
+  )
+
+# Inspect entries
+deeplr::get_glossary_entries2(glossary$glossary_id)
+# A tibble: 2 × 2
+  EN         DE   
+  <chr>      <chr>
+1 Sorry      Exgüsi
+2 Croissants Gipfeli
+
+# Use glossary in translation
+deeplr::translate2(
+  "Sorry, I would like two croissants, please.", 
+  target_lang = "DE"
+  )
+#> [1] "Exgüsi, ich hätte gerne zwei Gipfeli, bitte."
+
+# Delete glossary when no longer needed
+deeplr::delete_glossary2(glossary$glossary_id)
+```
+
 ## Additional functions
 ### `pimp`/`pimp2`
 These functions translate a text into an auxiliary language and back into the original language, leading to sometimes astonishing improvements in linguistic correctness.
