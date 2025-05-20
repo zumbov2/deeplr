@@ -13,7 +13,7 @@ devtools::install_github("zumbov2/deeplr")
 ```
 
 ## Authentication
-To use the API, you must set your DeepL API key. Starting from version 2.1.0, the package looks for an environment variable called DEEPL_API_KEY.
+To use the API, you must set your DeepL API key. Starting from version 2.1.0, the package looks for an environment variable called `DEEPL_API_KEY`.
 
 ### Option 1: Temporarily (per R session)
 
