@@ -25,7 +25,7 @@
 #' supported_glossary_language_pairs()
 #' }
 #' 
-supported_glossary_language_pairs2 <- function(auth_key) {
+supported_glossary_language_pairs <- function(auth_key) {
   
   # DeepL API call
   response <- 
