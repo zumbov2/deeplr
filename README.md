@@ -37,7 +37,6 @@ The package provides functions for both subscriptions plans. Functions that call
 These functions allow you to list all supported languages of the API.
 
 ``` r
-Sys.setenv(DEEPL_API_KEY = "your-key-here")
 deeplr::available_languages2()
 #> # A tibble: 30 × 2
 #>    language name     
