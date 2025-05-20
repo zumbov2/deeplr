@@ -1,3 +1,21 @@
+deeplr 2.1.0
+----------------------------
+
+* Glossary Management Support:
+  - `create_glossary()` – Create custom glossaries
+  - `list_glossaries()` – List existing glossaries and their metadata
+  - `get_glossary_entries()` – Retrieve glossary entries as a tibble
+  - `delete_glossary()` – Permanently delete a glossary
+
+* Enhanced Translation Flexibility:
+  - `context` – Provide contextual information to improve translations
+  - `model_type` – Choose between latency-optimized or quality-optimized translation models
+  - `formality` – Adjust formality level for supported target languages
+  - `glossary_id` – Apply a specific glossary to translations
+
+* Improved Authentication Handling:
+  - Your DeepL API authentication key is now read automatically from the environment variable `DEEPL_API_KEY`, if not supplied directly. You can set it using `Sys.setenv(DEEPL_API_KEY = "your_key")` or add it to your `.Renviron` file for persistent use.
+
 deeplr 2.0.1
 ----------------------------
 

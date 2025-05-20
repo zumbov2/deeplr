@@ -1,31 +1,32 @@
-#' Split texts into segments
+#' Split Text into Byte-Limited Segments
 #'
-#' \code{split_text} splits texts into blocks of a maximum number of bytes.
+#' \code{split_text} divides input text into smaller segments that do not exceed a specified maximum size in bytes.
+#'     Segmentation is based on sentence or word boundaries.
 #'
 #' @importFrom purrr map2_dfr
 #'
-#' @param text character vector to be split.
-#' @param max_size_bytes maximum size of a single text segment in bytes.
-#' @param tokenize level of tokenization. Either "sentences" or "words".
+#' @param text A character vector containing the text(s) to be split.
+#' @param max_size_bytes An integer specifying the maximum size (in bytes) for each segment.
+#' @param tokenize A string indicating the level of tokenization. Must be either \code{"sentences"} or \code{"words"}.
 #'
-#' @details The function uses \code{tokenizers::tokenize_sentences} to split texts.
+#' @details This function uses \code{tokenizers::tokenize_sentences} (or \code{tokenize_words} if specified) 
+#'     to split the text into natural language segments before assembling byte-limited blocks.
 #'
-#' @return Returns a (\code{tibble}) with the following columns:
+#' @return A tibble with one row per text segment, containing the following columns:
 #' \itemize{
-#' \item \code{text_id} position of the text in the character vector.
-#' \item \code{segment_id} ID of a text segment.
-#' \item \code{segment_text} text segment that is smaller than \code{max_size_bytes}
+#'   \item \code{text_id}: The index of the original text in the input vector.
+#'   \item \code{segment_id}: A sequential ID identifying the segment number.
+#'   \item \code{segment_text}: The resulting text segment, each within the specified byte limit.
 #' }
 #'
 #' @export
 #'
 #' @examples
 #' \dontrun{
-#' # Split long text
-#' text <- paste0(rep("This is a very long text.", 10000), collapse = " ")
-#' split_text(text)
+#' long_text <- paste0(rep("This is a very long text. ", 10000), collapse = "")
+#' split_text(long_text, max_size_bytes = 1000, tokenize = "sentences")
 #' }
-#'
+#' 
 split_text <- function(text, max_size_bytes = 29000, tokenize = "sentences") {
 
   purrr::map2_dfr(

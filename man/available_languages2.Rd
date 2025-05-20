@@ -2,26 +2,31 @@
 % Please edit documentation in R/available_languages2.R
 \name{available_languages2}
 \alias{available_languages2}
-\title{List supported languages of DeepL API Free}
+\title{List Supported Languages of the DeepL API Free}
 \usage{
-available_languages2(auth_key = "your_key")
+available_languages2(auth_key)
 }
 \arguments{
-\item{auth_key}{authentication key.}
+\item{auth_key}{A string representing the authentication key for the DeepL API Free. 
+If not provided, the function will attempt to retrieve the key from the environment 
+variable \code{DEEPL_API_KEY}. You can set this variable using 
+\code{Sys.setenv(DEEPL_API_KEY = "your_key")} or define it in your \code{.Renviron} 
+file for persistent use.}
 }
 \description{
-\code{available_languages2} list all supported languages of DeepL API Free.
+\code{available_languages2} returns a list of all languages supported by the DeepL API Free.
 }
 \details{
-To get an authentication key, you need to register for a DeepL API Free
-    account (\url{https://www.deepl.com/pro#developer}).
+To use this function, you must obtain an authentication key by registering for a DeepL API Free account at 
+    \href{https://www.deepl.com/pro#developer}{DeepL API Free}. The function makes an API call to retrieve the 
+    list of supported languages and returns them in a structured format.
 }
 \examples{
 \dontrun{
-available_languages2(auth_key = "my_key")
+available_languages2()
 }
 
 }
 \references{
-\href{https://www.deepl.com/pro#developer}{DeepL API documentations}
+\href{https://developers.deepl.com/docs/getting-started/supported-languages}{DeepL API Documentation on Supported Languages}
 }

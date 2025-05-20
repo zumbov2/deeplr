@@ -1,113 +1,111 @@
-#' @importFrom httr modify_url POST content
+#' @importFrom httr modify_url POST content add_headers
+#' @importFrom purrr transpose
 #' @importFrom tibble tibble
 #'
 #' @noRd
 translate_wh <- function(text, target_lang = "EN", source_lang = NULL, split_sentences = TRUE,
-                      preserve_formatting = FALSE, get_detect = FALSE, auth_key = "your_key") {
-
-  # Text prep
+                          preserve_formatting = FALSE, get_detect = FALSE, context = NULL, 
+                          model_type = NULL, formality = NULL, glossary_id = NULL, auth_key) {
+  
+  # Validate and prepare text
   text <- text_check(text)
-  if (split_sentences) {
-    split_sentences <- "1"
-  } else {
-    split_sentences <- "0"
-  }
-  if (preserve_formatting) {
-    preserve_formatting <- "1"
-  } else {
-    preserve_formatting <- "0"
-  }
-
-  # DeepL API call
+  
+  # Convert logical flags to API-compatible format
+  split_sentences <- as.integer(split_sentences)
+  preserve_formatting <- as.integer(preserve_formatting)
+  
+  # Send request to DeepL API
   response <- httr::POST(
     url = "https://api.deepl.com/v2/translate",
     body = list(
       text = text,
       source_lang = source_lang,
       target_lang = target_lang,
-      split_sentences = split_sentences,
-      preserve_formatting = preserve_formatting
-      ),
-    httr::add_headers("Authorization" = paste("DeepL-Auth-Key", auth_key))
+      context = context,
+      model_type = model_type,
+      split_sentences = as.character(split_sentences),
+      preserve_formatting = as.character(preserve_formatting),
+      formality = formality,
+      glossary_id = glossary_id
+    ),
+    encode = "form",
+    httr::add_headers("Authorization" = paste("DeepL-Auth-Key", get_key(auth_key)))
   )
-
-  # Check for HTTP error
+  
+  # Check for errors
   response_check(response)
-
-  # Extract content
-  translations <- httr::content(response)[["translations"]]
+  
+  # Parse and structure response
+  translations <- httr::content(response, encoding = "UTF-8")[["translations"]]
+  translations <- purrr::transpose(translations)
+  
   if (get_detect) {
-
-    translation <- tibble::tibble(
-      translation = purrr::map_chr(translations, "text"),
-      source_lang = purrr::map_chr(translations, "detected_source_language")
-    )
-
-  } else {
-
-    translation <- purrr::map_chr(translations, "text")
-
-  }
-
-  # Return
-  return(translation)
-
+    
+    tibble::tibble(
+      translation = unlist(translations[["text"]]),
+      source_lang = unlist(translations[["detected_source_language"]])
+      )
+    
+    } else {
+      
+      unlist(translations$text)
+      
+      }
 }
 
-#' @importFrom httr modify_url POST content
+#' @importFrom httr modify_url POST content add_headers
+#' @importFrom purrr transpose
 #' @importFrom tibble tibble
 #'
 #' @noRd
 translate2_wh <- function(text, target_lang = "EN", source_lang = NULL, split_sentences = TRUE,
-                         preserve_formatting = FALSE, get_detect = FALSE, auth_key = "your_key") {
-
-  # Text prep
+                          preserve_formatting = FALSE, get_detect = FALSE, context = NULL, 
+                          model_type = NULL, formality = NULL, glossary_id = NULL, auth_key) {
+  
+  # Validate and prepare text
   text <- text_check(text)
-  if (split_sentences) {
-    split_sentences <- "1"
-  } else {
-    split_sentences <- "0"
-  }
-  if (preserve_formatting) {
-    preserve_formatting <- "1"
-  } else {
-    preserve_formatting <- "0"
-  }
-
-  # DeepL API call
+  
+  # Convert logical flags to API-compatible format
+  split_sentences <- as.integer(split_sentences)
+  preserve_formatting <- as.integer(preserve_formatting)
+  
+  # Send request to DeepL API
   response <- httr::POST(
     url = "https://api-free.deepl.com/v2/translate",
     body = list(
       text = text,
       source_lang = source_lang,
       target_lang = target_lang,
-      split_sentences = split_sentences,
-      preserve_formatting = preserve_formatting
-      ),
-    httr::add_headers("Authorization" = paste("DeepL-Auth-Key", auth_key))
+      context = context,
+      model_type = model_type,
+      split_sentences = as.character(split_sentences),
+      preserve_formatting = as.character(preserve_formatting),
+      formality = formality,
+      glossary_id = glossary_id
+    ),
+    encode = "form",
+    httr::add_headers("Authorization" = paste("DeepL-Auth-Key", get_key(auth_key)))
   )
-
-  # Check for HTTP error
+  
+  # Check for errors
   response_check(response)
-
-  # Extract content
-  translations <- httr::content(response)[["translations"]]
+  
+  # Parse and structure response
+  translations <- httr::content(response, encoding = "UTF-8")[["translations"]]
+  translations <- purrr::transpose(translations)
+  
   if (get_detect) {
-
-    translation <- tibble::tibble(
-      translation = purrr::map_chr(translations, "text"),
-      source_lang = purrr::map_chr(translations, "detected_source_language")
-    )
-
-  } else {
-
-    translation <- purrr::map_chr(translations, "text")
-
-  }
-
-  # Return
-  return(translation)
-
+    
+    tibble::tibble(
+      translation = unlist(translations[["text"]]),
+      source_lang = unlist(translations[["detected_source_language"]])
+      )
+    
+    } else {
+      
+      unlist(translations$text)
+      
+      }
 }
 
 #' @importFrom utf8 utf8_valid as_utf8
@@ -154,13 +152,14 @@ split_text_wh <- function(id, text, max_size_bytes, tokenize) {
   if (tokenize == "sentences") sentences <- tokenizers::tokenize_sentences(text)
   if (tokenize == "words") sentences <- tokenizers::tokenize_words(text)
 
-  cnt <- tibble::tibble(
-    sentence = unlist(sentences),
-    bytes = nchar(sentence, type = "bytes"),
-    bytes_sum = cumsum(bytes),
-    batch = ceiling(bytes_sum / max_size_bytes)
-    )
-
+  cnt <- 
+    tibble::tibble(
+      sentence = unlist(sentences),
+      bytes = nchar(sentence, type = "bytes"),
+      bytes_sum = cumsum(bytes),
+      batch = ceiling(bytes_sum / max_size_bytes)
+      )
+  
   batches <- split(cnt, cnt$batch)
 
   batches <- tibble::tibble(
@@ -171,4 +170,24 @@ split_text_wh <- function(id, text, max_size_bytes, tokenize) {
 
   return(batches)
 
+}
+
+#' @importFrom tokenizers tokenize_sentences
+#' @importFrom tibble tibble
+#' @importFrom purrr map_chr
+#'
+#' @noRd
+get_key <- function(auth_key) {
+  
+  if (missing(auth_key)) {
+    
+    auth_key <- Sys.getenv("DEEPL_API_KEY")
+    
+    if (!nzchar(auth_key)) {
+      
+      stop("No API key provided and 'DEEPL_API_KEY' environment variable is not set.")
+      
+      }
+    }
+  return(auth_key)
 }

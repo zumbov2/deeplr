@@ -1,20 +1,20 @@
 Package: deeplr
 Type: Package
 Title: Interface to the 'DeepL' Translation API
-Version: 2.0.1
+Version: 2.1.0
 Authors@R: c(
     person("David", "Zumbach", role = c("aut", "cre"), email = "david.zumbach@gfzb.ch"), 
     person("Paul C.", "Bauer", role = c("aut"), email = "mail@paulcbauer.eu")
     )
-Description: A wrapper for the 'DeepL' Pro API <https://www.deepl.com/docs-api>, a web service
+Description: A wrapper for the 'DeepL' API <https://developers.deepl.com/docs>, a web service
     for translating texts between different languages. A DeepL API developer account is required
     to use the service (see <https://www.deepl.com/pro#developer>).
 Encoding: UTF-8
 URL: https://www.deepl.com/translator
 BugReports: https://github.com/zumbov2/deeplr/issues
-Imports: utf8, httr, tibble, purrr, tokenizers
+Imports: utf8, httr, tibble, purrr, tokenizers, jsonlite, readr
 Suggests: dplyr
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.2
 License: MIT + file LICENSE
 NeedsCompilation: no
 Packaged: 2023-11-03 11:06:23 UTC; DavidZumbach

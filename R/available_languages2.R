@@ -1,38 +1,46 @@
-#' List supported languages of DeepL API Free
+#' List Supported Languages of the DeepL API Free
 #'
-#' \code{available_languages2} list all supported languages of DeepL API Free.
+#' \code{available_languages2} returns a list of all languages supported by the DeepL API Free.
 #'
-#' @importFrom httr POST content
-#' @importFrom purrr map_chr
+#' @importFrom httr POST add_headers content
+#' @importFrom purrr transpose
 #' @importFrom tibble tibble
 #'
-#' @param auth_key authentication key.
+#' @param auth_key A string representing the authentication key for the DeepL API Free. 
+#'     If not provided, the function will attempt to retrieve the key from the environment 
+#'     variable \code{DEEPL_API_KEY}. You can set this variable using 
+#'     \code{Sys.setenv(DEEPL_API_KEY = "your_key")} or define it in your \code{.Renviron} 
+#'     file for persistent use.
 #'
-#' @details To get an authentication key, you need to register for a DeepL API Free
-#'     account (\url{https://www.deepl.com/pro#developer}).
+#' @details To use this function, you must obtain an authentication key by registering for a DeepL API Free account at 
+#'     \href{https://www.deepl.com/pro#developer}{DeepL API Free}. The function makes an API call to retrieve the 
+#'     list of supported languages and returns them in a structured format.
 #'
-#' @references \href{https://www.deepl.com/pro#developer}{DeepL API documentations}
+#' @references \href{https://developers.deepl.com/docs/getting-started/supported-languages}{DeepL API Documentation on Supported Languages}
 #'
 #' @export
 #'
 #' @examples
 #' \dontrun{
-#' available_languages2(auth_key = "my_key")
+#' available_languages2()
 #' }
 #'
-available_languages2 <- function(auth_key = "your_key") {
+available_languages2 <- function(auth_key) {
 
   # DeepL API call
-  response <- httr::POST(
-    url = "https://api-free.deepl.com/v2/languages",
-    httr::add_headers("Authorization" = paste("DeepL-Auth-Key", auth_key))
-    )
+  response <- 
+    httr::POST(
+      url = "https://api-free.deepl.com/v2/languages",
+      httr::add_headers("Authorization" = paste("DeepL-Auth-Key", get_key(auth_key)))
+      )
 
   response_check(response)
+  raw <- httr::content(response)
+  raw_t <- purrr::transpose(raw)
 
   tibble::tibble(
-    language = purrr::map_chr(httr::content(response), "language"),
-    name = purrr::map_chr(httr::content(response), "name")
+    language = unlist(raw_t$language),
+    name = unlist(raw_t$name)
     )
 
 }

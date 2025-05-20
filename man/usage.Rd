@@ -2,27 +2,36 @@
 % Please edit documentation in R/usage.R
 \name{usage}
 \alias{usage}
-\title{Usage data of a DeepL API Pro account}
+\title{Retrieve Usage Data from a DeepL API Pro Account}
 \usage{
-usage(auth_key = "your_key")
+usage(auth_key)
 }
 \arguments{
-\item{auth_key}{authentication key of the corresponding DeepL API Pro account.}
+\item{auth_key}{Character. Your DeepL API authentication key. If missing, the function uses 
+the \code{DEEPL_API_KEY} environment variable. You can set it using 
+\code{Sys.setenv(DEEPL_API_KEY = "your_key")} or define it in your \code{.Renviron} file for persistent use.}
+}
+\value{
+A named list or structured object containing:
+\itemize{
+  \item \code{character_count} – Number of characters used in the current billing period.
+  \item \code{character_limit} – Total character limit for the current billing period.
+}
 }
 \description{
-\code{usage} returns the character usage and the configured limit for the current period of
-    a DeepL API Pro account.
+\code{usage} returns the character usage and configured character limit for the current billing period
+    of a DeepL API Pro account.
 }
 \details{
-To get an authentication key, you need to register for a DeepL API Pro
-    account (\url{https://www.deepl.com/pro#developer}).
+To use this function, you must register for a DeepL API Pro account at 
+\url{https://www.deepl.com/pro#developer}.
 }
 \examples{
 \dontrun{
-usage(auth_key = "my_key")
+usage()
 }
 
 }
 \references{
-\href{https://www.deepl.com/pro#developer}{DeepL API documentations}
+\href{https://developers.deepl.com/docs/api-reference/usage/get-usage-information}{DeepL API Documentation — Usage}
 }

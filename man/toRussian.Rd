@@ -2,7 +2,7 @@
 % Please edit documentation in R/to_lang.R
 \name{toRussian}
 \alias{toRussian}
-\title{Translate texts into Russian using DeepL API Pro}
+\title{Translate Texts into Russian with the DeepL API Pro}
 \usage{
 toRussian(
   text,
@@ -10,61 +10,81 @@ toRussian(
   split_sentences = TRUE,
   preserve_formatting = FALSE,
   get_detect = FALSE,
-  auth_key = "your_key"
+  context = NULL,
+  model_type = NULL,
+  formality = NULL,
+  glossary_id = NULL,
+  auth_key
 )
 }
 \arguments{
-\item{text}{character vector to be translated. Only UTF8-encoded plain text is supported.
-An element can contain several sentences, but should not exceed 30kbytes.}
+\item{text}{A character vector containing the text(s) to be translated. Only UTF-8 encoded plain text is supported. 
+Each element may contain multiple sentences but should not exceed 30 kB.}
 
-\item{source_lang}{language of the text to be translated. If parameter \code{is.null},
-the API guesses the language of the source. If input is of length 1, the same source
-language is applied to all elements.}
+\item{source_lang}{A string specifying the source language. If \code{NULL}, the API will auto-detect the language. 
+If of length 1, the same source language is applied to all elements.}
 
-\item{split_sentences}{if \code{TRUE}, the translation engine splits the input into sentences.
-If only one sentence is translated, it is recommended to set to \code{FALSE} to prevent
-the engine from unintentionally splitting the sentence.}
+\item{split_sentences}{Logical. If \code{TRUE}, the engine splits the input into sentences. 
+For single-sentence inputs, consider setting to \code{FALSE} to prevent unwanted splitting.}
 
-\item{preserve_formatting}{if \code{TRUE}, the translation engine tries to preserve some aspects
-(e.g. punctuation at the beginning and end of the sentence, upper/lower case at the beginning
-of the sentence) of the formatting.}
+\item{preserve_formatting}{Logical. If \code{TRUE}, formatting such as punctuation and casing is preserved.}
 
-\item{get_detect}{if \code{TRUE}, the language detected for the source text is included in
-the response.}
+\item{get_detect}{Logical. If \code{TRUE}, the detected language of the source text is included in the response.}
 
-\item{auth_key}{Authentication key.}
+\item{context}{Optional string providing contextual information to improve translation quality, 
+especially for short or ambiguous text. Context is not translated and does not count toward character limits.}
+
+\item{model_type}{Optional. Specifies the DeepL model to use:
+\itemize{
+  \item \code{"latency_optimized"} – Default low-latency model.
+  \item \code{"quality_optimized"} – Higher quality, higher latency model (Pro only, limited language pairs).
+  \item \code{"prefer_quality_optimized"} – Use quality-optimized when available, otherwise fallback.
+}}
+
+\item{formality}{Optional. Controls formality level of the translation (only for certain target languages):
+\itemize{
+  \item \code{"default"} – Neutral.
+  \item \code{"more"} – More formal.
+  \item \code{"less"} – More informal.
+  \item \code{"prefer_more"} – Prefer formal, fallback to default.
+  \item \code{"prefer_less"} – Prefer informal, fallback to default.
+}}
+
+\item{glossary_id}{Optional. Glossary ID for custom translation. Must match the language pair and requires \code{source_lang}.
+Use \code{\link{list_glossaries}} to retrieve available glossaries.}
+
+\item{auth_key}{A string representing the authentication key for the DeepL API Pro. 
+If not provided, the function will attempt to retrieve the key from the environment 
+variable \code{DEEPL_API_KEY}. You can set this variable using 
+\code{Sys.setenv(DEEPL_API_KEY = "your_key")} or define it in your \code{.Renviron} 
+file for persistent use.}
 }
 \value{
-If \code{get_detect} is set to \code{FALSE} a \code{character vector} containing the
-   translation is returned. Otherwise, a (\code{tibble}) is returned with the following columns:
-\itemize{
-\item \code{translation} the translated text.
-\item \code{source_lang} detected or specified language of the input text.
-}
+If \code{get_detect = FALSE}, a character vector with translations is returned. 
+    If \code{get_detect = TRUE}, a tibble with the following columns is returned:
+    \itemize{
+      \item \code{translation}: The translated text.
+      \item \code{source_lang}: The detected or specified source language.
+    }
 }
 \description{
-\code{toRussian} translates a text from an available language into Russian
-    using DeepL API Pro. Use \code{available_languages} to list all supported languages.
-    An authentication key is required to use this service.
-    The service costs depending on the number of translated characters.
+\code{toRussian} translates a text from any supported source language into Russian using the DeepL API Pro.
+    Use \code{\link{available_languages}} to list all supported languages.
 }
 \details{
-To get an authentication key, you need to register for a DeepL API Pro
-    account (\url{https://www.deepl.com/pro#developer}).
+To use this function, you must obtain an authentication key by registering for a DeepL API Pro account at 
+    \href{https://www.deepl.com/pro#developer}{DeepL API Pro}. This service may incur costs depending on the number of 
+    characters translated.
 }
 \examples{
 \dontrun{
-# Translate a single text
-toRussian("Hallo Welt!", auth_key = "my_key")
+toRussian("Hallo Welt!")
 
-# Translate multiple texts and return the detected language
 texts <- c("My name is Fred.", "Je suis médecin.", "Ich komme aus der Schweiz.")
-toRussian(texts, get_detect = T, auth_key = "x")
-
+toRussian(texts, get_detect = TRUE)
 }
-
 
 }
 \references{
-\href{https://www.deepl.com/pro#developer}{DeepL API documentations}
+\href{https://developers.deepl.com/docs/api-reference/translate}{DeepL API Documentation — Translate}
 }
